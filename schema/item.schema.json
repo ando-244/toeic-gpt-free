@@ -1,0 +1,57 @@
+﻿{
+  "": "http://json-schema.org/draft-07/schema#",
+  "title": "ToeicItem",
+  "type": "object",
+  "required": ["id","part","level","assets","format","content","license"],
+  "properties": {
+    "id":    {"type":"string"},
+    "part":  {"type":"integer","enum":[1,2,3,4]},
+    "level": {"type":"string","enum":["A2","B1","B2"]},
+    "topic": {"type":"array","items":{"type":"string"}},
+    "cefr_estimate": {"type":"string"},
+    "duration_sec": {"type":"integer"},
+    "assets": {
+      "type":"object",
+      "properties": {
+        "image_url": {"type":"string"},
+        "audio_url": {"type":"string"}
+      },
+      "required": ["audio_url"]
+    },
+    "format": {
+      "type":"object",
+      "required": ["choices","answer","toeic_part_rule"],
+      "properties": {
+        "choices": {"type":"array","items":{"type":"string"}},
+        "answer": {"type":"string"},
+        "question_type": {"type":"string","enum":["single"]},
+        "toeic_part_rule": {"type":"string"}
+      }
+    },
+    "content": {
+      "type":"object",
+      "required": ["stem","choices","transcript","ssml","rationale"],
+      "properties": {
+        "stem": {"type":"string"},
+        "choices": {"type":"object"},
+        "transcript": {
+          "type":"array",
+          "items": {
+            "type":"object",
+            "properties":{"speaker":{"type":"string"},"text":{"type":"string"}},
+            "required":["speaker","text"]
+          }
+        },
+        "ssml": {"type":"string"},
+        "rationale": {"type":"string"},
+        "distractor_design": {"type":"string"}
+      }
+    },
+    "license": {
+      "type":"object",
+      "required":["type","origin"],
+      "properties":{"type":{"type":"string"},"origin":{"type":"string"},"notes":{"type":"string"}}
+    },
+    "telemetry": {"type":"object"}
+  }
+}

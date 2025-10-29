@@ -1,0 +1,16 @@
+﻿name: Validate Items
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  ajv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ajv-cli
+        run: npm i -g ajv-cli
+      - name: Validate JSON items
+        run: ajv validate -s schema/item.schema.json -d "items/**/*.json"
