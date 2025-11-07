@@ -194,16 +194,35 @@ jsonListEl.addEventListener("input", onJsonListChange);
 jsonListEl.addEventListener("click", onJsonListChange);
 
 // ③ 「読み込み」ボタン
-document.getElementById("btnload").addEventListener("click", () => {
+document.getElementById("btnload").addEventListener("click", async () => {
   const sel = document.getElementById("jsonList");
   const opt = sel.selectedOptions[0];
   if (!opt) return;
-  loadItem(opt.value);
+  // JSONの読み込み完了を待つ
+  await loadItem(opt.value);
+
+  // クリック直後の同期コンテキストで play() を試みる
+  const player = document.getElementById("player");
+  try {
+    await player.play();
+  } catch (e) {
+    // ブラウザのポリシーでブロックされたら控えめにログ
+    console.debug("autoplay blocked:", e);
+  }
 });
 
 // ④ URL直指定の読み込み
-document.getElementById("loadDirect").addEventListener("click", () => {
+document.getElementById("loadDirect").addEventListener("click", async () => {
   const u = document.getElementById("directUrl").value.trim();
-  if (u) loadItem(u);
+  if (!u) return;
+
+  await loadItem(u);
+
+  const player = document.getElementById("player");
+  try {
+    await player.play();
+  } catch (e) {
+    console.debug("autoplay blocked:", e);
+  }
 });
 </script>
