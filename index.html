@@ -103,8 +103,18 @@ async function listJsonUnder(path) {
   return files;
 }
 
+function setLoadEnabled(on) {
+  const btn = document.getElementById("load");
+  if (on) {
+    btn.disabled = false;
+    btn.removeAttribute("disabled");   // ← 属性も外す
+  } else {
+    btn.disabled = true;
+    btn.setAttribute("disabled", "");  // ← 属性も付ける
+  }
+}
+
 function setAudioSources(url) {
-  // 複数拡張子を同じファイル名に揃える場合にフォールバック
   const p = new URL(url, BASE);
   const baseNoExt = p.href.replace(/\.(mp3|m4a|ogg|wav)$/i, "");
   const player = document.getElementById("player");
@@ -151,32 +161,38 @@ document.getElementById("scan").addEventListener("click", async () => {
   const folder = document.getElementById("folder").value;
   const list = document.getElementById("jsonList");
   list.innerHTML = "<option>読み込み中...</option>";
-  loadBtn.disabled = true;
-  
+  setLoadEnabled(false);
+
   try {
     const files = await listJsonUnder(folder);
+
     list.innerHTML = "";
-    files.forEach(p => {
+    for (const p of files) {
       const opt = document.createElement("option");
       opt.value = p;
       opt.textContent = p;
       list.appendChild(opt);
-    });
-    
-    if (files.length > 0) {
-      list.selectedIndex = 0;
-      loadBtn.disabled = false;
     }
+
+    list.selectedIndex = files.length ? 0 : -1;
+    setLoadEnabled(files.length > 0);
   } catch (e) {
     list.innerHTML = "<option>失敗しました</option>";
+    setLoadEnabled(false);
     console.error(e);
   }
 });
 
-document.getElementById("jsonList").addEventListener("change", (e) => {
-  loadBtn.disabled = !e.target.value;
-});
+// ② JSONリスト選択で「読み込み」を活性化
+const jsonListEl = document.getElementById("jsonList");
+function onJsonListChange() {
+  setLoadEnabled(!!jsonListEl.value);
+}
+jsonListEl.addEventListener("change", onJsonListChange);
+jsonListEl.addEventListener("input", onJsonListChange);
+jsonListEl.addEventListener("click", onJsonListChange);
 
+// ③ 「読み込み」ボタン
 document.getElementById("load").addEventListener("click", () => {
   const sel = document.getElementById("jsonList");
   const opt = sel.selectedOptions[0];
@@ -184,11 +200,9 @@ document.getElementById("load").addEventListener("click", () => {
   loadItem(opt.value);
 });
 
+// ④ URL直指定の読み込み
 document.getElementById("loadDirect").addEventListener("click", () => {
   const u = document.getElementById("directUrl").value.trim();
   if (u) loadItem(u);
 });
-
-// 初期化
-document.getElementById("scan").click();
 </script>
