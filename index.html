@@ -38,7 +38,7 @@
     <div class="card">
       <div><b>2) JSON を選択</b></div>
       <select id="jsonList" size="12" style="height:300px;"></select>
-      <button id="load">読み込み</button>
+      <button id="load" disabled>読み込み</button>
     </div>
 
     <div class="card">
@@ -150,6 +150,8 @@ document.getElementById("scan").addEventListener("click", async () => {
   const folder = document.getElementById("folder").value;
   const list = document.getElementById("jsonList");
   list.innerHTML = "<option>読み込み中...</option>";
+  loadBtn.disabled = true;
+  
   try {
     const files = await listJsonUnder(folder);
     list.innerHTML = "";
@@ -159,16 +161,26 @@ document.getElementById("scan").addEventListener("click", async () => {
       opt.textContent = p;
       list.appendChild(opt);
     });
+    
+    if (files.length > 0) {
+      list.selectedIndex = 0;
+      loadBtn.disabled = false;
+    }
   } catch (e) {
     list.innerHTML = "<option>失敗しました</option>";
     console.error(e);
   }
 });
 
+document.getElementById("jsonList").addEventListener("change", (e) => {
+  document.getElementById("load").disabled = !e.target.value;
+});
+
 document.getElementById("load").addEventListener("click", () => {
   const sel = document.getElementById("jsonList");
-  if (!sel.value) return;
-  loadItem(sel.value);
+  const opt = sel.selectedOptions[0];
+  if (!opt) return;
+  loadItem(opt.value);
 });
 
 document.getElementById("loadDirect").addEventListener("click", () => {
