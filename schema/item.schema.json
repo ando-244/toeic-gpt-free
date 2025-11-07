@@ -1,5 +1,5 @@
 ﻿{
-  "": "http://json-schema.org/draft-07/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ToeicItem",
   "type": "object",
   "required": ["id","part","level","assets","format","content","license"],
@@ -13,8 +13,8 @@
     "assets": {
       "type":"object",
       "properties": {
-        "image_url": {"type":"string"},
-        "audio_url": {"type":"string"}
+        "image_url": {"type":"string", "format": "uri"},
+        "audio_url": {"type":"string", "format": "uri"}
       },
       "required": ["audio_url"]
     },
@@ -30,7 +30,7 @@
     },
     "content": {
       "type":"object",
-      "required": ["stem","choices","transcript","ssml","rationale"],
+      "required": ["stem","choices","transcript","rationale"],
       "properties": {
         "stem": {"type":"string"},
         "choices": {"type":"object"},
@@ -42,7 +42,6 @@
             "required":["speaker","text"]
           }
         },
-        "ssml": {"type":"string"},
         "rationale": {"type":"string"},
         "distractor_design": {"type":"string"}
       }
