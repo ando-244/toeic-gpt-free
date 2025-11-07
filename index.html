@@ -1,0 +1,181 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TOEIC Items Player</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #0b0c10; color: #eaf0f1; }
+  header { padding: 12px 16px; border-bottom: 1px solid #2b2f36; }
+  main { display: grid; grid-template-columns: 320px 1fr; gap: 0; min-height: calc(100vh - 60px); }
+  aside { border-right: 1px solid #2b2f36; padding: 12px; }
+  section { padding: 16px; }
+  select, input[type=text], button { width: 100%; padding: 8px; margin: 6px 0; background: #14161b; color: #eaf0f1; border: 1px solid #2b2f36; border-radius: 8px; }
+  .card { background: #14161b; border: 1px solid #2b2f36; border-radius: 12px; padding: 16px; margin: 12px 0; }
+  audio, img { width: 100%; border-radius: 8px; }
+  pre { white-space: pre-wrap; word-break: break-all; background: #0f1115; border: 1px solid #2b2f36; padding: 12px; border-radius: 8px; max-height: 240px; overflow: auto;}
+  small { color: #9fb3c8; }
+  .row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+</style>
+
+<header>
+  <h1 style="margin:0;">TOEIC Items Player</h1>
+  <small>Repository: ando-244/toeic-gpt-free</small>
+</header>
+
+<main>
+  <aside>
+    <div class="card">
+      <div><b>1) 探すフォルダ</b></div>
+      <select id="folder">
+        <option value="items/part1">items/part1</option>
+        <option value="items/part2">items/part2</option>
+        <option value="items/part3">items/part3</option>
+        <option value="items/part4">items/part4</option>
+      </select>
+      <button id="scan">GitHub APIでJSONを列挙</button>
+      <small>最新月が下層にある想定です</small>
+    </div>
+
+    <div class="card">
+      <div><b>2) JSON を選択</b></div>
+      <select id="jsonList" size="12" style="height:300px;"></select>
+      <button id="load">読み込み</button>
+    </div>
+
+    <div class="card">
+      <div><b>URL直指定</b></div>
+      <input id="directUrl" type="text" placeholder="https://.../items/part3/yyyy/mm/file.json">
+      <button id="loadDirect">読み込み</button>
+      <small>クロスオリジン可。CORS は GitHub API と Pages で許可されています。</small>
+    </div>
+  </aside>
+
+  <section>
+    <div class="card">
+      <div class="row">
+        <b>Audio</b>
+        <small id="mimeInfo"></small>
+      </div>
+      <audio id="player" controls preload="auto">
+        <source id="srcMp3" type="audio/mpeg">
+        <source id="srcM4a" type="audio/mp4">
+        <source id="srcOgg" type="audio/ogg">
+        <source id="srcWav" type="audio/wav">
+        すみません。お使いのブラウザでは再生できません。
+      </audio>
+    </div>
+
+    <div class="card">
+      <b>Image</b>
+      <img id="pic" alt="" referrerpolicy="no-referrer">
+    </div>
+
+    <div class="card">
+      <b>JSON</b>
+      <pre id="jsonView"></pre>
+    </div>
+  </section>
+</main>
+
+<script>
+const BASE = "https://ando-244.github.io/toeic-gpt-free";
+const REPO = "ando-244/toeic-gpt-free";
+const BRANCH = "main";
+
+async function listJsonUnder(path) {
+  // GitHub Contents API で下位をたどる
+  // 例: items/part3 -> 年 -> 月 -> json群
+  const root = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`).then(r=>r.json());
+  if (!Array.isArray(root)) return [];
+  const years = root.filter(x => x.type === "dir").map(x => x.path).sort().reverse();
+  let files = [];
+  for (const y of years) {
+    const months = await fetch(`https://api.github.com/repos/${REPO}/contents/${y}?ref=${BRANCH}`).then(r=>r.json());
+    const mmDirs = months.filter(x => x.type === "dir").map(x => x.path).sort().reverse();
+    for (const m of mmDirs) {
+      const leaf = await fetch(`https://api.github.com/repos/${REPO}/contents/${m}?ref=${BRANCH}`).then(r=>r.json());
+      const jsons = leaf.filter(x => x.type === "file" && x.name.endsWith(".json")).map(x => x.path);
+      files = files.concat(jsons.sort().reverse());
+      if (files.length > 200) break;
+    }
+    if (files.length > 200) break;
+  }
+  return files;
+}
+
+function setAudioSources(url) {
+  // 複数拡張子を同じファイル名に揃える場合にフォールバック
+  const p = new URL(url, BASE);
+  const baseNoExt = p.href.replace(/\.(mp3|m4a|ogg|wav)$/i, "");
+  const player = document.getElementById("player");
+  const sMp3 = document.getElementById("srcMp3");
+  const sM4a = document.getElementById("srcM4a");
+  const sOgg = document.getElementById("srcOgg");
+  const sWav = document.getElementById("srcWav");
+  sMp3.src = baseNoExt + ".mp3";
+  sM4a.src = baseNoExt + ".m4a";
+  sOgg.src = baseNoExt + ".ogg";
+  sWav.src = baseNoExt + ".wav";
+  player.load();
+}
+
+async function loadItem(jsonUrl) {
+  const url = new URL(jsonUrl, BASE).href;
+  const res = await fetch(url, { headers: { "Accept": "application/json" }});
+  if (!res.ok) throw new Error("JSON load failed: " + res.status);
+  const data = await res.json();
+  document.getElementById("jsonView").textContent = JSON.stringify(data, null, 2);
+
+  // 音声
+  const audio = data.assets?.audio_url;
+  if (audio) {
+    setAudioSources(audio);
+    document.getElementById("mimeInfo").textContent = audio;
+  } else {
+    document.getElementById("mimeInfo").textContent = "no audio_url";
+  }
+
+  // 画像（Part1 のみ存在する想定）
+  const img = data.assets?.image_url;
+  const pic = document.getElementById("pic");
+  if (img) {
+    pic.src = new URL(img, BASE).href;
+    pic.style.display = "";
+  } else {
+    pic.removeAttribute("src");
+    pic.style.display = "none";
+  }
+}
+
+document.getElementById("scan").addEventListener("click", async () => {
+  const folder = document.getElementById("folder").value;
+  const list = document.getElementById("jsonList");
+  list.innerHTML = "<option>読み込み中...</option>";
+  try {
+    const files = await listJsonUnder(folder);
+    list.innerHTML = "";
+    files.forEach(p => {
+      const opt = document.createElement("option");
+      opt.value = p;
+      opt.textContent = p;
+      list.appendChild(opt);
+    });
+  } catch (e) {
+    list.innerHTML = "<option>失敗しました</option>";
+    console.error(e);
+  }
+});
+
+document.getElementById("load").addEventListener("click", () => {
+  const sel = document.getElementById("jsonList");
+  if (!sel.value) return;
+  loadItem(sel.value);
+});
+
+document.getElementById("loadDirect").addEventListener("click", () => {
+  const u = document.getElementById("directUrl").value.trim();
+  if (u) loadItem(u);
+});
+
+// 初期化
+document.getElementById("scan").click();
+</script>
