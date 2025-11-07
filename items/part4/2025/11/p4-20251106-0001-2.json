@@ -1,0 +1,43 @@
+{
+  "id": "p4-20251106-0001-2",
+  "part": 4,
+  "level": "B1",
+  "topic": [
+    "announcement",
+    "airport"
+  ],
+  "assets": {
+    "audio_url": "https://ando-244.github.io/toeic-gpt-free/media/audio/part4/2025/11/p4-0001.mp3"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "question_type": "single",
+    "toeic_part_rule": "P4-Talk"
+  },
+  "content": {
+    "stem": "(audio) Who is the intended audience?",
+    "choices": {
+      "A": "Travel agents.",
+      "B": "Passengers waiting at Gate 12.",
+      "C": "Hotel guests.",
+      "D": "Bus drivers."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Good afternoon, passengers. This is an announcement for all travelers waiting for Flight 102 to Seattle. Due to heavy fog, the departure will be delayed for about thirty minutes. Please remain near Gate 12 and listen for further updates. We apologize for the inconvenience and thank you for your patience."
+      }
+    ],
+    "rationale": "The speaker addresses passengers waiting at Gate 12."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

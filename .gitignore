@@ -3,3 +3,4 @@
 *.pcm
 *.tmp
 __pycache__/
+.env

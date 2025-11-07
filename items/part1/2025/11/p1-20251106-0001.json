@@ -1,0 +1,56 @@
+{
+  "id": "p1-20251106-0001",
+  "part": 1,
+  "level": "B1",
+  "topic": [
+    "photo",
+    "description"
+  ],
+  "assets": {
+    "audio_url": "https://ando-244.github.io/toeic-gpt-free/media/audio/part1/2025/11/p1-0001.mp3",
+    "image_url": "https://images.unsplash.com/photo-1587541400628-ffadd62d83aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MjQ1ODR8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NjI0MDY2MTJ8&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P1-Photo"
+  },
+  "content": {
+    "stem": "(photo) Choose the statement that best describes the picture.",
+    "choices": {
+      "A": "A laptop is open on the desk.",
+      "B": "Some people are standing in a line.",
+      "C": "A car is parked on the street.",
+      "D": "The room is decorated for a party."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Statement A. A laptop is open on the desk."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement B. Some people are standing in a line."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement C. A car is parked on the street."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement D. The room is decorated for a party."
+      }
+    ],
+    "rationale": "A best matches the picture. Others are plausible distractors."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}
