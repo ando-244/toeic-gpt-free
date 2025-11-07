@@ -38,7 +38,7 @@
     <div class="card">
       <div><b>2) JSON を選択</b></div>
       <select id="jsonList" size="12" style="height:300px;"></select>
-      <button id="load" disabled>読み込み</button>
+      <button id="btnload" type="button" disabled>読み込み</button>
     </div>
 
     <div class="card">
@@ -104,7 +104,7 @@ async function listJsonUnder(path) {
 }
 
 function setLoadEnabled(on) {
-  const btn = document.getElementById("load");
+  const btn = document.getElementById("btnload");
   if (on) {
     btn.disabled = false;
     btn.removeAttribute("disabled");   // ← 属性も外す
@@ -175,7 +175,8 @@ document.getElementById("scan").addEventListener("click", async () => {
     }
 
     list.selectedIndex = files.length ? 0 : -1;
-    setLoadEnabled(files.length > 0);
+    setLoadEnabled(!!list.value);
+    list.focus();
   } catch (e) {
     list.innerHTML = "<option>失敗しました</option>";
     setLoadEnabled(false);
@@ -193,7 +194,7 @@ jsonListEl.addEventListener("input", onJsonListChange);
 jsonListEl.addEventListener("click", onJsonListChange);
 
 // ③ 「読み込み」ボタン
-document.getElementById("load").addEventListener("click", () => {
+document.getElementById("btnload").addEventListener("click", () => {
   const sel = document.getElementById("jsonList");
   const opt = sel.selectedOptions[0];
   if (!opt) return;
