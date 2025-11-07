@@ -80,6 +80,7 @@
 const BASE = "https://ando-244.github.io/toeic-gpt-free";
 const REPO = "ando-244/toeic-gpt-free";
 const BRANCH = "main";
+const loadBtn = document.getElementById("load");
 
 async function listJsonUnder(path) {
   // GitHub Contents API で下位をたどる
@@ -173,7 +174,7 @@ document.getElementById("scan").addEventListener("click", async () => {
 });
 
 document.getElementById("jsonList").addEventListener("change", (e) => {
-  document.getElementById("load").disabled = !e.target.value;
+  loadBtn.disabled = !e.target.value;
 });
 
 document.getElementById("load").addEventListener("click", () => {
