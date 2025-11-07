@@ -13,8 +13,8 @@
     "assets": {
       "type":"object",
       "properties": {
-        "image_url": {"type":"string", "format": "uri"},
-        "audio_url": {"type":"string", "format": "uri"}
+        "image_url": {"type":"string"},
+        "audio_url": {"type":"string"}
       },
       "required": ["audio_url"]
     },
