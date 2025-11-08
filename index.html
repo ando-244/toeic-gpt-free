@@ -14,6 +14,8 @@
   pre { white-space: pre-wrap; word-break: break-all; background: #0f1115; border: 1px solid #2b2f36; padding: 12px; border-radius: 8px; max-height: 240px; overflow: auto;}
   small { color: #9fb3c8; }
   .row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button:not(:disabled):active { transform: translateY(1px); }
 </style>
 
 <header>
@@ -55,11 +57,7 @@
         <b>Audio</b>
         <small id="mimeInfo"></small>
       </div>
-      <audio id="player" controls preload="auto" autoplay playsinline crossorigin="anonymous">
-        <source id="srcMp3" type="audio/mpeg">
-        <source id="srcM4a" type="audio/mp4">
-        <source id="srcOgg" type="audio/ogg">
-        <source id="srcWav" type="audio/wav">
+      <audio id="player" controls preload="auto" playsinline crossorigin="anonymous">
         すみません。お使いのブラウザでは再生できません。
       </audio>
     </div>
@@ -104,28 +102,19 @@ async function listJsonUnder(path) {
 
 function setLoadEnabled(on) {
   const btn = document.getElementById("btnload");
-  if (on) {
-    btn.disabled = false;
-    btn.removeAttribute("disabled");   // ← 属性も外す
-  } else {
-    btn.disabled = true;
-    btn.setAttribute("disabled", "");  // ← 属性も付ける
+  btn.disabled = !on;
+  if (on) btn.removeAttribute("disabled");
+  else btn.setAttribute("disabled", "");
   }
 }
 
 function setAudioSources(url) {
-  const p = new URL(url, BASE);
-  const baseNoExt = p.href.replace(/\.(mp3|m4a|ogg|wav)$/i, "");
   const player = document.getElementById("player");
-  const sMp3 = document.getElementById("srcMp3");
-  const sM4a = document.getElementById("srcM4a");
-  const sOgg = document.getElementById("srcOgg");
-  const sWav = document.getElementById("srcWav");
-  sMp3.src = baseNoExt + ".mp3";
-  sM4a.src = baseNoExt + ".m4a";
-  sOgg.src = baseNoExt + ".ogg";
-  sWav.src = baseNoExt + ".wav";
+  // 絶対/相対どちらでもOKにする
+  const finalUrl = new URL(url, BASE).href;
+  player.src = finalUrl;
   player.load();
+  document.getElementById("mimeInfo").textContent = finalUrl;
 }
 
 async function loadItem(jsonUrl) {
@@ -139,7 +128,6 @@ async function loadItem(jsonUrl) {
   const audio = data.assets?.audio_url;
   if (audio) {
     setAudioSources(audio);
-    document.getElementById("mimeInfo").textContent = audio;
   } else {
     document.getElementById("mimeInfo").textContent = "no audio_url";
   }
@@ -193,36 +181,50 @@ jsonListEl.addEventListener("input", onJsonListChange);
 jsonListEl.addEventListener("click", onJsonListChange);
 
 // ③ 「読み込み」ボタン
-document.getElementById("btnload").addEventListener("click", () => {
+document.getElementById("btnload").addEventListener("click", async (ev) => {
+  const btn = ev.currentTarget;
   const sel = document.getElementById("jsonList");
   const opt = sel.selectedOptions[0];
   if (!opt) return;
 
-  // クリック直後の同期コンテキストで play() を試みる
-  const player = document.getElementById("player");
-  // 直近のユーザー操作の文脈を保ったまま、canplayで再生
-  const onCanPlay = () => {
-    player.removeEventListener("canplay", onCanPlay);
-    player.play().catch(e => console.debug("autoplay blocked:", e));
-  };
-  player.addEventListener("canplay", onCanPlay, { once: true });
+  btn.textContent = "読み込み中…";
+  btn.disabled = true;
 
-  // 非同期ロードは await しない
-  loadItem(opt.value).catch(e => console.error(e));
+  try {
+    // 先に JSON をロードして player.src を確定
+    await loadItem(opt.value);
+
+    // クリックの文脈のうちに再生を試みる
+    const player = document.getElementById("player");
+    await player.play().catch(e => console.debug("autoplay blocked:", e));
+  } catch (e) {
+    console.error(e);
+    alert("読み込みに失敗しました。Console を確認してください。");
+  } finally {
+    btn.textContent = "読み込み";
+    setLoadEnabled(!!document.getElementById("jsonList").value);
+  }
 });
 
 // ④ URL直指定の読み込み
-document.getElementById("loadDirect").addEventListener("click", () => {
+document.getElementById("loadDirect").addEventListener("click", async (ev) => {
+  const btn = ev.currentTarget;
   const u = document.getElementById("directUrl").value.trim();
   if (!u) return;
 
-  const player = document.getElementById("player");
-  const onCanPlay = () => {
-    player.removeEventListener("canplay", onCanPlay);
-    player.play().catch(e => console.debug("autoplay blocked:", e));
-  };
-  player.addEventListener("canplay", onCanPlay, { once: true });
+  btn.textContent = "読み込み中…";
+  btn.disabled = true;
 
-  loadItem(u).catch(e => console.error(e));
+  try {
+    await loadItem(u);
+    const player = document.getElementById("player");
+    await player.play().catch(e => console.debug("autoplay blocked:", e));
+  } catch (e) {
+    console.error(e);
+    alert("読み込みに失敗しました。URLをご確認ください。");
+  } finally {
+    btn.textContent = "読み込み";
+    btn.disabled = false;
+  }
 });
 </script>
