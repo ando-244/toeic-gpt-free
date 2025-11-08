@@ -80,23 +80,55 @@ const REPO = "ando-244/toeic-gpt-free";
 const BRANCH = "main";
 
 async function listJsonUnder(path) {
-  // GitHub Contents API で下位をたどる
-  // 例: items/part3 -> 年 -> 月 -> json群
-  const root = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`).then(r=>r.json());
-  if (!Array.isArray(root)) return [];
+  // GitHub Contents API
+  const base = `https://api.github.com/repos/${REPO}/contents/`;
+  const headers = {
+    "Accept": "application/vnd.github+json",
+    // ブラウザでは User-Agent を任意設定できないので省略OK
+    "X-GitHub-Api-Version": "2022-11-28",
+    "Cache-Control": "no-cache"
+  };
+  const bust = `&_=${Date.now()}`;
+
+  async function getJson(url) {
+    const res = await fetch(url + bust, { headers });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      // 具体的なメッセージを投げる
+      const msg = data?.message || `HTTP ${res.status}`;
+      throw new Error(`GitHub API error: ${msg}`);
+    }
+    if (data?.message) {
+      // rate limit等でも200でmessageが来ることがある
+      throw new Error(`GitHub API says: ${data.message}`);
+    }
+    return data;
+  }
+
+  const root = await getJson(`${base}${encodeURIComponent(path)}?ref=${BRANCH}`);
+  if (!Array.isArray(root)) {
+    throw new Error("Unexpected response shape for root directory");
+  }
+
   const years = root.filter(x => x.type === "dir").map(x => x.path).sort().reverse();
   let files = [];
+
   for (const y of years) {
-    const months = await fetch(`https://api.github.com/repos/${REPO}/contents/${y}?ref=${BRANCH}`).then(r=>r.json());
-    const mmDirs = months.filter(x => x.type === "dir").map(x => x.path).sort().reverse();
+    const months = await getJson(`${base}${encodeURIComponent(y)}?ref=${BRANCH}`);
+    const mmDirs = Array.isArray(months)
+      ? months.filter(x => x.type === "dir").map(x => x.path).sort().reverse()
+      : [];
     for (const m of mmDirs) {
-      const leaf = await fetch(`https://api.github.com/repos/${REPO}/contents/${m}?ref=${BRANCH}`).then(r=>r.json());
-      const jsons = leaf.filter(x => x.type === "file" && x.name.endsWith(".json")).map(x => x.path);
+      const leaf = await getJson(`${base}${encodeURIComponent(m)}?ref=${BRANCH}`);
+      const jsons = Array.isArray(leaf)
+        ? leaf.filter(x => x.type === "file" && x.name.endsWith(".json")).map(x => x.path)
+        : [];
       files = files.concat(jsons.sort().reverse());
       if (files.length > 200) break;
     }
     if (files.length > 200) break;
   }
+
   return files;
 }
 
@@ -153,6 +185,10 @@ document.getElementById("scan").addEventListener("click", async () => {
     const files = await listJsonUnder(folder);
 
     list.innerHTML = "";
+    if (!files.length) {
+      list.innerHTML = "<option>該当するJSONが見つかりません</option>";
+      return;
+    }
     for (const p of files) {
       const opt = document.createElement("option");
       opt.value = p;
@@ -160,13 +196,17 @@ document.getElementById("scan").addEventListener("click", async () => {
       list.appendChild(opt);
     }
 
-    list.selectedIndex = files.length ? 0 : -1;
-    setLoadEnabled(!!list.value);
+    list.selectedIndex = 0;
+    setLoadEnabled(true);
     list.focus();
   } catch (e) {
-    list.innerHTML = "<option>失敗しました</option>";
-    setLoadEnabled(false);
     console.error(e);
+    const msg = (e && e.message) ? e.message : "不明なエラー";
+    list.innerHTML = `<option>取得に失敗: ${msg}</option>`;
+    setLoadEnabled(false);
+    if (/rate limit/i.test(msg)) {
+      alert("GitHub APIのレート制限に達しました。少し時間をあけるか、月別フォルダを減らしてください。");
+    }
   }
 });
 
