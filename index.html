@@ -55,7 +55,7 @@
         <b>Audio</b>
         <small id="mimeInfo"></small>
       </div>
-      <audio id="player" controls preload="auto">
+      <audio id="player" controls preload="auto" autoplay playsinline crossorigin="anonymous">
         <source id="srcMp3" type="audio/mpeg">
         <source id="srcM4a" type="audio/mp4">
         <source id="srcOgg" type="audio/ogg">
@@ -80,7 +80,6 @@
 const BASE = "https://ando-244.github.io/toeic-gpt-free";
 const REPO = "ando-244/toeic-gpt-free";
 const BRANCH = "main";
-const loadBtn = document.getElementById("load");
 
 async function listJsonUnder(path) {
   // GitHub Contents API で下位をたどる
@@ -194,35 +193,36 @@ jsonListEl.addEventListener("input", onJsonListChange);
 jsonListEl.addEventListener("click", onJsonListChange);
 
 // ③ 「読み込み」ボタン
-document.getElementById("btnload").addEventListener("click", async () => {
+document.getElementById("btnload").addEventListener("click", () => {
   const sel = document.getElementById("jsonList");
   const opt = sel.selectedOptions[0];
   if (!opt) return;
-  // JSONの読み込み完了を待つ
-  await loadItem(opt.value);
 
   // クリック直後の同期コンテキストで play() を試みる
   const player = document.getElementById("player");
-  try {
-    await player.play();
-  } catch (e) {
-    // ブラウザのポリシーでブロックされたら控えめにログ
-    console.debug("autoplay blocked:", e);
-  }
+  // 直近のユーザー操作の文脈を保ったまま、canplayで再生
+  const onCanPlay = () => {
+    player.removeEventListener("canplay", onCanPlay);
+    player.play().catch(e => console.debug("autoplay blocked:", e));
+  };
+  player.addEventListener("canplay", onCanPlay, { once: true });
+
+  // 非同期ロードは await しない
+  loadItem(opt.value).catch(e => console.error(e));
 });
 
 // ④ URL直指定の読み込み
-document.getElementById("loadDirect").addEventListener("click", async () => {
+document.getElementById("loadDirect").addEventListener("click", () => {
   const u = document.getElementById("directUrl").value.trim();
   if (!u) return;
 
-  await loadItem(u);
-
   const player = document.getElementById("player");
-  try {
-    await player.play();
-  } catch (e) {
-    console.debug("autoplay blocked:", e);
-  }
+  const onCanPlay = () => {
+    player.removeEventListener("canplay", onCanPlay);
+    player.play().catch(e => console.debug("autoplay blocked:", e));
+  };
+  player.addEventListener("canplay", onCanPlay, { once: true });
+
+  loadItem(u).catch(e => console.error(e));
 });
 </script>
