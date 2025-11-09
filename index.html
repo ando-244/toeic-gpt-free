@@ -78,6 +78,7 @@
 const BASE = "https://ando-244.github.io/toeic-gpt-free";
 const REPO = "ando-244/toeic-gpt-free";
 const BRANCH = "main";
+const RAW = "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main";
 
 async function listJsonUnder(pathPrefix) {
   // 例: pathPrefix = "items/part3"
@@ -129,13 +130,21 @@ function setAudioSources(url) {
 }
 
 async function loadItem(jsonUrl) {
-  const url = new URL(jsonUrl, BASE).href;
+  let url;
+  if (/^https?:\/\//i.test(jsonUrl)) {
+    // 絶対URLはそのまま
+    url = jsonUrl;
+  } else {
+    // リポジトリ相対パスは RAW から取得（APIと同じ内容を確実に読む）
+    url = `${RAW}/${jsonUrl.replace(/^\.?\//, "")}`;
+  }
+
   const res = await fetch(url, { headers: { "Accept": "application/json" }});
   if (!res.ok) throw new Error("JSON load failed: " + res.status);
   const data = await res.json();
   document.getElementById("jsonView").textContent = JSON.stringify(data, null, 2);
 
-  // 音声
+  // 音声は JSON 内の URL をそのまま使う（Pages 上の mp3 を指している想定）
   const audio = data.assets?.audio_url;
   if (audio) {
     setAudioSources(audio);
@@ -143,7 +152,6 @@ async function loadItem(jsonUrl) {
     document.getElementById("mimeInfo").textContent = "no audio_url";
   }
 
-  // 画像（Part1 のみ存在する想定）
   const img = data.assets?.image_url;
   const pic = document.getElementById("pic");
   if (img) {
