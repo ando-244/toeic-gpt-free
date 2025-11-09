@@ -84,11 +84,13 @@ async function listJsonUnder(pathPrefix) {
   const treeUrl = `https://api.github.com/repos/${REPO}/git/trees/${encodeURIComponent(BRANCH)}?recursive=1`;
   const headers = {
     "Accept": "application/vnd.github+json",
-    "X-GitHub-Api-Version": "2022-11-28",
-    "Cache-Control": "no-cache"
+    "X-GitHub-Api-Version": "2022-11-28"
   };
 
-  const res = await fetch(treeUrl + `&_=${Date.now()}`, { headers });
+  const res = await fetch(treeUrl + `&_=${Date.now()}`, {
+    headers,
+    cache: "no-store" // 任意。無くてもOK（タイムスタンプで回避済み）
+  });
   if (!res.ok) {
     throw new Error(`GitHub API error: HTTP ${res.status}`);
   }
