@@ -491,6 +491,146 @@ def generate_dialog_audio(
         except Exception:
             pass
 
+# ================================
+#  各設問HTMLの自動生成（静的）
+# ================================
+
+def write_item_html(item: dict, html_path: pathlib.Path):
+    #"""
+    #items/.../<id>.json と同じディレクトリに <id>.html を出力して、
+    #画像と音声をネイティブ再生できる最小ページを作る。
+    #- APIや複雑なJSは使わない（CORSを踏まない）
+    #- lang/title/label等を入れてアクセシビリティも担保
+    #"""
+    ensure_path(html_path)
+
+    part     = item.get("part")
+    content  = item.get("content", {})
+    assets   = item.get("assets", {})
+    stem     = content.get("stem", "")
+    choices  = content.get("choices", {})
+    answer   = item.get("format", {}).get("answer", "")
+    transcript = content.get("transcript", [])
+    rationale  = content.get("rationale", "")
+
+    # 画像URL（Part1ならあるはず）
+    image_url = assets.get("image_url") or assets.get("image") or ""
+
+    # 音声URL（必須）
+    audio_url = assets.get("audio_url", "")
+
+    # タイトル
+    page_title = f"TOEIC Part{part} – {item.get('id','')}"
+
+    # 選択肢のHTML
+    def render_choices(choices_dict: dict, correct_key: str) -> str:
+        if not choices_dict:
+            return ""
+        rows = []
+        for key in sorted(choices_dict.keys()):
+            text = choices_dict[key]
+            mark = " ✓" if key == correct_key else ""
+            rows.append(f"<li><strong>{key}.</strong> {text}{mark}</li>")
+        return "<ol type='A'>\n" + "\n".join(rows) + "\n</ol>"
+
+    # 会話/スクリプトのHTML（Part3/4向け）
+    def render_transcript(lines: list) -> str:
+        if not lines:
+            return ""
+        rows = []
+        for turn in lines:
+            spk = turn.get("speaker","")
+            txt = turn.get("text","")
+            rows.append(f"<p><strong>{spk}</strong>: {txt}</p>")
+        return "\n".join(rows)
+
+    # 画像ブロック（任意）
+    image_block = ""
+    if image_url:
+        image_block = f"""
+      <figure style="margin:0 0 12px">
+        <img src="{image_url}" alt="illustration for the item" style="max-width:100%;height:auto;border-radius:8px"/>
+      </figure>"""
+
+    # トランスクリプトブロック（Part3/4主に）
+    transcript_block = ""
+    if transcript:
+        transcript_block = f"""
+      <section aria-label="transcript" style="margin-top:12px">
+        <h2 style="font-size:1.1rem;margin:0 0 6px">Transcript</h2>
+        {render_transcript(transcript)}
+      </section>"""
+
+    # 選択肢ブロック（Part2/3/4で使う）
+    choices_block = ""
+    if choices:
+        choices_block = f"""
+      <section aria-label="choices" style="margin-top:12px">
+        <h2 style="font-size:1.1rem;margin:0 0 6px">Choices</h2>
+        {render_choices(choices, answer)}
+      </section>"""
+
+    # 解説ブロック（任意）
+    rationale_block = ""
+    if rationale:
+        rationale_block = f"""
+      <section aria-label="explanation" style="margin-top:12px">
+        <h2 style="font-size:1.1rem;margin:0 0 6px">Explanation</h2>
+        <p>{rationale}</p>
+      </section>"""
+
+    # 本文
+    html = f"""<!doctype html>
+        <html lang="en">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>{page_title}</title>
+        <style>
+          body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; line-height:1.5; margin: 0; }}
+          .wrap {{ max-width: 960px; margin: 0 auto; padding: 16px; }}
+          header h1 {{ font-size: 1.25rem; margin: 0 0 8px; }}
+          .card {{ background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }}
+          .meta {{ color: #6b7280; font-size:.875rem; margin-bottom:6px }}
+          pre.json {{ background:#f6f8fa; padding:12px; border-radius:8px; overflow:auto }}
+        </style>
+        <body>
+          <div class="wrap">
+            <header>
+              <h1>{page_title}</h1>
+              <p class="meta">Level: {item.get('level','')} | Topic: {", ".join(item.get("topic", []))}</p>
+            </header>
+
+            <main class="card" role="main">
+              {image_block}
+              <section aria-label="audio">
+                <p style="margin:8px 0"><strong>Question</strong>: {stem}</p>
+                <audio src="{audio_url}" controls preload="metadata" style="width:100%"></audio>
+                <p style="margin-top:6px"><a href="{audio_url}" target="_blank" rel="noopener">Open audio</a></p>
+              </section>
+
+              {choices_block}
+              {transcript_block}
+              {rationale_block}
+
+              <details style="margin-top:12px">
+                <summary>Show JSON</summary>
+                <pre class="json">{_escape_html(json.dumps(item, ensure_ascii=False, indent=2))}</pre>
+              </details>
+            </main>
+          </div>
+        </body>
+        </html>"""
+
+    html_path.write_text(html, encoding="utf-8")
+
+
+def _escape_html(s: str) -> str:
+    return (s.replace("&","&amp;")
+             .replace("<","&lt;")
+             .replace(">","&gt;")
+             .replace('"',"&quot;")
+             .replace("'","&#39;"))
+
 
 # === メイン処理 ===
 def main():
@@ -531,7 +671,8 @@ def main():
             image_rel = pathlib.Path(f"media/images/part1/{yyyy}/{mm}/p1-{i:04d}.webp")
             image_path = out / image_rel
             #image_url = unsplash_random_image(prompt, image_path)
-            image_url = unsplash_random_image(args.query, image_path)
+            #image_url = unsplash_random_image(args.query, image_path)
+            image_url = f"{BASE_URL}/{image_rel.as_posix()}"
             # statements…
             statements = [
                 "A laptop is open on the desk.",       # 正解
@@ -587,7 +728,9 @@ def main():
                 out_json = item_dir / f"{item['id']}.json"
                 out_json.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
                 #print(f"[JSON] {out_json}")
-                print(f"[OK] {mp3_path} and {out_json}")
+                #print(f"[OK] {mp3_path} and {out_json}")
+                out_html = item_dir / f"{item['id']}.html"
+                write_item_html(item, out_html)
             
             continue
 
@@ -617,7 +760,9 @@ def main():
                 out_json = item_dir / f"{item['id']}.json"
                 out_json.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
                 #print(f"[JSON] {out_json}")
-                print(f"[OK] {mp3_path} and {out_json}")
+                #print(f"[OK] {mp3_path} and {out_json}")
+                out_html = item_dir / f"{item['id']}.html"
+                write_item_html(item, out_html)
 
             continue
 
@@ -630,6 +775,8 @@ def main():
         # === JSON保存 ===
         ensure_path(json_path)
         json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
+        html_path = json_path.with_suffix(".html")
+        write_item_html(item, html_path)
 
         print(f"[OK] {mp3_path} and {json_path}")
 
