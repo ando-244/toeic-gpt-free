@@ -24,9 +24,31 @@ PIPER_EXE  = os.environ.get("PIPER_EXE",  r"D:\TOOLS\piper\piper.exe")
 FFMPEG_EXE = os.environ.get("FFMPEG_EXE", r"D:\TOOLS\ffmpeg\bin\ffmpeg.exe")
 
 UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
+VOICE_M = os.environ.get("PIPER_VOICE_M")
+VOICE_W = os.environ.get("PIPER_VOICE_W")
 
 PCM_RATE, PCM_CH, PCM_FMT = 22050, 1, "s16le"
 TIMEOUT_SEC = int(os.environ.get("PIPER_TIMEOUT", "300"))
+
+OWNER  = "ando-244"
+REPO   = "toeic-gpt-free"
+BRANCH = "main"
+
+# GitHub Pages（Webサイト用）と raw（生ファイル用）の両方を用意
+BASE_URL_PAGES = f"https://{OWNER}.github.io/{REPO}"
+BASE_URL_RAW   = f"https://raw.githubusercontent.com/{OWNER}/{REPO}/{BRANCH}"
+
+# 既定は raw にする（環境変数で切替可: USE_PAGES=1 でPagesに）
+USE_PAGES = os.getenv("USE_PAGES", "0") == "1"
+ASSET_BASE_URL = BASE_URL_PAGES if USE_PAGES else BASE_URL_RAW
+
+def asset_url(rel_path: pathlib.Path) -> str:
+    # rel_path は "media/audio/..." のような repo ルート相対
+    p = rel_path.as_posix()
+    if USE_PAGES:
+        return f"{ASSET_BASE_URL}/{p}"
+    else:
+        return f"{ASSET_BASE_URL}/{p}"
 
 # === ユーティリティ ===
 def run(cmd, *, cwd=None, timeout=None, env=None, input_text=None):
@@ -59,8 +81,8 @@ def http_get(url, *, tries=3, sleep=2):
     raise RuntimeError(f"GET failed after {tries} retries: {url}")
 
 
-VOICE_M = os.environ.get("PIPER_VOICE_M", VOICE)  # 既定は VOICE
-VOICE_W = os.environ.get("PIPER_VOICE_W", VOICE)
+#VOICE_M = os.environ.get("PIPER_VOICE_M", VOICE)  # 既定は VOICE
+#VOICE_W = os.environ.get("PIPER_VOICE_W", VOICE)
 
 # === Piper音声生成 ===
 def piper_text_to_pcm(text: str, pcm_path: pathlib.Path, voice: str | None = None):
@@ -658,7 +680,8 @@ def main():
         pcm_rel   = audio_rel.with_suffix(".pcm")
         json_rel  = pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}/p{args.part}-{ymd}-{i:04d}.json")
 
-        audio_url = f"{BASE_URL}/{audio_rel.as_posix()}"
+        #audio_url = f"{BASE_URL}/{audio_rel.as_posix()}"
+        audio_url = asset_url(audio_rel)
         pcm_path, wav_path, mp3_path, json_path = out / pcm_rel, out / wav_rel, out / audio_rel, out / json_rel
 
         #text = "Could you send me the draft by noon?"
@@ -672,7 +695,8 @@ def main():
             image_path = out / image_rel
             #image_url = unsplash_random_image(prompt, image_path)
             #image_url = unsplash_random_image(args.query, image_path)
-            image_url = f"{BASE_URL}/{image_rel.as_posix()}"
+            #image_url = f"{BASE_URL}/{image_rel.as_posix()}"
+            image_url = asset_url(image_rel)
             # statements…
             statements = [
                 "A laptop is open on the desk.",       # 正解
