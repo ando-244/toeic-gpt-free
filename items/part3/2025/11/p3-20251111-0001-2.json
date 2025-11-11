@@ -1,0 +1,51 @@
+{
+  "id": "p3-20251111-0001-2",
+  "part": 3,
+  "level": "A2",
+  "topic": [
+    "office",
+    "schedule"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part3/2025/11/p3-0001.mp3"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "question_type": "single",
+    "toeic_part_rule": "P3-Conversation"
+  },
+  "content": {
+    "stem": "(audio) When will the meeting start?",
+    "choices": {
+      "A": "At nine o’clock.",
+      "B": "At ten o’clock.",
+      "C": "At eleven o’clock.",
+      "D": "At noon."
+    },
+    "transcript": [
+      {
+        "speaker": "M",
+        "text": "Good morning. Did you check the new meeting schedule?"
+      },
+      {
+        "speaker": "W",
+        "text": "Yes, it starts at ten instead of nine."
+      },
+      {
+        "speaker": "M",
+        "text": "Right, and we’ll meet in room B now."
+      }
+    ],
+    "rationale": "The woman says it starts at ten instead of nine."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}
