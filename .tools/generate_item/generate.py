@@ -713,6 +713,9 @@ def main():
             # 2) JSON
             item = make_part1_item_json(args.part, args.level, audio_url, image_url, i, statements, answer_key)
 
+            # 3) page_url を付与
+            item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+
         elif args.part == 2:
             question = "Could you send me the draft by noon?"
             responses = [
@@ -728,6 +731,9 @@ def main():
             # 2) JSON
             item = make_part2_item_json(args.part, args.level, audio_url, i,
                                 question, responses, correct)
+            
+            # 3) page_url を付与
+            item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
 
         elif args.part == 3:
             dialog = [
@@ -744,6 +750,9 @@ def main():
 
             # 3) 設問3本のJSONを生成
             items = make_part3_items_json(args.part, args.level, audio_url, i, dialog)
+            for item in items:
+                item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+            
             item_dir = out / pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}")
             item_dir.mkdir(parents=True, exist_ok=True)
             
@@ -752,9 +761,9 @@ def main():
                 out_json = item_dir / f"{item['id']}.json"
                 out_json.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
                 #print(f"[JSON] {out_json}")
-                #print(f"[OK] {mp3_path} and {out_json}")
-                out_html = item_dir / f"{item['id']}.html"
-                write_item_html(item, out_html)
+                print(f"[OK] {mp3_path} and {out_json}")
+                #out_html = item_dir / f"{item['id']}.html"
+                #write_item_html(item, out_html)
             
             continue
 
@@ -776,6 +785,9 @@ def main():
 
             # 3) JSON生成（設問3つ）
             items = make_part4_items_json(args.part, args.level, audio_url, i, script_text)
+            for item in items:
+                item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+
             item_dir = out / pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}")
             item_dir.mkdir(parents=True, exist_ok=True)
 
@@ -784,9 +796,9 @@ def main():
                 out_json = item_dir / f"{item['id']}.json"
                 out_json.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
                 #print(f"[JSON] {out_json}")
-                #print(f"[OK] {mp3_path} and {out_json}")
-                out_html = item_dir / f"{item['id']}.html"
-                write_item_html(item, out_html)
+                print(f"[OK] {mp3_path} and {out_json}")
+                #out_html = item_dir / f"{item['id']}.html"
+                #write_item_html(item, out_html)
 
             continue
 
