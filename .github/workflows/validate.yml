@@ -13,4 +13,4 @@ jobs:
       - name: Install ajv-cli
         run: npm i -g ajv-cli
       - name: Validate JSON items
-        run: ajv validate -s schema/item.schema.json -d "items/**/*.json" --spec=draft2020 --coerce-types --allow-union-types --strict=false
+        run: ajv validate -s schema/item.schema.json -d "items/**/*.json" --coerce-types --allow-union-types --strict=false
