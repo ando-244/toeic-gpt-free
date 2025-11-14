@@ -1,277 +1,414 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TOEIC Items Player</title>
-<style>
-  body { font-family: system-ui, sans-serif; margin: 0; background: #0b0c10; color: #eaf0f1; }
-  header { padding: 12px 16px; border-bottom: 1px solid #2b2f36; }
-  main { display: grid; grid-template-columns: 320px 1fr; gap: 0; min-height: calc(100vh - 60px); }
-  aside { border-right: 1px solid #2b2f36; padding: 12px; }
-  section { padding: 16px; }
-  select, input[type=text], button { width: 100%; padding: 8px; margin: 6px 0; background: #14161b; color: #eaf0f1; border: 1px solid #2b2f36; border-radius: 8px; }
-  .card { background: #14161b; border: 1px solid #2b2f36; border-radius: 12px; padding: 16px; margin: 12px 0; }
-  audio, img { width: 100%; border-radius: 8px; }
-  pre { white-space: pre-wrap; word-break: break-all; background: #0f1115; border: 1px solid #2b2f36; padding: 12px; border-radius: 8px; max-height: 240px; overflow: auto;}
-  small { color: #9fb3c8; }
-  .row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
-  button:disabled { opacity: .5; cursor: not-allowed; }
-  button:not(:disabled):active { transform: translateY(1px); }
-</style>
+<head>
+  <meta charset="UTF-8" />
+  <title>TOEIC GPT Free Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+    header {
+      background: #1f2937;
+      color: #fff;
+      padding: 0.5rem 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    main {
+      display: grid;
+      grid-template-columns: minmax(260px, 320px) 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+    section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
+    }
+    .field-group {
+      margin-bottom: 0.5rem;
+    }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+    }
+    select, button, input[type="text"] {
+      font: inherit;
+      padding: 0.25rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid #d1d5db;
+      box-sizing: border-box;
+    }
+    select {
+      width: 100%;
+    }
+    button {
+      cursor: pointer;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    button:disabled {
+      background: #9ca3af;
+      cursor: default;
+    }
+    #itemList {
+      height: 260px;
+      font-size: 0.85rem;
+    }
+    #status {
+      margin-top: 0.25rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+      min-height: 1em;
+    }
+    #previewTitle {
+      font-size: 1rem;
+      margin: 0 0 0.25rem 0;
+    }
+    #previewMeta {
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+    #previewStem {
+      font-size: 0.9rem;
+      background: #f9fafb;
+      padding: 0.5rem;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      margin-bottom: 0.5rem;
+      border: 1px solid #e5e7eb;
+    }
+    #audioArea {
+      margin-bottom: 0.75rem;
+    }
+    #audioPlayer {
+      width: 100%;
+      max-width: 480px;
+    }
+    #audioLinks a, #pageLink a, #imageLink a {
+      font-size: 0.85rem;
+      color: #2563eb;
+      text-decoration: none;
+      margin-right: 0.5rem;
+    }
+    #audioLinks a:hover, #pageLink a:hover, #imageLink a:hover {
+      text-decoration: underline;
+    }
+    #imagePreview {
+      max-width: 240px;
+      max-height: 160px;
+      border-radius: 4px;
+      border: 1px solid #e5e7eb;
+      object-fit: cover;
+      display: none;
+      margin-top: 0.25rem;
+    }
+    #rawJson {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.8rem;
+      background: #f9fafb;
+      border-radius: 4px;
+      padding: 0.5rem;
+      border: 1px solid #e5e7eb;
+      max-height: 260px;
+      overflow: auto;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>TOEIC GPT Free &middot; プレイヤー</h1>
+  </header>
 
-<header>
-  <h1 style="margin:0;">TOEIC Items Player</h1>
-  <small>Repository: ando-244/toeic-gpt-free</small>
-</header>
+  <main>
+    <!-- 左: リスト & フィルタ -->
+    <section aria-label="問題一覧とフィルター">
+      <h2>問題一覧</h2>
 
-<main>
-  <aside>
-    <div class="card">
-      <div><b>1) 探すフォルダ</b></div>
-      <select id="folder" aria-label="フォルダーを選択">
-        <option value="items/part1">items/part1</option>
-        <option value="items/part2">items/part2</option>
-        <option value="items/part3">items/part3</option>
-        <option value="items/part4">items/part4</option>
-      </select>
-      <button id="scan">GitHub APIでJSONを列挙</button>
-      <small>最新月が下層にある想定です</small>
-    </div>
-
-    <div class="card">
-      <div><b>2) JSON を選択</b></div>
-      <select id="jsonList" size="12" style="height:300px;" aria-label="問題 JSON を選択"></select>
-      <!--button id="btnload" type="button" disabled>読み込み</button-->
-      <button id="btnload">読み込み</button>
-      <pre id="status" style="white-space:pre-wrap"></pre>
-    </div>
-
-    <div class="card">
-      <div><b>URL直指定</b></div>
-      <input id="directUrl" type="text" placeholder="https://.../items/part3/yyyy/mm/file.json">
-      <button id="loadDirect">読み込み</button>
-      <small>クロスオリジン可。CORS は GitHub API と Pages で許可されています。</small>
-    </div>
-  </aside>
-
-  <section>
-    <div class="card">
-      <div class="row">
-        <b>Audio</b>
-        <small id="mimeInfo"></small>
+      <div class="field-group">
+        <button id="btnLoadManifest" type="button">
+          JSON一覧を読み込み（manifest）
+        </button>
       </div>
-      <audio id="player" controls preload="auto" playsinline crossorigin="anonymous">
-        すみません。お使いのブラウザでは再生できません。
-      </audio>
-    </div>
 
-    <div class="card">
-      <b>Image</b>
-      <img id="pic" alt="" referrerpolicy="no-referrer">
-    </div>
+      <div class="field-group" style="display:flex; gap:0.5rem;">
+        <div style="flex:1;">
+          <label for="partFilter">Part フィルター</label>
+          <select id="partFilter" name="partFilter">
+            <option value="">すべて</option>
+            <option value="1">Part 1</option>
+            <option value="2">Part 2</option>
+            <option value="3">Part 3</option>
+            <option value="4">Part 4</option>
+          </select>
+        </div>
+        <div style="flex:1;">
+          <label for="levelFilter">Level フィルター</label>
+          <select id="levelFilter" name="levelFilter">
+            <option value="">すべて</option>
+            <option value="A2">A2</option>
+            <option value="B1">B1</option>
+            <option value="B2">B2</option>
+          </select>
+        </div>
+      </div>
 
-    <div class="card">
-      <b>JSON</b>
-      <pre id="jsonView"></pre>
-    </div>
-  </section>
-</main>
+      <div class="field-group">
+        <label for="itemList">JSON の一覧</label>
+        <select id="itemList" name="itemList" size="12" aria-label="JSONの一覧から1件を選択してください">
+          <!-- manifest.json 読み込み後に埋められる -->
+        </select>
+      </div>
 
-<script>
-const BASE = "https://ando-244.github.io/toeic-gpt-free";
-const REPO = "ando-244/toeic-gpt-free";
-const BRANCH = "main";
-const RAW = "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main";
+      <div class="field-group">
+        <button id="btnLoadItem" type="button">
+          選択した JSON を読み込み
+        </button>
+      </div>
 
-async function listJsonUnder(pathPrefix) {
-  // 例: pathPrefix = "items/part3"
-  const treeUrl = `https://api.github.com/repos/${REPO}/git/trees/${encodeURIComponent(BRANCH)}?recursive=1`;
-  const headers = {
-    "Accept": "application/vnd.github+json",
-    "X-GitHub-Api-Version": "2022-11-28"
-  };
+      <div id="status" aria-live="polite"></div>
+    </section>
 
-  const res = await fetch(treeUrl + `&_=${Date.now()}`, {
-    headers,
-    cache: "no-store" // 任意。無くてもOK（タイムスタンプで回避済み）
-  });
-  if (!res.ok) {
-    throw new Error(`GitHub API error: HTTP ${res.status}`);
-  }
-  const data = await res.json();
-  if (!data || !Array.isArray(data.tree)) {
-    throw new Error("Unexpected response shape for git/trees");
-  }
+    <!-- 右: プレビュー -->
+    <section aria-label="問題プレビューと音声再生">
+      <h2>プレビュー &amp; Audio</h2>
 
-  // ツリーから目的の JSON を抽出
-  // 期待パス: items/partX/YYYY/MM/xxx.json
-  const re = new RegExp(`^${pathPrefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/\\d{4}/\\d{2}/.+\\.json$`);
-  // 新しい順で見せたいので降順ソート
-  const files = data.tree
-    .filter(n => n.type === "blob" && re.test(n.path))
-    .map(n => n.path)
-    .sort((a, b) => b.localeCompare(a))
-    .slice(0, 200);
+      <h3 id="previewTitle">問題未選択</h3>
+      <div id="previewMeta"></div>
+      <div id="previewStem"></div>
 
-  return files;
-}
+      <div id="audioArea">
+        <audio id="audioPlayer" controls preload="none">
+          お使いのブラウザは audio 要素に対応していません。
+        </audio>
+        <div id="audioLinks"></div>
+      </div>
 
-function setLoadEnabled(on) {
-  const btn = document.getElementById("btnload");
-  btn.disabled = !on;
-  if (on) btn.removeAttribute("disabled");
-  else btn.setAttribute("disabled", "");
-}
+      <div id="pageLink"></div>
 
-function setAudioSources(url) {
-  const player = document.getElementById("player");
-  // 絶対/相対どちらでもOKにする
-  const finalUrl = new URL(url, BASE).href;
-  player.src = finalUrl;
-  player.load();
-  document.getElementById("mimeInfo").textContent = finalUrl;
-}
+      <div class="field-group">
+        <div id="imageLink"></div>
+        <img id="imagePreview" alt="問題に紐づく画像プレビュー" />
+      </div>
 
-async function loadItem(jsonUrl) {
-  let url;
-  if (/^https?:\/\//i.test(jsonUrl)) {
-    // 絶対URLはそのまま
-    url = jsonUrl;
-  } else {
-    // リポジトリ相対パスは RAW から取得（APIと同じ内容を確実に読む）
-    url = `${RAW}/${jsonUrl.replace(/^\.?\//, "")}`;
-  }
+      <h3 style="margin-top:0.75rem; font-size:0.9rem;">生 JSON</h3>
+      <pre id="rawJson">ここに JSON の中身が表示されます。</pre>
+    </section>
+  </main>
 
-  const res = await fetch(url, { headers: { "Accept": "application/json" }});
-  if (!res.ok) throw new Error("JSON load failed: " + res.status);
-  const data = await res.json();
-  document.getElementById("jsonView").textContent = JSON.stringify(data, null, 2);
+  <script>
+    // manifest.json の内容を保持するグローバル
+    let manifestItems = [];
 
-  // 音声は JSON 内の URL をそのまま使う（Pages 上の mp3 を指している想定）
-  const audio = data.assets?.audio_url;
-  if (audio) {
-    setAudioSources(audio);
-    // リンクをクリックで新規タブ確認できるように
-    const info = document.getElementById("mimeInfo");
-    info.innerHTML = `<a href="${new URL(audio, BASE).href}" target="_blank" rel="noopener">audio_url を開く</a>`;
-  } else {
-    document.getElementById("mimeInfo").textContent = "no audio_url";
-  }
+    const statusEl       = document.getElementById("status");
+    const partFilterEl   = document.getElementById("partFilter");
+    const levelFilterEl  = document.getElementById("levelFilter");
+    const itemListEl     = document.getElementById("itemList");
+    const btnLoadManifest = document.getElementById("btnLoadManifest");
+    const btnLoadItem    = document.getElementById("btnLoadItem");
 
-  const img = data.assets?.image_url;
-  const pic = document.getElementById("pic");
-  if (img) {
-    pic.src = new URL(img, BASE).href;
-    pic.style.display = "";
-  } else {
-    pic.removeAttribute("src");
-    pic.style.display = "none";
-  }
-}
+    const previewTitleEl = document.getElementById("previewTitle");
+    const previewMetaEl  = document.getElementById("previewMeta");
+    const previewStemEl  = document.getElementById("previewStem");
+    const rawJsonEl      = document.getElementById("rawJson");
 
-document.getElementById("scan").addEventListener("click", async () => {
-  const folder = document.getElementById("folder").value;
-  const list = document.getElementById("jsonList");
-  list.innerHTML = "<option>読み込み中...</option>";
-  setLoadEnabled(false);
+    const audioPlayer    = document.getElementById("audioPlayer");
+    const audioLinksEl   = document.getElementById("audioLinks");
+    const pageLinkEl     = document.getElementById("pageLink");
+    const imagePreview   = document.getElementById("imagePreview");
+    const imageLinkEl    = document.getElementById("imageLink");
 
-  try {
-    const files = await listJsonUnder(folder);
-
-    list.innerHTML = "";
-    if (!files.length) {
-      list.innerHTML = "<option>該当するJSONが見つかりません</option>";
-      return;
-    }
-    for (const p of files) {
-      const opt = document.createElement("option");
-      opt.value = p;
-      opt.textContent = p;
-      list.appendChild(opt);
+    function setStatus(msg) {
+      statusEl.textContent = msg || "";
     }
 
-    list.selectedIndex = 0;
-    setLoadEnabled(true);
-    list.focus();
-  } catch (e) {
-    console.error(e);
-    const msg = (e && e.message) ? e.message : "不明なエラー";
-    list.innerHTML = `<option>取得に失敗: ${msg}</option>`;
-    setLoadEnabled(false);
-    if (/rate limit/i.test(msg)) {
-      alert("GitHub APIのレート制限に達しました。少し時間をあけるか、月別フォルダを減らしてください。");
+    // manifest.json を読み込む
+    async function loadManifest() {
+      try {
+        setStatus("manifest.json を読み込み中...");
+        btnLoadManifest.disabled = true;
+
+        // index.html と同じリポジトリ内の public/manifest.json を読む
+        const res = await fetch("public/manifest.json", { cache: "no-store" });
+        if (!res.ok) {
+          throw new Error("HTTP " + res.status);
+        }
+        const data = await res.json();
+        if (!Array.isArray(data)) {
+          throw new Error("manifest.json が配列ではありません");
+        }
+
+        manifestItems = data;
+        renderItemList();
+        setStatus("manifest.json を読み込みました。件数: " + manifestItems.length);
+      } catch (e) {
+        console.error(e);
+        setStatus("manifest 読み込みに失敗: " + e.message);
+      } finally {
+        btnLoadManifest.disabled = false;
+      }
     }
-  }
-});
 
-// ② JSONリスト選択で「読み込み」を活性化
-const jsonListEl = document.getElementById("jsonList");
-function onJsonListChange() {
-  setLoadEnabled(!!jsonListEl.value);
-}
-jsonListEl.addEventListener("change", onJsonListChange);
-jsonListEl.addEventListener("input", onJsonListChange);
-jsonListEl.addEventListener("click", onJsonListChange);
+    // フィルタをかけて一覧を描画
+    function renderItemList() {
+      const partVal  = partFilterEl.value;
+      const levelVal = levelFilterEl.value;
 
-// ③ 「読み込み」ボタン
-document.getElementById("btnload").addEventListener("click", async (ev) => {
-  const btn = ev.currentTarget;
-  const sel = document.getElementById("jsonList");
-  const opt = sel.selectedOptions[0];
-  if (!opt) return;
+      const filtered = manifestItems.filter(item => {
+        if (partVal && String(item.part) !== partVal) return false;
+        if (levelVal && String(item.level) !== levelVal) return false;
+        return true;
+      });
 
-  btn.textContent = "読み込み中…";
-  btn.disabled = true;
+      itemListEl.innerHTML = "";
+      filtered.forEach((item, idx) => {
+        const opt = document.createElement("option");
+        // 表示ラベル: "p3-20251106-0001-1 (P3 / A2)"
+        const partLabel  = item.part ? "P" + item.part : "?";
+        const levelLabel = item.level || "?";
+        opt.textContent = (item.id || "item-" + idx) + " (" + partLabel + " / " + levelLabel + ")";
+        // value として json_path を持たせる
+        opt.value = item.json_path || "";
+        // 念のため id も data 属性で保持
+        opt.dataset.itemId = item.id || "";
+        itemListEl.appendChild(opt);
+      });
 
-  try {
-    // 1) JSON を読み込み、audio.src を設定
-    await loadItem(opt.value);
-    const player = document.getElementById("player");
+      if (filtered.length === 0) {
+        setStatus("フィルタ条件に一致する項目がありません。");
+      } else {
+        setStatus("一覧更新: " + filtered.length + " 件");
+      }
+    }
 
-    // 2) canplay を待ってから再生（最大2秒待ち）
-    await Promise.race([
-      new Promise(res => {
-        const onCanPlay = () => {
-          player.removeEventListener("canplay", onCanPlay);
-          res();
-        };
-        player.addEventListener("canplay", onCanPlay, { once: true });
-        // 念のため明示ロード
-        try { player.load(); } catch {}
-      }),
-      new Promise(res => setTimeout(res, 2000))
-    ]);
+    // 1件の JSON を読み込んで右側に反映
+    async function loadItemFromSelection() {
+      const selected = itemListEl.value;
+      if (!selected) {
+        alert("読み込む JSON を一覧から選択してください。");
+        return;
+      }
 
-    // 3) 再生（失敗しても UI は前進させる）
-    await player.play().catch(e => console.debug("autoplay blocked:", e));
-  } catch (e) {
-    console.error(e);
-    alert("読み込みに失敗しました。Console を確認してください。");
-  } finally {
-    btn.textContent = "読み込み";
-    setLoadEnabled(!!document.getElementById("jsonList").value);
-  }
-});
+      const jsonPath = selected; // "items/part3/..." を想定
+      setStatus("JSON 読み込み中: " + jsonPath);
+      btnLoadItem.disabled = true;
 
-// ④ URL直指定の読み込み
-document.getElementById("loadDirect").addEventListener("click", async (ev) => {
-  const btn = ev.currentTarget;
-  const u = document.getElementById("directUrl").value.trim();
-  if (!u) return;
+      try {
+        const res = await fetch(jsonPath, { cache: "no-store" });
+        if (!res.ok) {
+          throw new Error("JSON load failed: " + res.status);
+        }
+        const data = await res.json();
+        displayItem(data, jsonPath);
+        setStatus("JSON 読み込み完了: " + (data.id || jsonPath));
+      } catch (e) {
+        console.error(e);
+        setStatus("JSON 読み込みエラー: " + e.message);
+      } finally {
+        btnLoadItem.disabled = false;
+      }
+    }
 
-  btn.textContent = "読み込み中…";
-  btn.disabled = true;
+    // JSON を UI に反映
+    function displayItem(item, jsonPath) {
+      const id    = item.id || "(idなし)";
+      const part  = item.part != null ? "Part " + item.part : "(part不明)";
+      const level = item.level || "(level不明)";
 
-  try {
-    await loadItem(u);
-    const player = document.getElementById("player");
-    await player.play().catch(e => console.debug("autoplay blocked:", e));
-  } catch (e) {
-    console.error(e);
-    alert("読み込みに失敗しました。URLをご確認ください。");
-  } finally {
-    btn.textContent = "読み込み";
-    btn.disabled = false;
-  }
-});
-</script>
+      previewTitleEl.textContent = id;
+      previewMetaEl.textContent  = part + " / " + level + " / " + jsonPath;
+
+      const stem = item.content && item.content.stem ? item.content.stem : "";
+      previewStemEl.textContent = stem;
+
+      // 生 JSON 表示
+      rawJsonEl.textContent = JSON.stringify(item, null, 2);
+
+      const assets = item.assets || {};
+      const audioUrl = assets.audio_url || "";
+      const imageUrl = assets.image_url || "";
+      const pageUrl  = assets.page_url || "";
+
+      // Audio 設定
+      audioPlayer.src = audioUrl || "";
+      audioPlayer.load();
+
+      audioLinksEl.innerHTML = "";
+      if (audioUrl) {
+        const a = document.createElement("a");
+        a.href = audioUrl;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = "audio_url を別タブで開く";
+        audioLinksEl.appendChild(a);
+      }
+
+      // page_url リンク
+      pageLinkEl.innerHTML = "";
+      if (pageUrl) {
+        const a = document.createElement("a");
+        a.href = pageUrl;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = "page_url（設問ページ）を開く";
+        pageLinkEl.appendChild(a);
+      }
+
+      // 画像
+      imageLinkEl.innerHTML = "";
+      if (imageUrl) {
+        imagePreview.style.display = "block";
+        imagePreview.src = imageUrl;
+
+        const a = document.createElement("a");
+        a.href = imageUrl;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.textContent = "image_url を別タブで開く";
+        imageLinkEl.appendChild(a);
+      } else {
+        imagePreview.style.display = "none";
+        imagePreview.src = "";
+      }
+    }
+
+    // イベント設定
+    btnLoadManifest.addEventListener("click", loadManifest);
+    btnLoadItem.addEventListener("click", loadItemFromSelection);
+    partFilterEl.addEventListener("change", renderItemList);
+    levelFilterEl.addEventListener("change", renderItemList);
+
+    // ページ初期表示時はステータスメッセージだけ
+    setStatus("まず「JSON一覧を読み込み（manifest）」をクリックしてください。");
+  </script>
+</body>
+</html>
