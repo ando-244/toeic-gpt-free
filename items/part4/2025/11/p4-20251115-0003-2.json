@@ -1,0 +1,44 @@
+{
+  "id": "p4-20251115-0003-2",
+  "part": 4,
+  "level": "A2",
+  "topic": [
+    "radio",
+    "event"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part4/2025/11/p4-0003.mp3"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P4-Talk"
+  },
+  "content": {
+    "stem": "(audio) What is said about admission?",
+    "choices": {
+      "A": "It is free.",
+      "B": "It includes a free meal.",
+      "C": "It is only for children.",
+      "D": "It must be reserved in advance."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "You’re listening to City Morning Radio. This Saturday, the annual River Park Festival will be held from ten a.m. to five p.m. There will be live music, food trucks, and games for children. Admission is free, but parking spaces are limited, so we recommend using public transportation. For more details, visit our station’s website."
+      }
+    ],
+    "rationale": "The announcement says admission is free."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  },
+  "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part4/2025/11/p4-20251115-0003-2.html"
+}

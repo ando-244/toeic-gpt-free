@@ -1022,11 +1022,20 @@ def main():
             # 1) 音声（PCM）だけ作る
             make_part1_audio(statements, pcm_path, narrator_prefix=False, label_read=False, gap_ms=400)
 
-            # 2) JSON
+            # 2) PCM → WAV → MP3
+            pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
+
+            # 3) JSON
             item = make_part1_item_json(args.part, args.level, audio_url, image_url, i, statements, answer_key)
 
-            # 3) page_url を付与
+            # 4) page_url を付与
             item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+
+            # 5) JSON保存
+            ensure_path(json_path)
+            json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
+
+            print(f"[OK] {mp3_path} and {json_path}")
 
         elif args.part == 2:
             # 1問ごとにパターンをローテーション
@@ -1038,11 +1047,20 @@ def main():
             # 1) 音声（PCM）だけ作る
             make_part2_audio(question, responses, pcm_path, gap_ms=350, read_labels=False)
 
-            # 2) JSON
+            # 2) PCM → WAV → MP3
+            pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
+
+            # 3) JSON
             item = make_part2_item_json(args.part, args.level, audio_url, i, question, responses, correct)
             
-            # 3) page_url を付与
+            # 4) page_url を付与
             item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+
+            # 5) JSON保存
+            ensure_path(json_path)
+            json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
+
+            print(f"[OK] {mp3_path} and {json_path}")
 
         elif args.part == 3:
             # パターン選択
@@ -1069,10 +1087,12 @@ def main():
             for item in items:
                 out_json = item_dir / f"{item['id']}.json"
                 out_json.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
-                #print(f"[JSON] {out_json}")
-                print(f"[OK] {mp3_path} and {out_json}")
+                
                 #out_html = item_dir / f"{item['id']}.html"
                 #write_item_html(item, out_html)
+
+                #print(f"[JSON] {out_json}")
+                print(f"[OK] {mp3_path} and {out_json}")
             
             continue
 
@@ -1101,10 +1121,12 @@ def main():
             for item in items:
                 out_json = item_dir / f"{item['id']}.json"
                 out_json.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
-                #print(f"[JSON] {out_json}")
-                print(f"[OK] {mp3_path} and {out_json}")
+                
                 #out_html = item_dir / f"{item['id']}.html"
                 #write_item_html(item, out_html)
+
+                #print(f"[JSON] {out_json}")
+                print(f"[OK] {mp3_path} and {out_json}")
 
             continue
 
@@ -1112,15 +1134,15 @@ def main():
             raise ValueError(f"Unsupported part: {args.part}")
 
         # === PCM → WAV → MP3 ===
-        pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
+        #pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
 
         # === JSON保存 ===
-        ensure_path(json_path)
-        json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
-        html_path = json_path.with_suffix(".html")
-        write_item_html(item, html_path)
+        #ensure_path(json_path)
+        #json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
+        #html_path = json_path.with_suffix(".html")
+        #write_item_html(item, html_path)
 
-        print(f"[OK] {mp3_path} and {json_path}")
+        #print(f"[OK] {mp3_path} and {json_path}")
 
 # === 実行エントリ ===
 if __name__ == "__main__":

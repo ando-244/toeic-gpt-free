@@ -1,0 +1,57 @@
+{
+  "id": "p1-20251115-0005",
+  "part": 1,
+  "level": "A2",
+  "topic": [
+    "photo",
+    "description"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/11/p1-0005.mp3",
+    "image_url": "https://images.unsplash.com/photo-1587280511315-14a8235c8aec?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4MjQ1ODR8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NjMyMDIwNTd8&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P1-Photo"
+  },
+  "content": {
+    "stem": "(photo) Choose the statement that best describes the picture.",
+    "choices": {
+      "A": "A worker is moving boxes with a forklift.",
+      "B": "A group is eating in a restaurant.",
+      "C": "A train is arriving at the station.",
+      "D": "A musician is playing on a stage."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Statement A. A worker is moving boxes with a forklift."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement B. A group is eating in a restaurant."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement C. A train is arriving at the station."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement D. A musician is playing on a stage."
+      }
+    ],
+    "rationale": "A best matches the picture. Others are plausible distractors."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  },
+  "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/11/p1-20251115-0005.html"
+}

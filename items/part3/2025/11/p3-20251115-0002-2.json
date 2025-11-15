@@ -1,0 +1,56 @@
+{
+  "id": "p3-20251115-0002-2",
+  "part": 3,
+  "level": "A2",
+  "topic": [
+    "business trip",
+    "hotel"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part3/2025/11/p3-0002.mp3"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "question_type": "single",
+    "toeic_part_rule": "P3-Conversation"
+  },
+  "content": {
+    "stem": "(audio) What change was made to the man’s reservation?",
+    "choices": {
+      "A": "The check-in time was moved.",
+      "B": "His room type was upgraded.",
+      "C": "He was moved to another branch.",
+      "D": "Breakfast was canceled."
+    },
+    "transcript": [
+      {
+        "speaker": "W",
+        "text": "Did you book a hotel for your business trip?"
+      },
+      {
+        "speaker": "M",
+        "text": "Yes, but they changed my reservation to another branch."
+      },
+      {
+        "speaker": "W",
+        "text": "Is it still close to the client’s office?"
+      },
+      {
+        "speaker": "M",
+        "text": "Yes, it’s just a five-minute walk."
+      }
+    ],
+    "rationale": "He says they changed his reservation to another branch."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  },
+  "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part3/2025/11/p3-20251115-0002-2.html"
+}

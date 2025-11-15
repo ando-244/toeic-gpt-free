@@ -1,5 +1,5 @@
 {
-  "id": "p3-20251111-0001-2",
+  "id": "p3-20251115-0001-3",
   "part": 3,
   "level": "A2",
   "topic": [
@@ -21,12 +21,12 @@
     "toeic_part_rule": "P3-Conversation"
   },
   "content": {
-    "stem": "(audio) When will the meeting start?",
+    "stem": "(audio) Where will they meet?",
     "choices": {
-      "A": "At nine o’clock.",
-      "B": "At ten o’clock.",
-      "C": "At eleven o’clock.",
-      "D": "At noon."
+      "A": "In room A.",
+      "B": "In room B.",
+      "C": "In the cafeteria.",
+      "D": "In the lobby."
     },
     "transcript": [
       {
@@ -42,10 +42,11 @@
         "text": "Right, and we’ll meet in room B now."
       }
     ],
-    "rationale": "The woman says it starts at ten instead of nine."
+    "rationale": "The man says they’ll meet in room B."
   },
   "license": {
     "type": "CC-BY-4.0",
     "origin": "original"
-  }
+  },
+  "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part3/2025/11/p3-20251115-0001-3.html"
 }

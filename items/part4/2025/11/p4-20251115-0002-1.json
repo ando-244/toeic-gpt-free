@@ -1,0 +1,44 @@
+{
+  "id": "p4-20251115-0002-1",
+  "part": 4,
+  "level": "A2",
+  "topic": [
+    "company",
+    "orientation"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part4/2025/11/p4-0002.mp3"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "question_type": "single",
+    "toeic_part_rule": "P4-Talk"
+  },
+  "content": {
+    "stem": "(audio) Who is this announcement mainly for?",
+    "choices": {
+      "A": "Company shareholders.",
+      "B": "Sales representatives.",
+      "C": "New employees.",
+      "D": "Delivery drivers."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Welcome to Greenfield Electronics. The orientation for new employees will begin at nine o’clock in Conference Room A. Please bring the documents you received at the reception desk. After the orientation, your supervisors will guide you to your departments. If you have any questions, feel free to ask our staff members."
+      }
+    ],
+    "rationale": "It mentions an orientation for new employees."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  },
+  "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part4/2025/11/p4-20251115-0002-1.html"
+}

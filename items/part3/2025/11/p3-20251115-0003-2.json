@@ -1,0 +1,56 @@
+{
+  "id": "p3-20251115-0003-2",
+  "part": 3,
+  "level": "A2",
+  "topic": [
+    "restaurant",
+    "reservation"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part3/2025/11/p3-0003.mp3"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "question_type": "single",
+    "toeic_part_rule": "P3-Conversation"
+  },
+  "content": {
+    "stem": "(audio) How many people will be in the group?",
+    "choices": {
+      "A": "Two.",
+      "B": "Three.",
+      "C": "Four.",
+      "D": "Five."
+    },
+    "transcript": [
+      {
+        "speaker": "M",
+        "text": "I’d like to confirm our dinner reservation for tonight."
+      },
+      {
+        "speaker": "W",
+        "text": "Sure. Is it under the name Tanaka?"
+      },
+      {
+        "speaker": "M",
+        "text": "Yes, for four people at seven thirty."
+      },
+      {
+        "speaker": "W",
+        "text": "All right, we’ll have your table ready."
+      }
+    ],
+    "rationale": "The man says the reservation is for four people."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  },
+  "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part3/2025/11/p3-20251115-0003-2.html"
+}
