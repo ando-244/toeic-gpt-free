@@ -102,6 +102,380 @@ def pcm_to_wav_mp3(pcm_path, wav_path, mp3_path):
          "-i", str(pcm_path), str(wav_path)])
     run([FFMPEG_EXE, "-y", "-i", str(wav_path), "-ar", "44100", "-b:a", "112k", str(mp3_path)])
 
+# === Part1 用の問題パターン集 ===
+PART1_PATTERNS = [
+    {
+        "query": "office desk laptop coffee",  # Unsplash用キーワード
+        "statements": [
+            "A laptop is open on the desk.",          # A 正解
+            "Some people are standing in a line.",
+            "A car is parked on the street.",
+            "The room is decorated for a party."
+        ],
+        "answer": "A"
+    },
+    {
+        "query": "meeting room whiteboard coworkers",
+        "statements": [
+            "Several people are sitting around a table.",  # B 正解
+            "A woman is standing at a bus stop.",
+            "Boxes are stacked in a warehouse.",
+            "A man is walking a dog in the park."
+        ],
+        "answer": "A"
+    },
+    {
+        "query": "city street crosswalk people",
+        "statements": [
+            "People are crossing the street at a crosswalk.",  # A 正解
+            "A chef is cooking in a kitchen.",
+            "A man is using a copy machine.",
+            "Desks are arranged in a classroom."
+        ],
+        "answer": "A"
+    },
+    {
+        "query": "airport departure board passengers",
+        "statements": [
+            "Passengers are looking at an information board.",  # A 正解
+            "A gardener is planting flowers.",
+            "A truck is being loaded with furniture.",
+            "Some books are stacked on a shelf."
+        ],
+        "answer": "A"
+    },
+    {
+        "query": "warehouse worker forklift boxes",
+        "statements": [
+            "A worker is moving boxes with a forklift.",  # A 正解
+            "A group is eating in a restaurant.",
+            "A train is arriving at the station.",
+            "A musician is playing on a stage."
+        ],
+        "answer": "A"
+    },
+]
+
+# === Part2 用の問題パターン集 ===
+PART2_PATTERNS = [
+    {
+        "question": "Could you send me the draft by noon?",
+        "responses": [
+            "I’ll send it before lunch.",
+            "I’m meeting her at the cafeteria.",
+            "Sure, I’ll e-mail it by twelve."
+        ],
+        "answer": "C"
+    },
+    {
+        "question": "When will the client arrive?",
+        "responses": [
+            "He should be here around three.",
+            "No, I haven’t met him.",
+            "At the central station."
+        ],
+        "answer": "A"
+    },
+    {
+        "question": "Where should I put these documents?",
+        "responses": [
+            "They were sent yesterday.",
+            "Please leave them on my desk.",
+            "About the new project."
+        ],
+        "answer": "B"
+    },
+    {
+        "question": "Why was the meeting canceled?",
+        "responses": [
+            "Because the manager is on a business trip.",
+            "In the main conference room.",
+            "Next Wednesday afternoon."
+        ],
+        "answer": "A"
+    },
+]
+
+
+# === Part3 用の会話パターン集（会話＋設問3本セット） ===
+PART3_PATTERNS = [
+    {
+        "topic": ["office", "schedule"],
+        "dialog": [
+            ("M", "Good morning. Did you check the new meeting schedule?"),
+            ("W", "Yes, it starts at ten instead of nine."),
+            ("M", "Right, and we’ll meet in room B now.")
+        ],
+        "questions": [
+            {
+                "stem": "(audio) What are the speakers mainly discussing?",
+                "choices": {
+                    "A": "A change in travel plans.",
+                    "B": "A change in meeting time.",
+                    "C": "A new employee policy.",
+                    "D": "A customer complaint."
+                },
+                "answer": "B",
+                "rationale": "They talk about a schedule change, so B is correct."
+            },
+            {
+                "stem": "(audio) When will the meeting start?",
+                "choices": {
+                    "A": "At nine o’clock.",
+                    "B": "At ten o’clock.",
+                    "C": "At eleven o’clock.",
+                    "D": "At noon."
+                },
+                "answer": "B",
+                "rationale": "The woman says it starts at ten instead of nine."
+            },
+            {
+                "stem": "(audio) Where will they meet?",
+                "choices": {
+                    "A": "In room A.",
+                    "B": "In room B.",
+                    "C": "In the cafeteria.",
+                    "D": "In the lobby."
+                },
+                "answer": "B",
+                "rationale": "The man says they’ll meet in room B."
+            },
+        ],
+    },
+
+    {
+        "topic": ["business trip", "hotel"],
+        "dialog": [
+            ("W", "Did you book a hotel for your business trip?"),
+            ("M", "Yes, but they changed my reservation to another branch."),
+            ("W", "Is it still close to the client’s office?"),
+            ("M", "Yes, it’s just a five-minute walk.")
+        ],
+        "questions": [
+            {
+                "stem": "(audio) What are the speakers mainly talking about?",
+                "choices": {
+                    "A": "A delayed flight.",
+                    "B": "A hotel reservation.",
+                    "C": "A job interview.",
+                    "D": "A training workshop."
+                },
+                "answer": "B",
+                "rationale": "They discuss the man’s hotel booking for a business trip."
+            },
+            {
+                "stem": "(audio) What change was made to the man’s reservation?",
+                "choices": {
+                    "A": "The check-in time was moved.",
+                    "B": "His room type was upgraded.",
+                    "C": "He was moved to another branch.",
+                    "D": "Breakfast was canceled."
+                },
+                "answer": "C",
+                "rationale": "He says they changed his reservation to another branch."
+            },
+            {
+                "stem": "(audio) What is said about the new hotel?",
+                "choices": {
+                    "A": "It is far from the client’s office.",
+                    "B": "It is within walking distance.",
+                    "C": "It is under renovation.",
+                    "D": "It does not have Internet access."
+                },
+                "answer": "B",
+                "rationale": "He says it is just a five-minute walk."
+            },
+        ],
+    },
+
+    {
+        "topic": ["restaurant", "reservation"],
+        "dialog": [
+            ("M", "I’d like to confirm our dinner reservation for tonight."),
+            ("W", "Sure. Is it under the name Tanaka?"),
+            ("M", "Yes, for four people at seven thirty."),
+            ("W", "All right, we’ll have your table ready.")
+        ],
+        "questions": [
+            {
+                "stem": "(audio) Where is this conversation taking place?",
+                "choices": {
+                    "A": "In a restaurant.",
+                    "B": "At a travel agency.",
+                    "C": "In a company lobby.",
+                    "D": "At a supermarket."
+                },
+                "answer": "A",
+                "rationale": "They are confirming a dinner reservation and a table."
+            },
+            {
+                "stem": "(audio) How many people will be in the group?",
+                "choices": {
+                    "A": "Two.",
+                    "B": "Three.",
+                    "C": "Four.",
+                    "D": "Five."
+                },
+                "answer": "C",
+                "rationale": "The man says the reservation is for four people."
+            },
+            {
+                "stem": "(audio) What time is the reservation for?",
+                "choices": {
+                    "A": "Six o’clock.",
+                    "B": "Seven o’clock.",
+                    "C": "Seven thirty.",
+                    "D": "Eight thirty."
+                },
+                "answer": "C",
+                "rationale": "He says, “for four people at seven thirty.”"
+            },
+        ],
+    },
+]
+
+
+# === Part4 用アナウンス／トークパターン集 ===
+PART4_PATTERNS = [
+    {
+        "topic": ["airport", "delay"],
+        "script": (
+            "Good afternoon, passengers. "
+            "This is an announcement for all travelers waiting for Flight 102 to Seattle. "
+            "Due to heavy fog, the departure will be delayed for about thirty minutes. "
+            "Please remain near Gate 12 and listen for further updates. "
+            "We apologize for the inconvenience and thank you for your patience."
+        ),
+        "questions": [
+            {
+                "stem": "(audio) What is the main purpose of the announcement?",
+                "choices": {
+                    "A": "To advertise a new flight route.",
+                    "B": "To report a flight delay.",
+                    "C": "To ask passengers to change seats.",
+                    "D": "To cancel a flight."
+                },
+                "answer": "B",
+                "rationale": "The speaker explains that the departure will be delayed."
+            },
+            {
+                "stem": "(audio) What is causing the delay?",
+                "choices": {
+                    "A": "Mechanical problems.",
+                    "B": "Heavy fog.",
+                    "C": "A baggage issue.",
+                    "D": "A crew change."
+                },
+                "answer": "B",
+                "rationale": "The announcement mentions heavy fog as the reason."
+            },
+            {
+                "stem": "(audio) What are passengers asked to do?",
+                "choices": {
+                    "A": "Go to another gate.",
+                    "B": "Return to the check-in counter.",
+                    "C": "Remain near Gate 12.",
+                    "D": "Board the plane immediately."
+                },
+                "answer": "C",
+                "rationale": "They are told to remain near Gate 12 and listen for updates."
+            },
+        ],
+    },
+
+    {
+        "topic": ["company", "orientation"],
+        "script": (
+            "Welcome to Greenfield Electronics. "
+            "The orientation for new employees will begin at nine o’clock in Conference Room A. "
+            "Please bring the documents you received at the reception desk. "
+            "After the orientation, your supervisors will guide you to your departments. "
+            "If you have any questions, feel free to ask our staff members."
+        ),
+        "questions": [
+            {
+                "stem": "(audio) Who is this announcement mainly for?",
+                "choices": {
+                    "A": "Company shareholders.",
+                    "B": "Sales representatives.",
+                    "C": "New employees.",
+                    "D": "Delivery drivers."
+                },
+                "answer": "C",
+                "rationale": "It mentions an orientation for new employees."
+            },
+            {
+                "stem": "(audio) What are listeners asked to bring?",
+                "choices": {
+                    "A": "Their identification cards.",
+                    "B": "The documents from reception.",
+                    "C": "A laptop computer.",
+                    "D": "Product samples."
+                },
+                "answer": "B",
+                "rationale": "They are asked to bring the documents received at the reception desk."
+            },
+            {
+                "stem": "(audio) What will happen after the orientation?",
+                "choices": {
+                    "A": "A factory tour will be held.",
+                    "B": "Employees will have lunch.",
+                    "C": "Supervisors will take them to their departments.",
+                    "D": "A test will be given."
+                },
+                "answer": "C",
+                "rationale": "Supervisors will guide them to their departments."
+            },
+        ],
+    },
+
+    {
+        "topic": ["radio", "event"],
+        "script": (
+            "You’re listening to City Morning Radio. "
+            "This Saturday, the annual River Park Festival will be held from ten a.m. to five p.m. "
+            "There will be live music, food trucks, and games for children. "
+            "Admission is free, but parking spaces are limited, so we recommend using public transportation. "
+            "For more details, visit our station’s website."
+        ),
+        "questions": [
+            {
+                "stem": "(audio) What is being announced?",
+                "choices": {
+                    "A": "A new radio program.",
+                    "B": "A local festival.",
+                    "C": "A charity concert.",
+                    "D": "A store opening."
+                },
+                "answer": "B",
+                "rationale": "It describes the annual River Park Festival."
+            },
+            {
+                "stem": "(audio) What is said about admission?",
+                "choices": {
+                    "A": "It is free.",
+                    "B": "It includes a free meal.",
+                    "C": "It is only for children.",
+                    "D": "It must be reserved in advance."
+                },
+                "answer": "A",
+                "rationale": "The announcement says admission is free."
+            },
+            {
+                "stem": "(audio) Why are listeners encouraged to use public transportation?",
+                "choices": {
+                    "A": "Parking is expensive.",
+                    "B": "The roads will be closed.",
+                    "C": "Parking spaces are limited.",
+                    "D": "Buses are free on weekends."
+                },
+                "answer": "C",
+                "rationale": "Because parking spaces are limited."
+            },
+        ],
+    },
+]
+
 # === JSON生成 ===
 def make_part1_item_json(part, level, audio_url, image_url, idx, statements, answer_key):
     #"""
@@ -183,47 +557,10 @@ def make_part2_item_json(part, level, audio_url, idx,
     }
 
 
-def make_part3_items_json(part, level, audio_url, idx, dialog):
+def make_part3_items_json(part, level, audio_url, idx, dialog, topic, questions):
     now = dt.datetime.now(dt.UTC)
     base_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
     transcript = [{"speaker": spk, "text": text} for spk, text in dialog]
-
-    # === 設問を定義 ===
-    questions = [
-        {
-            "stem": "(audio) What are the speakers mainly discussing?",
-            "choices": {
-                "A": "A change in travel plans.",
-                "B": "A change in meeting time.",
-                "C": "A new employee policy.",
-                "D": "A customer complaint."
-            },
-            "answer": "B",
-            "rationale": "They talk about a schedule change, so B is correct."
-        },
-        {
-            "stem": "(audio) When will the meeting start?",
-            "choices": {
-                "A": "At nine o’clock.",
-                "B": "At ten o’clock.",
-                "C": "At eleven o’clock.",
-                "D": "At noon."
-            },
-            "answer": "B",
-            "rationale": "The woman says it starts at ten instead of nine."
-        },
-        {
-            "stem": "(audio) Where will they meet?",
-            "choices": {
-                "A": "In room A.",
-                "B": "In room B.",
-                "C": "In the cafeteria.",
-                "D": "In the lobby."
-            },
-            "answer": "B",
-            "rationale": "The man says they’ll meet in room B."
-        }
-    ]
 
     # === JSONリストを構築 ===
     items = []
@@ -233,10 +570,10 @@ def make_part3_items_json(part, level, audio_url, idx, dialog):
             "id": item_id,
             "part": part,
             "level": level,
-            "topic": ["office", "schedule"],
+            "topic": topic,
             "assets": {"audio_url": audio_url},
             "format": {
-                "choices": ["A", "B", "C", "D"],
+                "choices": sorted(q["choices"].keys()),  # ["A","B","C","D"]
                 "answer": q["answer"],
                 "question_type": "single",
                 "toeic_part_rule": "P3-Conversation"
@@ -251,47 +588,10 @@ def make_part3_items_json(part, level, audio_url, idx, dialog):
         })
     return items
 
-
-def make_part4_items_json(part, level, audio_url, idx, script_text: str):
+def make_part4_items_json(part, level, audio_url, idx, script_text, topic, questions):
     now = dt.datetime.now(dt.UTC)
     base_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
     transcript = [{"speaker": "N", "text": script_text}]  # Narrator
-
-    questions = [
-        {
-            "stem": "(audio) What is the announcement mainly about?",
-            "choices": {
-                "A": "A flight delay notice.",
-                "B": "A hotel reservation.",
-                "C": "A restaurant promotion.",
-                "D": "A safety regulation."
-            },
-            "answer": "A",
-            "rationale": "The talk explains a flight delay, so A is correct."
-        },
-        {
-            "stem": "(audio) Who is the intended audience?",
-            "choices": {
-                "A": "Travel agents.",
-                "B": "Passengers waiting at Gate 12.",
-                "C": "Hotel guests.",
-                "D": "Bus drivers."
-            },
-            "answer": "B",
-            "rationale": "The speaker addresses passengers waiting at Gate 12."
-        },
-        {
-            "stem": "(audio) What should listeners do next?",
-            "choices": {
-                "A": "Board the plane immediately.",
-                "B": "Go to the information counter.",
-                "C": "Wait for further updates.",
-                "D": "Collect their baggage."
-            },
-            "answer": "C",
-            "rationale": "The speaker tells them to wait for another announcement."
-        }
-    ]
 
     items = []
     for q_idx, q in enumerate(questions, start=1):
@@ -300,10 +600,10 @@ def make_part4_items_json(part, level, audio_url, idx, script_text: str):
             "id": item_id,
             "part": part,
             "level": level,
-            "topic": ["announcement", "airport"],
+            "topic": topic,
             "assets": {"audio_url": audio_url},
             "format": {
-                "choices": ["A", "B", "C", "D"],
+                "choices": sorted(q["choices"].keys()),
                 "answer": q["answer"],
                 "question_type": "single",
                 "toeic_part_rule": "P4-Talk"
@@ -317,7 +617,6 @@ def make_part4_items_json(part, level, audio_url, idx, script_text: str):
             "license": {"type": "CC-BY-4.0", "origin": "original"}
         })
     return items
-
 
 def unsplash_random_image(prompt: str, out_path: pathlib.Path, orientation="landscape"):
     #"Unsplash API でランダム画像を取得し out_path に保存"
@@ -690,6 +989,11 @@ def main():
 
         # === Partごとの処理分岐 ===
         if args.part == 1:
+            # 1問ごとにパターンをローテーション
+            pattern = PART1_PATTERNS[(i - 1) % len(PART1_PATTERNS)]
+            statements = pattern["statements"]
+            answer_key = pattern["answer"]
+
             #prompt = "office desk laptop coffee"  # 写真キーワードの例
             image_rel = pathlib.Path(f"media/images/part1/{yyyy}/{mm}/p1-{i:04d}.webp")
             image_path = out / image_rel
@@ -698,16 +1002,24 @@ def main():
             #image_url = f"{BASE_URL}/{image_rel.as_posix()}"
             image_url = asset_url(image_rel)
             # statements…
-            statements = [
-                "A laptop is open on the desk.",       # 正解
-                "Some people are standing in a line.",
-                "A car is parked on the street.",
-                "The room is decorated for a party."
-            ]
-            answer_key = "A"
+            #statements = [
+            #    "A laptop is open on the desk.",       # 正解
+            #    "Some people are standing in a line.",
+            #    "A car is parked on the street.",
+            #    "The room is decorated for a party."
+            #]
+            #answer_key = "A"
+
+            # Unsplash から画像取得（パターン固有の query を使用）
+            # 失敗時にエラーがわかるように try/except を軽く足すと安心
+            try:
+                image_url = unsplash_random_image(pattern["query"], image_path)
+                print(f"[IMG] saved: {image_path} ({image_url})")
+            except Exception as e:
+                print(f"[WARN] unsplash_random_image failed: {e}")
+                image_url = None  # JSON 上は null にしておく等、好みで
 
             # 1) 音声（PCM）だけ作る
-            #make_part1_audio(statements, pcm_path)
             make_part1_audio(statements, pcm_path, narrator_prefix=False, label_read=False, gap_ms=400)
 
             # 2) JSON
@@ -717,30 +1029,27 @@ def main():
             item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
 
         elif args.part == 2:
-            question = "Could you send me the draft by noon?"
-            responses = [
-                "I’ll send it before lunch.",     # A
-                "I’m meeting her at the cafeteria.",  # B（文脈外）
-                "Sure, I’ll email it by twelve."  # C 正解
-            ]
-            correct = "C"
+            # 1問ごとにパターンをローテーション
+            p2 = PART2_PATTERNS[(i - 1) % len(PART2_PATTERNS)]
+            question  = p2["question"]
+            responses = p2["responses"]
+            correct   = p2["answer"]
 
             # 1) 音声（PCM）だけ作る
             make_part2_audio(question, responses, pcm_path, gap_ms=350, read_labels=False)
 
             # 2) JSON
-            item = make_part2_item_json(args.part, args.level, audio_url, i,
-                                question, responses, correct)
+            item = make_part2_item_json(args.part, args.level, audio_url, i, question, responses, correct)
             
             # 3) page_url を付与
             item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
 
         elif args.part == 3:
-            dialog = [
-                ("M", "Good morning. Did you check the new meeting schedule?"),
-                ("W", "Yes, it starts at ten instead of nine."),
-                ("M", "Right, and we’ll meet in room B now.")
-            ]
+            # パターン選択
+            p3 = PART3_PATTERNS[(i - 1) % len(PART3_PATTERNS)]
+            dialog    = p3["dialog"]
+            topic     = p3["topic"]
+            questions = p3["questions"]
 
             # 1) 会話音声生成（二人の声で）
             generate_dialog_audio(dialog, pcm_path, gap_ms=300, label_speaker=False)
@@ -749,7 +1058,7 @@ def main():
             pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
 
             # 3) 設問3本のJSONを生成
-            items = make_part3_items_json(args.part, args.level, audio_url, i, dialog)
+            items = make_part3_items_json(args.part, args.level, audio_url, i, dialog, topic, questions)
             for item in items:
                 item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
             
@@ -768,14 +1077,11 @@ def main():
             continue
 
         elif args.part == 4:
-            # 例：空港アナウンス
-            script_text = (
-                "Good afternoon, passengers. "
-                "This is an announcement for all travelers waiting for Flight 102 to Seattle. "
-                "Due to heavy fog, the departure will be delayed for about thirty minutes. "
-                "Please remain near Gate 12 and listen for further updates. "
-                "We apologize for the inconvenience and thank you for your patience."
-            )
+            # パターンをローテーション
+            p4 = PART4_PATTERNS[(i - 1) % len(PART4_PATTERNS)]
+            script_text = p4["script"]
+            topic       = p4["topic"]
+            questions   = p4["questions"]
 
             # 1) 音声生成（話者1人、ナレーション風）
             generate_dialog_audio([("N", script_text)], pcm_path, gap_ms=0, label_speaker=False)
@@ -784,7 +1090,7 @@ def main():
             pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
 
             # 3) JSON生成（設問3つ）
-            items = make_part4_items_json(args.part, args.level, audio_url, i, script_text)
+            items = make_part4_items_json(args.part, args.level, audio_url, i, script_text, topic, questions)
             for item in items:
                 item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
 
