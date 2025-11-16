@@ -118,7 +118,8 @@ def main():
         "items": items_out,
     }
     with out_path.open("w", encoding="utf-8") as f:
-        json.dump(manifest, f, ensure_ascii=False, indent=2)
+        #json.dump(manifest, f, ensure_ascii=False, indent=2)
+        json.dump(items_out, f, ensure_ascii=False, indent=2)
 
     print(f"[OK] manifest: {out_path} ({len(items_out)} items)")
 
