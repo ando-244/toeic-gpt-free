@@ -61,7 +61,8 @@ def main():
     if not json_files:
         print(f"[WARN] JSONが見つかりません: {items_dir}", file=sys.stderr)
 
-    items_out: List[Dict[str, Any]] = []
+    #items_out: List[Dict[str, Any]] = []
+    items_out = []
     seen_ids = set()
 
     for jp in sorted(json_files):
@@ -121,7 +122,8 @@ def main():
         #json.dump(manifest, f, ensure_ascii=False, indent=2)
         json.dump(items_out, f, ensure_ascii=False, indent=2)
 
-    print(f"[OK] manifest: {out_path} ({len(items_out)} items)")
+    #print(f"[OK] manifest: {out_path} ({len(items_out)} items)")
+    print(f"[OK] manifest: {out_path}")
 
 if __name__ == "__main__":
     main()

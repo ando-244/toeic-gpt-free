@@ -263,11 +263,13 @@
           throw new Error("HTTP " + res.status);
         }
         const data = await res.json();
-        if (!Array.isArray(data)) {
+        const items = Array.isArray(data) ? manifest : data.items;
+
+        if (!Array.isArray(items)) {
           throw new Error("manifest.json が配列ではありません");
         }
 
-        manifestItems = data;
+        manifestItems = items;
         renderItemList();
         setStatus("manifest.json を読み込みました。件数: " + manifestItems.length);
       } catch (e) {
