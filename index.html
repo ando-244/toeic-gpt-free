@@ -263,7 +263,7 @@
           throw new Error("HTTP " + res.status);
         }
         const data = await res.json();
-        const items = Array.isArray(data) ? manifest : data.items;
+        const items = Array.isArray(data) ? data : data.items;
 
         if (!Array.isArray(items)) {
           throw new Error("manifest.json が配列ではありません");
