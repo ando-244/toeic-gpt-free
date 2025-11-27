@@ -1,0 +1,44 @@
+{
+  "id": "p4-20251127-0001-1",
+  "part": 4,
+  "level": "A2",
+  "topic": [
+    "office",
+    "visitor"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part4/2025/11/p4-20251127-0001.mp3",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part4/2025/11/p4-20251127-0001-1.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "B",
+    "question_type": "single",
+    "toeic_part_rule": "P4-Talk"
+  },
+  "content": {
+    "stem": "(audio) What must visitors do when they arrive?",
+    "choices": {
+      "A": "Go directly to the top floor.",
+      "B": "Sign in at the front desk.",
+      "C": "Use the staff entrance.",
+      "D": "Wait outside the building."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Welcome to River Tower Office Building. All visitors must sign in at the front desk and wear a visitor badge. Please wait in the lobby seats until your host comes to meet you. When you leave, return your badge to the desk."
+      }
+    ],
+    "rationale": "Visitors need to sign in at reception."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

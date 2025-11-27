@@ -1,0 +1,69 @@
+{
+  "id": "p1-20251127-0003",
+  "part": 1,
+  "level": "A2",
+  "topic": [
+    "office",
+    "reception",
+    "woman"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/11/p1-20251127-0003.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/11/p1-20251127-0003.jpg",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/11/p1-20251127-0003.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "question_type": "single",
+    "toeic_part_rule": "P1-Photo"
+  },
+  "content": {
+    "stem": "(photo) Choose the statement that best describes the picture.",
+    "choices": {
+      "A": "A man is taking money from an ATM machine.",
+      "B": "A child is feeding ducks at a pond.",
+      "C": "A worker is stacking boxes on a shelf.",
+      "D": "A receptionist is speaking with a visitor at a front desk."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Statement A. A man is taking money from an ATM machine."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement B. A child is feeding ducks at a pond."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement C. A worker is stacking boxes on a shelf."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement D. A receptionist is speaking with a visitor at a front desk."
+      }
+    ],
+    "rationale": "The correct sentence describes a receptionist and a visitor at an office desk. The others are not reception scenes."
+  },
+  "license": {
+    "type": "mixed",
+    "text": {
+      "type": "CC-BY-4.0",
+      "origin": "original"
+    },
+    "audio": {
+      "type": "CC-BY-4.0",
+      "origin": "original"
+    },
+    "image": {
+      "type": "unsplash",
+      "origin": "https://unsplash.com/..."
+    }
+  }
+}

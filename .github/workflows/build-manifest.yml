@@ -5,7 +5,7 @@ on:
     branches: [ main ]
     paths:
       - "items/**"
-      - ".tools/build_manifest.py"
+      - "tools/build_manifest.py"
       - ".github/workflows/build-manifest.yml"
 
 jobs:
@@ -23,7 +23,7 @@ jobs:
         env:
           PUBLIC_BASE_URL: https://ando-244.github.io/toeic-gpt-free
         run: |
-          python .tools/build_manifest.py
+          python tools/build_manifest.py
 
       - name: Commit manifest
         run: |

@@ -1,0 +1,44 @@
+{
+  "id": "p4-20251127-0003-3",
+  "part": 4,
+  "level": "A2",
+  "topic": [
+    "park",
+    "lost item"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part4/2025/11/p4-20251127-0003.mp3",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part4/2025/11/p4-20251127-0003-3.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "question_type": "single",
+    "toeic_part_rule": "P4-Talk"
+  },
+  "content": {
+    "stem": "(audio) Who will help the owner of the backpack?",
+    "choices": {
+      "A": "Another visitor.",
+      "B": "A police officer.",
+      "C": "A park staff member.",
+      "D": "The bus driver."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Attention, visitors. A small blue backpack has been found near the playground. If you think it may belong to you or your child, please come to the park office next to the main gate. A staff member will help you there."
+      }
+    ],
+    "rationale": "A staff member will help at the office."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "id": "p2-20251127-0003",
+  "part": 2,
+  "level": "A2",
+  "topic": [
+    "movie",
+    "start"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part2/2025/11/p2-20251127-0003.mp3",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part2/2025/11/p2-20251127-0003.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P2-Response"
+  },
+  "content": {
+    "stem": "(audio) Question-Response",
+    "question": "When does the movie start?",
+    "choices": {
+      "A": "It starts at seven fifteen.",
+      "B": "In the large theater.",
+      "C": "With my best friend."
+    },
+    "transcript": [
+      {
+        "speaker": "W",
+        "text": "When does the movie start?"
+      },
+      {
+        "speaker": "R",
+        "text": "It starts at seven fifteen."
+      },
+      {
+        "speaker": "R",
+        "text": "In the large theater."
+      },
+      {
+        "speaker": "R",
+        "text": "With my best friend."
+      }
+    ],
+    "rationale": "Option A gives a start time. B is a location, and C is a person."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

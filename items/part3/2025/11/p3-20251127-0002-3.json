@@ -1,0 +1,52 @@
+{
+  "id": "p3-20251127-0002-3",
+  "part": 3,
+  "level": "A2",
+  "topic": [
+    "schedule",
+    "lunch"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part3/2025/11/p3-20251127-0002.mp3",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part3/2025/11/p3-20251127-0002-3.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P3-Conversation"
+  },
+  "content": {
+    "stem": "(audio) What does the man say?",
+    "choices": {
+      "A": "One thirty works for him.",
+      "B": "He already ate.",
+      "C": "He prefers one o’clock.",
+      "D": "He wants to cancel lunch."
+    },
+    "transcript": [
+      {
+        "speaker": "M",
+        "text": "Do you want to have lunch at one?"
+      },
+      {
+        "speaker": "W",
+        "text": "I can’t. How about one thirty?"
+      },
+      {
+        "speaker": "M",
+        "text": "Sure, that works."
+      }
+    ],
+    "rationale": ""
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

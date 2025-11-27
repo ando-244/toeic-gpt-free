@@ -1,0 +1,52 @@
+{
+  "id": "p3-20251127-0001-2",
+  "part": 3,
+  "level": "A2",
+  "topic": [
+    "office",
+    "forgot"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part3/2025/11/p3-20251127-0001.mp3",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part3/2025/11/p3-20251127-0001-2.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P3-Conversation"
+  },
+  "content": {
+    "stem": "(audio) When does the meeting start?",
+    "choices": {
+      "A": "In five minutes.",
+      "B": "At noon.",
+      "C": "Tomorrow morning.",
+      "D": "In one hour."
+    },
+    "transcript": [
+      {
+        "speaker": "W",
+        "text": "Did you bring the documents for the meeting?"
+      },
+      {
+        "speaker": "M",
+        "text": "Oh no, I left them on my desk."
+      },
+      {
+        "speaker": "W",
+        "text": "Hurry! The meeting starts in five minutes."
+      }
+    ],
+    "rationale": "She says it starts in five minutes."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

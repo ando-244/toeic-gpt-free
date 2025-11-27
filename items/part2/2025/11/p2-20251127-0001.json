@@ -1,0 +1,56 @@
+{
+  "id": "p2-20251127-0001",
+  "part": 2,
+  "level": "A2",
+  "topic": [
+    "answering",
+    "phone",
+    "today"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part2/2025/11/p2-20251127-0001.mp3",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part2/2025/11/p2-20251127-0001.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P2-Response"
+  },
+  "content": {
+    "stem": "(audio) Question-Response",
+    "question": "Who is answering the phone today?",
+    "choices": {
+      "A": "Mr. Sato at the front desk.",
+      "B": "In the meeting room downstairs.",
+      "C": "After the lunch break."
+    },
+    "transcript": [
+      {
+        "speaker": "W",
+        "text": "Who is answering the phone today?"
+      },
+      {
+        "speaker": "R",
+        "text": "Mr. Sato at the front desk."
+      },
+      {
+        "speaker": "R",
+        "text": "In the meeting room downstairs."
+      },
+      {
+        "speaker": "R",
+        "text": "After the lunch break."
+      }
+    ],
+    "rationale": "Option A names the person responsible, which fits the 'who' question. B is a location, and C is a time."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

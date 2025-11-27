@@ -1,0 +1,56 @@
+{
+  "id": "p2-20251127-0002",
+  "part": 2,
+  "level": "A2",
+  "topic": [
+    "often",
+    "clean",
+    "room"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part2/2025/11/p2-20251127-0002.mp3",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part2/2025/11/p2-20251127-0002.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P2-Response"
+  },
+  "content": {
+    "stem": "(audio) Question-Response",
+    "question": "How often do you clean this room?",
+    "choices": {
+      "A": "We clean it twice a week.",
+      "B": "We clean it at the back.",
+      "C": "We clean it after class."
+    },
+    "transcript": [
+      {
+        "speaker": "W",
+        "text": "How often do you clean this room?"
+      },
+      {
+        "speaker": "R",
+        "text": "We clean it twice a week."
+      },
+      {
+        "speaker": "R",
+        "text": "We clean it at the back."
+      },
+      {
+        "speaker": "R",
+        "text": "We clean it after class."
+      }
+    ],
+    "rationale": "Option A gives a frequency, matching the 'how often' question. B and C talk about place and timing, but not frequency."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

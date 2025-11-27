@@ -9,23 +9,54 @@ import argparse, datetime as dt, json, os, pathlib, subprocess, sys, textwrap
 import time
 import requests
 from pathlib import Path
+import random
+import itertools
 
 try:
     from dotenv import load_dotenv
-    load_dotenv()  # .env があれば読み込む（環境変数が優先）
+    load_dotenv(dotenv_path=".tools/generate_item/.env")  # .env があれば読み込む（環境変数が優先）
 except Exception:
     pass
+
+from patterns_part1 import PART1_PATTERNS
+from patterns_part2 import PART2_PATTERNS
+from patterns_part3 import PART3_PATTERNS
+from patterns_part4 import PART4_PATTERNS
+
 
 # === 設定値 ===
 REPO_ROOT_DEFAULT = Path(__file__).resolve().parents[2]
 BASE_URL   = os.environ.get("BASE_URL", "https://ando-244.github.io/toeic-gpt-free")
-VOICE      = os.environ.get("PIPER_VOICE", r"D:\TOOLS\piper\models\en_US-ryan-medium.onnx")
 PIPER_EXE  = os.environ.get("PIPER_EXE",  r"D:\TOOLS\piper\piper.exe")
 FFMPEG_EXE = os.environ.get("FFMPEG_EXE", r"D:\TOOLS\ffmpeg\bin\ffmpeg.exe")
 
 UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
+
+# 複数ボイスをリストで持つ
+#VOICE = os.environ.get("PIPER_VOICE", r"D:\TOOLS\piper\models\en_US-ryan-medium.onnx")
+VOICE = os.environ.get("PIPER_VOICE")
 VOICE_M = os.environ.get("PIPER_VOICE_M")
 VOICE_W = os.environ.get("PIPER_VOICE_W")
+
+# 複数ボイスをカンマ区切りで渡せるように
+VOICES_M = [v for v in os.getenv("PIPER_VOICES_M", "").split(",") if v.strip()]
+VOICES_W = [v for v in os.getenv("PIPER_VOICES_W", "").split(",") if v.strip()]
+
+# 何も指定がなければ従来の単体設定を使う（後方互換）
+if not VOICES_M and VOICE_M:
+    VOICES_M = [VOICE_M]
+if not VOICES_W and VOICE_W:
+    VOICES_W = [VOICE_W]
+
+# それでも空なら共通VOICEをフォールバック
+if not VOICES_M and VOICE:
+    VOICES_M = [VOICE]
+if not VOICES_W and VOICE:
+    VOICES_W = [VOICE]
+
+# 無限ループするイテレータにしておく
+#VOICE_M_CYCLE = itertools.cycle(VOICES_M) if VOICES_M else None
+#VOICE_W_CYCLE = itertools.cycle(VOICES_W) if VOICES_W else None
 
 PCM_RATE, PCM_CH, PCM_FMT = 22050, 1, "s16le"
 TIMEOUT_SEC = int(os.environ.get("PIPER_TIMEOUT", "300"))
@@ -49,6 +80,17 @@ def asset_url(rel_path: pathlib.Path) -> str:
         return f"{ASSET_BASE_URL}/{p}"
     else:
         return f"{ASSET_BASE_URL}/{p}"
+
+def attach_page_url(item: dict, part: int, yyyy: str, mm: str) -> dict:
+    #"""
+    #各 item JSON に page_url を付与するヘルパー。
+    #/items/partX/yyyy/mm/<id>.html を指すリンクを埋め込む。
+    #"""
+    assets = item.setdefault("assets", {})
+    assets["page_url"] = (
+        f"{BASE_URL}/items/part{part}/{yyyy}/{mm}/{item['id']}.html"
+    )
+    return item
 
 # === ユーティリティ ===
 def run(cmd, *, cwd=None, timeout=None, env=None, input_text=None):
@@ -80,9 +122,43 @@ def http_get(url, *, tries=3, sleep=2):
             raise RuntimeError(f"GET failed after {tries} tries: {url}\n{e}")
     raise RuntimeError(f"GET failed after {tries} retries: {url}")
 
+def choose_voice_pair_for_item(item_index: int):
+    """問題インデックスごとに (male_voice, female_voice) を決める"""
+    male_voice = VOICES_M[item_index % len(VOICES_M)] if VOICES_M else VOICE
+    female_voice = VOICES_W[item_index % len(VOICES_W)] if VOICES_W else VOICE
+    return male_voice, female_voice
 
-#VOICE_M = os.environ.get("PIPER_VOICE_M", VOICE)  # 既定は VOICE
-#VOICE_W = os.environ.get("PIPER_VOICE_W", VOICE)
+def select_pattern(patterns, level=None, theme=None):
+    # patterns から level / theme に合うものだけ選び、そこからランダム1件返す
+
+    candidates = patterns
+
+    # 1) level で絞る（完全一致）
+    if level:
+        candidates_level = [p for p in candidates if p.get("level") == level]
+        if candidates_level:
+            candidates = candidates_level
+        # ヒットしなければ「全パターンから」でフォールバック
+
+    # 2) theme で絞る（部分一致・ゆるめ）
+    #if theme:
+    #    t = theme.lower()
+    #    def matches_theme(p):
+    #        fields = []
+    #        fields.extend(p.get("topic", []))
+    #        fields.extend(p.get("tags", []))
+    #        text = " ".join(str(x).lower() for x in fields)
+    #        return t in text
+
+    #    candidates_theme = [p for p in candidates if matches_theme(p)]
+    #    if candidates_theme:
+    #        candidates = candidates_theme
+    #    # ここもヒットしなければフォールバック
+
+    # 最終的な候補からランダムに1件
+    if not candidates:
+        raise ValueError("No patterns available (this should not happen).")
+    return random.choice(candidates)
 
 # === Piper音声生成 ===
 def piper_text_to_pcm(text: str, pcm_path: pathlib.Path, voice: str | None = None):
@@ -102,389 +178,16 @@ def pcm_to_wav_mp3(pcm_path, wav_path, mp3_path):
          "-i", str(pcm_path), str(wav_path)])
     run([FFMPEG_EXE, "-y", "-i", str(wav_path), "-ar", "44100", "-b:a", "112k", str(mp3_path)])
 
-# === Part1 用の問題パターン集 ===
-PART1_PATTERNS = [
-    {
-        "query": "office desk laptop coffee",  # Unsplash用キーワード
-        "statements": [
-            "A laptop is open on the desk.",          # A 正解
-            "Some people are standing in a line.",
-            "A car is parked on the street.",
-            "The room is decorated for a party."
-        ],
-        "answer": "A"
-    },
-    {
-        "query": "meeting room whiteboard coworkers",
-        "statements": [
-            "Several people are sitting around a table.",  # B 正解
-            "A woman is standing at a bus stop.",
-            "Boxes are stacked in a warehouse.",
-            "A man is walking a dog in the park."
-        ],
-        "answer": "A"
-    },
-    {
-        "query": "city street crosswalk people",
-        "statements": [
-            "People are crossing the street at a crosswalk.",  # A 正解
-            "A chef is cooking in a kitchen.",
-            "A man is using a copy machine.",
-            "Desks are arranged in a classroom."
-        ],
-        "answer": "A"
-    },
-    {
-        "query": "airport departure board passengers",
-        "statements": [
-            "Passengers are looking at an information board.",  # A 正解
-            "A gardener is planting flowers.",
-            "A truck is being loaded with furniture.",
-            "Some books are stacked on a shelf."
-        ],
-        "answer": "A"
-    },
-    {
-        "query": "warehouse worker forklift boxes",
-        "statements": [
-            "A worker is moving boxes with a forklift.",  # A 正解
-            "A group is eating in a restaurant.",
-            "A train is arriving at the station.",
-            "A musician is playing on a stage."
-        ],
-        "answer": "A"
-    },
-]
-
-# === Part2 用の問題パターン集 ===
-PART2_PATTERNS = [
-    {
-        "question": "Could you send me the draft by noon?",
-        "responses": [
-            "I’ll send it before lunch.",
-            "I’m meeting her at the cafeteria.",
-            "Sure, I’ll e-mail it by twelve."
-        ],
-        "answer": "C"
-    },
-    {
-        "question": "When will the client arrive?",
-        "responses": [
-            "He should be here around three.",
-            "No, I haven’t met him.",
-            "At the central station."
-        ],
-        "answer": "A"
-    },
-    {
-        "question": "Where should I put these documents?",
-        "responses": [
-            "They were sent yesterday.",
-            "Please leave them on my desk.",
-            "About the new project."
-        ],
-        "answer": "B"
-    },
-    {
-        "question": "Why was the meeting canceled?",
-        "responses": [
-            "Because the manager is on a business trip.",
-            "In the main conference room.",
-            "Next Wednesday afternoon."
-        ],
-        "answer": "A"
-    },
-]
-
-
-# === Part3 用の会話パターン集（会話＋設問3本セット） ===
-PART3_PATTERNS = [
-    {
-        "topic": ["office", "schedule"],
-        "dialog": [
-            ("M", "Good morning. Did you check the new meeting schedule?"),
-            ("W", "Yes, it starts at ten instead of nine."),
-            ("M", "Right, and we’ll meet in room B now.")
-        ],
-        "questions": [
-            {
-                "stem": "(audio) What are the speakers mainly discussing?",
-                "choices": {
-                    "A": "A change in travel plans.",
-                    "B": "A change in meeting time.",
-                    "C": "A new employee policy.",
-                    "D": "A customer complaint."
-                },
-                "answer": "B",
-                "rationale": "They talk about a schedule change, so B is correct."
-            },
-            {
-                "stem": "(audio) When will the meeting start?",
-                "choices": {
-                    "A": "At nine o’clock.",
-                    "B": "At ten o’clock.",
-                    "C": "At eleven o’clock.",
-                    "D": "At noon."
-                },
-                "answer": "B",
-                "rationale": "The woman says it starts at ten instead of nine."
-            },
-            {
-                "stem": "(audio) Where will they meet?",
-                "choices": {
-                    "A": "In room A.",
-                    "B": "In room B.",
-                    "C": "In the cafeteria.",
-                    "D": "In the lobby."
-                },
-                "answer": "B",
-                "rationale": "The man says they’ll meet in room B."
-            },
-        ],
-    },
-
-    {
-        "topic": ["business trip", "hotel"],
-        "dialog": [
-            ("W", "Did you book a hotel for your business trip?"),
-            ("M", "Yes, but they changed my reservation to another branch."),
-            ("W", "Is it still close to the client’s office?"),
-            ("M", "Yes, it’s just a five-minute walk.")
-        ],
-        "questions": [
-            {
-                "stem": "(audio) What are the speakers mainly talking about?",
-                "choices": {
-                    "A": "A delayed flight.",
-                    "B": "A hotel reservation.",
-                    "C": "A job interview.",
-                    "D": "A training workshop."
-                },
-                "answer": "B",
-                "rationale": "They discuss the man’s hotel booking for a business trip."
-            },
-            {
-                "stem": "(audio) What change was made to the man’s reservation?",
-                "choices": {
-                    "A": "The check-in time was moved.",
-                    "B": "His room type was upgraded.",
-                    "C": "He was moved to another branch.",
-                    "D": "Breakfast was canceled."
-                },
-                "answer": "C",
-                "rationale": "He says they changed his reservation to another branch."
-            },
-            {
-                "stem": "(audio) What is said about the new hotel?",
-                "choices": {
-                    "A": "It is far from the client’s office.",
-                    "B": "It is within walking distance.",
-                    "C": "It is under renovation.",
-                    "D": "It does not have Internet access."
-                },
-                "answer": "B",
-                "rationale": "He says it is just a five-minute walk."
-            },
-        ],
-    },
-
-    {
-        "topic": ["restaurant", "reservation"],
-        "dialog": [
-            ("M", "I’d like to confirm our dinner reservation for tonight."),
-            ("W", "Sure. Is it under the name Tanaka?"),
-            ("M", "Yes, for four people at seven thirty."),
-            ("W", "All right, we’ll have your table ready.")
-        ],
-        "questions": [
-            {
-                "stem": "(audio) Where is this conversation taking place?",
-                "choices": {
-                    "A": "In a restaurant.",
-                    "B": "At a travel agency.",
-                    "C": "In a company lobby.",
-                    "D": "At a supermarket."
-                },
-                "answer": "A",
-                "rationale": "They are confirming a dinner reservation and a table."
-            },
-            {
-                "stem": "(audio) How many people will be in the group?",
-                "choices": {
-                    "A": "Two.",
-                    "B": "Three.",
-                    "C": "Four.",
-                    "D": "Five."
-                },
-                "answer": "C",
-                "rationale": "The man says the reservation is for four people."
-            },
-            {
-                "stem": "(audio) What time is the reservation for?",
-                "choices": {
-                    "A": "Six o’clock.",
-                    "B": "Seven o’clock.",
-                    "C": "Seven thirty.",
-                    "D": "Eight thirty."
-                },
-                "answer": "C",
-                "rationale": "He says, “for four people at seven thirty.”"
-            },
-        ],
-    },
-]
-
-
-# === Part4 用アナウンス／トークパターン集 ===
-PART4_PATTERNS = [
-    {
-        "topic": ["airport", "delay"],
-        "script": (
-            "Good afternoon, passengers. "
-            "This is an announcement for all travelers waiting for Flight 102 to Seattle. "
-            "Due to heavy fog, the departure will be delayed for about thirty minutes. "
-            "Please remain near Gate 12 and listen for further updates. "
-            "We apologize for the inconvenience and thank you for your patience."
-        ),
-        "questions": [
-            {
-                "stem": "(audio) What is the main purpose of the announcement?",
-                "choices": {
-                    "A": "To advertise a new flight route.",
-                    "B": "To report a flight delay.",
-                    "C": "To ask passengers to change seats.",
-                    "D": "To cancel a flight."
-                },
-                "answer": "B",
-                "rationale": "The speaker explains that the departure will be delayed."
-            },
-            {
-                "stem": "(audio) What is causing the delay?",
-                "choices": {
-                    "A": "Mechanical problems.",
-                    "B": "Heavy fog.",
-                    "C": "A baggage issue.",
-                    "D": "A crew change."
-                },
-                "answer": "B",
-                "rationale": "The announcement mentions heavy fog as the reason."
-            },
-            {
-                "stem": "(audio) What are passengers asked to do?",
-                "choices": {
-                    "A": "Go to another gate.",
-                    "B": "Return to the check-in counter.",
-                    "C": "Remain near Gate 12.",
-                    "D": "Board the plane immediately."
-                },
-                "answer": "C",
-                "rationale": "They are told to remain near Gate 12 and listen for updates."
-            },
-        ],
-    },
-
-    {
-        "topic": ["company", "orientation"],
-        "script": (
-            "Welcome to Greenfield Electronics. "
-            "The orientation for new employees will begin at nine o’clock in Conference Room A. "
-            "Please bring the documents you received at the reception desk. "
-            "After the orientation, your supervisors will guide you to your departments. "
-            "If you have any questions, feel free to ask our staff members."
-        ),
-        "questions": [
-            {
-                "stem": "(audio) Who is this announcement mainly for?",
-                "choices": {
-                    "A": "Company shareholders.",
-                    "B": "Sales representatives.",
-                    "C": "New employees.",
-                    "D": "Delivery drivers."
-                },
-                "answer": "C",
-                "rationale": "It mentions an orientation for new employees."
-            },
-            {
-                "stem": "(audio) What are listeners asked to bring?",
-                "choices": {
-                    "A": "Their identification cards.",
-                    "B": "The documents from reception.",
-                    "C": "A laptop computer.",
-                    "D": "Product samples."
-                },
-                "answer": "B",
-                "rationale": "They are asked to bring the documents received at the reception desk."
-            },
-            {
-                "stem": "(audio) What will happen after the orientation?",
-                "choices": {
-                    "A": "A factory tour will be held.",
-                    "B": "Employees will have lunch.",
-                    "C": "Supervisors will take them to their departments.",
-                    "D": "A test will be given."
-                },
-                "answer": "C",
-                "rationale": "Supervisors will guide them to their departments."
-            },
-        ],
-    },
-
-    {
-        "topic": ["radio", "event"],
-        "script": (
-            "You’re listening to City Morning Radio. "
-            "This Saturday, the annual River Park Festival will be held from ten a.m. to five p.m. "
-            "There will be live music, food trucks, and games for children. "
-            "Admission is free, but parking spaces are limited, so we recommend using public transportation. "
-            "For more details, visit our station’s website."
-        ),
-        "questions": [
-            {
-                "stem": "(audio) What is being announced?",
-                "choices": {
-                    "A": "A new radio program.",
-                    "B": "A local festival.",
-                    "C": "A charity concert.",
-                    "D": "A store opening."
-                },
-                "answer": "B",
-                "rationale": "It describes the annual River Park Festival."
-            },
-            {
-                "stem": "(audio) What is said about admission?",
-                "choices": {
-                    "A": "It is free.",
-                    "B": "It includes a free meal.",
-                    "C": "It is only for children.",
-                    "D": "It must be reserved in advance."
-                },
-                "answer": "A",
-                "rationale": "The announcement says admission is free."
-            },
-            {
-                "stem": "(audio) Why are listeners encouraged to use public transportation?",
-                "choices": {
-                    "A": "Parking is expensive.",
-                    "B": "The roads will be closed.",
-                    "C": "Parking spaces are limited.",
-                    "D": "Buses are free on weekends."
-                },
-                "answer": "C",
-                "rationale": "Because parking spaces are limited."
-            },
-        ],
-    },
-]
 
 # === JSON生成 ===
-def make_part1_item_json(part, level, audio_url, image_url, idx, statements, answer_key):
+def make_part1_item_json(part, level, audio_url, image_url, item_id, statements, answer_key, rationale, topic):
     #"""
     #Part1（写真描写）用のJSONを生成
     #- statements: 長さ4の配列 [A, B, C, D]
     #- answer_key: "A" | "B" | "C" | "D"
     #"""
-    now = dt.datetime.now(dt.UTC)
-    item_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
+    #now = dt.datetime.now(dt.UTC)
+    #item_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
     choices = {
         "A": statements[0],
         "B": statements[1],
@@ -495,7 +198,7 @@ def make_part1_item_json(part, level, audio_url, image_url, idx, statements, ans
         "id": item_id,
         "part": part,
         "level": level,
-        "topic": ["photo", "description"],
+        "topic": topic,
         "assets": {"audio_url": audio_url, "image_url": image_url},
         "format": {
             "choices": ["A", "B", "C", "D"],
@@ -512,24 +215,29 @@ def make_part1_item_json(part, level, audio_url, image_url, idx, statements, ans
                 {"speaker": "N", "text": f"Statement C. {statements[2]}"},
                 {"speaker": "N", "text": f"Statement D. {statements[3]}"},
             ],
-            "rationale": f"{answer_key} best matches the picture. Others are plausible distractors."
+            #"rationale": f"{answer_key} best matches the picture. Others are plausible distractors."
+            "rationale": rationale,
         },
         "license": {
-            "type": "CC-BY-4.0",
-            "origin": "original"
+            #"type": "CC-BY-4.0",
+            #"origin": "original"
+            "type": "mixed",
+            "text": { "type": "CC-BY-4.0", "origin": "original" },
+            "audio": { "type": "CC-BY-4.0", "origin": "original" },
+            "image": { "type": "unsplash", "origin": "https://unsplash.com/..." }
         }
     }
     return data
 
-def make_part2_item_json(part, level, audio_url, idx,
-                         question: str, responses: list[str], correct: str = "C"):
-    now = dt.datetime.now(dt.UTC)
-    item_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
+def make_part2_item_json(part, level, audio_url, item_id,
+                         question: str, responses: list[str], correct: str, rationale, topic):
+    #now = dt.datetime.now(dt.UTC)
+    #item_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
     return {
         "id": item_id,
         "part": part,
         "level": level,
-        "topic": ["email", "deadline"],
+        "topic": topic,
         "assets": {"audio_url": audio_url},
         "format": {
             "choices": ["A", "B", "C"],
@@ -551,21 +259,24 @@ def make_part2_item_json(part, level, audio_url, idx,
                 {"speaker": "R", "text": responses[1]},
                 {"speaker": "R", "text": responses[2]},
             ],
-            "rationale": "依頼への適切な承諾はC。Aは文脈違い、Bは場所回答で不適切。"
+            #"rationale": "依頼への適切な承諾はC。Aは文脈違い、Bは場所回答で不適切。"
+            "rationale": rationale,
         },
         "license": {"type": "CC-BY-4.0", "origin": "original"}
     }
 
 
-def make_part3_items_json(part, level, audio_url, idx, dialog, topic, questions):
-    now = dt.datetime.now(dt.UTC)
-    base_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
+def make_part3_items_json(part, level, audio_url, base_id, dialog, topic, questions):
+    #now = dt.datetime.now(dt.UTC)
+    #base_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
     transcript = [{"speaker": spk, "text": text} for spk, text in dialog]
 
     # === JSONリストを構築 ===
     items = []
     for q_idx, q in enumerate(questions, start=1):
         item_id = f"{base_id}-{q_idx}"
+        rationale = q.get("rationale", "")
+
         items.append({
             "id": item_id,
             "part": part,
@@ -582,20 +293,22 @@ def make_part3_items_json(part, level, audio_url, idx, dialog, topic, questions)
                 "stem": q["stem"],
                 "choices": q["choices"],
                 "transcript": transcript,
-                "rationale": q["rationale"]
+                "rationale": rationale,
             },
             "license": {"type": "CC-BY-4.0", "origin": "original"}
         })
     return items
 
-def make_part4_items_json(part, level, audio_url, idx, script_text, topic, questions):
-    now = dt.datetime.now(dt.UTC)
-    base_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
+def make_part4_items_json(part, level, audio_url, base_id, script_text, topic, questions):
+    #now = dt.datetime.now(dt.UTC)
+    #base_id = f"p{part}-{now.strftime('%Y%m%d')}-{idx:04d}"
     transcript = [{"speaker": "N", "text": script_text}]  # Narrator
 
     items = []
     for q_idx, q in enumerate(questions, start=1):
         item_id = f"{base_id}-{q_idx}"
+        rationale = q.get("rationale", "")
+
         items.append({
             "id": item_id,
             "part": part,
@@ -612,7 +325,7 @@ def make_part4_items_json(part, level, audio_url, idx, script_text, topic, quest
                 "stem": q["stem"],
                 "choices": q["choices"],
                 "transcript": transcript,
-                "rationale": q["rationale"]
+                "rationale": rationale,
             },
             "license": {"type": "CC-BY-4.0", "origin": "original"}
         })
@@ -639,7 +352,7 @@ def unsplash_random_image(prompt: str, out_path: pathlib.Path, orientation="land
     time.sleep(1)
     return img_url
 
-def make_part1_audio(statements, pcm_path, narrator_prefix=False, label_read=False, gap_ms=350):
+def make_part1_audio(statements, pcm_path, narrator_prefix=True, label_read=True, gap_ms=400):
     #"""
     #Part1音声を生成:
     #  - narrator_prefix=False なら前置きなし
@@ -700,7 +413,7 @@ def make_part1_audio(statements, pcm_path, narrator_prefix=False, label_read=Fal
 
 
 def make_part2_audio(question: str, responses: list[str], pcm_path: pathlib.Path,
-                     gap_ms: int = 350, read_labels: bool = False):
+                     gap_ms: int = 400, read_labels: bool = True):
     #"""
     #Part2 (Question-Response) 音声を生成。
     #- read_labels=False で公式寄せ（A/B/Cは読まない）
@@ -761,22 +474,38 @@ def make_part2_audio(question: str, responses: list[str], pcm_path: pathlib.Path
 
 
 def generate_dialog_audio(
-    dialog, pcm_path: pathlib.Path,
-    gap_ms: int = 300,
+    dialog, pcm_path: pathlib.Path, gap_ms,
     pre_silence_ms: int = 0,
     post_silence_ms: int = 0,
-    label_speaker: bool = False
+    label_speaker: bool = False,
+    male_voice: str | None = None,
+    female_voice: str | None = None
 ):
     if not dialog:
         raise ValueError("dialog is empty")
 
     def voice_for(s):
         su = str(s).upper()
+        #if su.startswith(("M", "MALE")):
+        #    return VOICE_M
+        # M/MALE → この問題用の male_voice
         if su.startswith(("M", "MALE")):
-            return VOICE_M
+            if male_voice:
+                return male_voice
+            if VOICES_M:
+                return VOICES_M[0]
+
+        #if su.startswith(("W", "F", "FEMALE")):
+        #    return VOICE_W
+        # W/F/FEMALE → この問題用の female_voice
         if su.startswith(("W", "F", "FEMALE")):
-            return VOICE_W
-        return VOICE  # 予備
+            if female_voice:
+                return female_voice
+            if VOICES_W:
+                return VOICES_W[0]
+
+        # フォールバック
+        return VOICE
 
     def silence_bytes(ms: int) -> bytes:
         n = int(PCM_RATE * ms / 1000)
@@ -952,6 +681,34 @@ def _escape_html(s: str) -> str:
              .replace('"',"&quot;")
              .replace("'","&#39;"))
 
+#パートごとの問題生成関数を定義
+#def generate_part1_pattern(i: int) -> dict:
+#    return PART1_PATTERNS[(i - 1) % len(PART1_PATTERNS)]
+#    return random.choice(PART1_PATTERNS)
+
+def generate_part1_pattern(i: int, level=None, theme=None) -> dict:
+    return select_pattern(PART1_PATTERNS, level=level, theme=theme)
+
+#def generate_part2_pattern(i: int) -> dict:
+#    return PART2_PATTERNS[(i - 1) % len(PART2_PATTERNS)]
+#    return random.choice(PART2_PATTERNS)
+
+def generate_part2_pattern(i: int, level=None, theme=None) -> dict:
+    return select_pattern(PART2_PATTERNS, level=level, theme=theme)
+
+#def generate_part3_pattern(i: int) -> dict:
+#    return PART3_PATTERNS[(i - 1) % len(PART3_PATTERNS)]
+#    return random.choice(PART3_PATTERNS)
+
+def generate_part3_pattern(i: int, level=None, theme=None) -> dict:
+    return select_pattern(PART3_PATTERNS, level=level, theme=theme)
+
+#def generate_part4_pattern(i: int) -> dict:
+#    return PART4_PATTERNS[(i - 1) % len(PART4_PATTERNS)]
+#    return random.choice(PART4_PATTERNS)
+
+def generate_part4_pattern(i: int, level=None, theme=None) -> dict:
+    return select_pattern(PART4_PATTERNS, level=level, theme=theme)
 
 # === メイン処理 ===
 def main():
@@ -965,120 +722,183 @@ def main():
     ap.add_argument("--outdir", type=str, default=str(REPO_ROOT_DEFAULT))
     ap.add_argument("--query", type=str, default="office desk laptop coffee")
     ap.add_argument("--voice", type=str, default=VOICE)  # 既定VOICEを上書き
+    ap.add_argument("--theme", type=str, default=None)
     args = ap.parse_args()
 
     VOICE = args.voice
+
+    selected_patterns = None
+
+    if args.part in (1, 2, 3, 4):
+        # 対象のパターンリストを選択
+        if args.part == 1:
+            base_patterns = PART1_PATTERNS
+        elif args.part == 2:
+            base_patterns = PART2_PATTERNS
+        elif args.part == 3:
+            base_patterns = PART3_PATTERNS
+        else:  # args.part == 4
+            base_patterns = PART4_PATTERNS
+
+        # level で絞り込み（今までの select_pattern と同じロジックに合わせる）
+        candidates = base_patterns
+        if args.level:
+            level_filtered = [p for p in candidates if p.get("level") == args.level]
+            if level_filtered:
+                candidates = level_filtered
+            # 見つからなければ全体から取る（従来どおり）
+
+        # パターン不足チェック
+        if args.count > len(candidates):
+            raise ValueError(
+                f"Part{args.part} level={args.level} のパターン数({len(candidates)})より "
+                f"count({args.count}) の方が多いので、重複なしでは生成できません。"
+            )
+
+        # 重複なしで count 個だけランダムに選ぶ
+        selected_patterns = random.sample(candidates, args.count)
 
     out = pathlib.Path(args.outdir)
     now = dt.datetime.now(dt.UTC)
     yyyy, mm, ymd = now.strftime("%Y"), now.strftime("%m"), now.strftime("%Y%m%d")
 
     for i in range(1, args.count + 1):
-        audio_rel = pathlib.Path(f"media/audio/part{args.part}/{yyyy}/{mm}/p{args.part}-{i:04d}.mp3")
+        base_id = f"p{args.part}-{ymd}-{i:04d}"
+        pattern_for_this_item = (
+            selected_patterns[i - 1] if selected_patterns is not None else None
+        )
+
+        #audio_rel = pathlib.Path(f"media/audio/part{args.part}/{yyyy}/{mm}/p{args.part}-{i:04d}.mp3")
+        audio_rel = pathlib.Path(f"media/audio/part{args.part}/{yyyy}/{mm}/{base_id}.mp3")
         wav_rel   = audio_rel.with_suffix(".wav")
         pcm_rel   = audio_rel.with_suffix(".pcm")
-        json_rel  = pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}/p{args.part}-{ymd}-{i:04d}.json")
+        #json_rel  = pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}/p{args.part}-{ymd}-{i:04d}.json")
+        json_rel  = pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}/{base_id}.json")
 
         #audio_url = f"{BASE_URL}/{audio_rel.as_posix()}"
         audio_url = asset_url(audio_rel)
         pcm_path, wav_path, mp3_path, json_path = out / pcm_rel, out / wav_rel, out / audio_rel, out / json_rel
 
-        #text = "Could you send me the draft by noon?"
+        #theme = "Could you send me the draft by noon?"
         #piper_text_to_pcm(text, pcm_path)
         #pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
 
         # === Partごとの処理分岐 ===
         if args.part == 1:
-            # 1問ごとにパターンをローテーション
-            pattern = PART1_PATTERNS[(i - 1) % len(PART1_PATTERNS)]
+            # 毎問ランダムにパターンを選択
+            #pattern = generate_part1_pattern(i, level=args.level, theme=args.theme)
+            # 事前に選んだパターンを使用（なければ従来どおり）
+            pattern = pattern_for_this_item or generate_part1_pattern(i, level=args.level, theme=args.theme)
+
             statements = pattern["statements"]
             answer_key = pattern["answer"]
+            query = pattern["query"]
+            rationale = pattern.get("rationale")
+            topic   = pattern.get("topic", ["photo"])
 
-            #prompt = "office desk laptop coffee"  # 写真キーワードの例
-            image_rel = pathlib.Path(f"media/images/part1/{yyyy}/{mm}/p1-{i:04d}.webp")
+            #image_rel = pathlib.Path(f"media/images/part1/{yyyy}/{mm}/p1-{i:04d}.webp")
+            image_rel = pathlib.Path(f"media/images/part1/{yyyy}/{mm}/{base_id}.jpg")
             image_path = out / image_rel
-            #image_url = unsplash_random_image(prompt, image_path)
             #image_url = unsplash_random_image(args.query, image_path)
             #image_url = f"{BASE_URL}/{image_rel.as_posix()}"
-            image_url = asset_url(image_rel)
-            # statements…
-            #statements = [
-            #    "A laptop is open on the desk.",       # 正解
-            #    "Some people are standing in a line.",
-            #    "A car is parked on the street.",
-            #    "The room is decorated for a party."
-            #]
-            #answer_key = "A"
+            #image_url = asset_url(image_rel)
+            github_image_url = asset_url(image_rel)
 
             # Unsplash から画像取得（パターン固有の query を使用）
             # 失敗時にエラーがわかるように try/except を軽く足すと安心
             try:
-                image_url = unsplash_random_image(pattern["query"], image_path)
-                print(f"[IMG] saved: {image_path} ({image_url})")
+                #image_url = unsplash_random_image(pattern["query"], image_path)
+                #print(f"[IMG] saved: {image_path} ({image_url})")
+                _ = unsplash_random_image(pattern["query"], image_path)
+                print(f"[IMG] saved: {image_path}")
             except Exception as e:
                 print(f"[WARN] unsplash_random_image failed: {e}")
-                image_url = None  # JSON 上は null にしておく等、好みで
+                #image_url = None
+                github_image_url = None
 
             # 1) 音声（PCM）だけ作る
-            make_part1_audio(statements, pcm_path, narrator_prefix=False, label_read=False, gap_ms=400)
+            make_part1_audio(statements, pcm_path, narrator_prefix=True, label_read=True, gap_ms=400)
 
             # 2) PCM → WAV → MP3
             pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
 
             # 3) JSON
-            item = make_part1_item_json(args.part, args.level, audio_url, image_url, i, statements, answer_key)
+            #item = make_part1_item_json(args.part, args.level, audio_url, image_url, i, statements, answer_key)
+            item = make_part1_item_json(args.part, args.level, audio_url, github_image_url, base_id, statements, answer_key, rationale, topic=topic)
 
             # 4) page_url を付与
-            item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+            #item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+            item = attach_page_url(item, args.part, yyyy, mm)
 
             # 5) JSON保存
             ensure_path(json_path)
             json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
+
+            # 6) HTML保存
+            #html_path = json_path.with_suffix(".html")
+            #write_item_html(item, html_path)
 
             print(f"[OK] {mp3_path} and {json_path}")
 
         elif args.part == 2:
-            # 1問ごとにパターンをローテーション
-            p2 = PART2_PATTERNS[(i - 1) % len(PART2_PATTERNS)]
+            # 毎問ランダムにパターンを選択
+            #p2 = generate_part2_pattern(i, level=args.level, theme=args.theme)
+            # 事前に選んだパターンを使用
+            p2 = pattern_for_this_item or generate_part2_pattern(i, level=args.level, theme=args.theme)
             question  = p2["question"]
             responses = p2["responses"]
             correct   = p2["answer"]
+            rationale = p2.get("rationale")
+            topic2 = p2.get("topic", ["question"])
 
             # 1) 音声（PCM）だけ作る
-            make_part2_audio(question, responses, pcm_path, gap_ms=350, read_labels=False)
+            make_part2_audio(question, responses, pcm_path, gap_ms=400, read_labels=True)
 
             # 2) PCM → WAV → MP3
             pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
 
             # 3) JSON
-            item = make_part2_item_json(args.part, args.level, audio_url, i, question, responses, correct)
+            #item = make_part2_item_json(args.part, args.level, audio_url, i, question, responses, correct)
+            item = make_part2_item_json(args.part, args.level, audio_url, base_id, question, responses, correct, rationale, topic=topic2)
             
             # 4) page_url を付与
-            item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+            #item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+            item = attach_page_url(item, args.part, yyyy, mm)
 
             # 5) JSON保存
             ensure_path(json_path)
             json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
 
+            # 6) HTML保存
+            #html_path = json_path.with_suffix(".html")
+            #write_item_html(item, html_path)
+
             print(f"[OK] {mp3_path} and {json_path}")
 
         elif args.part == 3:
-            # パターン選択
-            p3 = PART3_PATTERNS[(i - 1) % len(PART3_PATTERNS)]
+            # 毎問ランダムにパターンを選択
+            #p3 = generate_part3_pattern(i, level=args.level, theme=args.theme)
+            # 事前に選んだパターンを使用
+            p3 = pattern_for_this_item or generate_part3_pattern(i, level=args.level, theme=args.theme)
             dialog    = p3["dialog"]
             topic     = p3["topic"]
             questions = p3["questions"]
 
+            # ★ ここでこの問題用の男女ボイスを決める
+            male_voice, female_voice = choose_voice_pair_for_item(i)
+
             # 1) 会話音声生成（二人の声で）
-            generate_dialog_audio(dialog, pcm_path, gap_ms=300, label_speaker=False)
+            generate_dialog_audio(dialog, pcm_path, gap_ms=400, label_speaker=False, male_voice=male_voice, female_voice=female_voice)
 
             # 2) WAV/MP3変換
             pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
 
             # 3) 設問3本のJSONを生成
-            items = make_part3_items_json(args.part, args.level, audio_url, i, dialog, topic, questions)
+            #items = make_part3_items_json(args.part, args.level, audio_url, i, dialog, topic, questions)
+            items = make_part3_items_json(args.part, args.level, audio_url, base_id, dialog, topic, questions)
             for item in items:
-                item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+                #item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+                item = attach_page_url(item, args.part, yyyy, mm)
             
             item_dir = out / pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}")
             item_dir.mkdir(parents=True, exist_ok=True)
@@ -1097,22 +917,29 @@ def main():
             continue
 
         elif args.part == 4:
-            # パターンをローテーション
-            p4 = PART4_PATTERNS[(i - 1) % len(PART4_PATTERNS)]
+            # 毎問ランダムにパターンを選択
+            #p4 = generate_part4_pattern(i, level=args.level, theme=args.theme)
+            # 事前に選んだパターンを使用
+            p4 = pattern_for_this_item or generate_part4_pattern(i, level=args.level, theme=args.theme)
             script_text = p4["script"]
             topic       = p4["topic"]
             questions   = p4["questions"]
 
+            # ★ ここでこの問題用の男女ボイスを決める
+            male_voice, female_voice = choose_voice_pair_for_item(i)
+
             # 1) 音声生成（話者1人、ナレーション風）
-            generate_dialog_audio([("N", script_text)], pcm_path, gap_ms=0, label_speaker=False)
+            generate_dialog_audio([("N", script_text)], pcm_path, gap_ms=100, label_speaker=False, male_voice=male_voice, female_voice=female_voice)
 
             # 2) WAV/MP3変換
             pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
 
             # 3) JSON生成（設問3つ）
-            items = make_part4_items_json(args.part, args.level, audio_url, i, script_text, topic, questions)
+            #items = make_part4_items_json(args.part, args.level, audio_url, i, script_text, topic, questions)
+            items = make_part4_items_json(args.part, args.level, audio_url, base_id, script_text, topic, questions)
             for item in items:
-                item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+                #item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
+                item = attach_page_url(item, args.part, yyyy, mm)
 
             item_dir = out / pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}")
             item_dir.mkdir(parents=True, exist_ok=True)
@@ -1133,16 +960,6 @@ def main():
         else:
             raise ValueError(f"Unsupported part: {args.part}")
 
-        # === PCM → WAV → MP3 ===
-        #pcm_to_wav_mp3(pcm_path, wav_path, mp3_path)
-
-        # === JSON保存 ===
-        #ensure_path(json_path)
-        #json_path.write_text(json.dumps(item, ensure_ascii=False, indent=2), encoding="utf-8")
-        #html_path = json_path.with_suffix(".html")
-        #write_item_html(item, html_path)
-
-        #print(f"[OK] {mp3_path} and {json_path}")
 
 # === 実行エントリ ===
 if __name__ == "__main__":
