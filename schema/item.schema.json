@@ -1,6 +1,5 @@
 ﻿{
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ando-244.github.io/toeic-gpt-free/schema/item.schema.json",
   "title": "ToeicItem",
   "type": "object",
   "required": ["id","part","level","assets","format","content","license"],

@@ -52,18 +52,7 @@
     "rationale": "The scene takes place in a living room with a family watching TV. The other statements show library, outdoor cleaning, or delivery work."
   },
   "license": {
-    "type": "mixed",
-    "text": {
-      "type": "CC-BY-4.0",
-      "origin": "original"
-    },
-    "audio": {
-      "type": "CC-BY-4.0",
-      "origin": "original"
-    },
-    "image": {
-      "type": "unsplash",
-      "origin": "https://unsplash.com/..."
-    }
+    "type": "CC-BY-4.0",
+    "origin": "original"
   }
 }

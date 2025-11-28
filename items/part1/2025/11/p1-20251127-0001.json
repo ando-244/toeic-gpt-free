@@ -52,18 +52,7 @@
     "rationale": "Only the third sentence describes a child helping with baking in a kitchen. The other options show different activities."
   },
   "license": {
-    "type": "mixed",
-    "text": {
-      "type": "CC-BY-4.0",
-      "origin": "original"
-    },
-    "audio": {
-      "type": "CC-BY-4.0",
-      "origin": "original"
-    },
-    "image": {
-      "type": "unsplash",
-      "origin": "https://unsplash.com/..."
-    }
+    "type": "CC-BY-4.0",
+    "origin": "original"
   }
 }

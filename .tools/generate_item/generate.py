@@ -218,14 +218,7 @@ def make_part1_item_json(part, level, audio_url, image_url, item_id, statements,
             #"rationale": f"{answer_key} best matches the picture. Others are plausible distractors."
             "rationale": rationale,
         },
-        "license": {
-            #"type": "CC-BY-4.0",
-            #"origin": "original"
-            "type": "mixed",
-            "text": { "type": "CC-BY-4.0", "origin": "original" },
-            "audio": { "type": "CC-BY-4.0", "origin": "original" },
-            "image": { "type": "unsplash", "origin": "https://unsplash.com/..." }
-        }
+        "license": {"type": "CC-BY-4.0", "origin": "original"}
     }
     return data
 

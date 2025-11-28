@@ -52,18 +52,7 @@
     "rationale": "The correct sentence describes a receptionist and a visitor at an office desk. The others are not reception scenes."
   },
   "license": {
-    "type": "mixed",
-    "text": {
-      "type": "CC-BY-4.0",
-      "origin": "original"
-    },
-    "audio": {
-      "type": "CC-BY-4.0",
-      "origin": "original"
-    },
-    "image": {
-      "type": "unsplash",
-      "origin": "https://unsplash.com/..."
-    }
+    "type": "CC-BY-4.0",
+    "origin": "original"
   }
 }
