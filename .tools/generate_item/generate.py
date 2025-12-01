@@ -27,8 +27,12 @@ from patterns_part4 import PART4_PATTERNS
 # === 設定値 ===
 REPO_ROOT_DEFAULT = Path(__file__).resolve().parents[2]
 BASE_URL   = os.environ.get("BASE_URL", "https://ando-244.github.io/toeic-gpt-free")
-PIPER_EXE  = os.environ.get("PIPER_EXE",  r"D:\TOOLS\piper\piper.exe")
-FFMPEG_EXE = os.environ.get("FFMPEG_EXE", r"D:\TOOLS\ffmpeg\bin\ffmpeg.exe")
+#PIPER_EXE  = os.environ.get("PIPER_EXE",  r"D:\TOOLS\piper\piper.exe")
+#FFMPEG_EXE = os.environ.get("FFMPEG_EXE", r"D:\TOOLS\ffmpeg\bin\ffmpeg.exe")
+DEFAULT_PIPER = REPO_ROOT_DEFAULT / "tools" / "piper" / "piper"
+DEFAULT_FFMPEG = REPO_ROOT_DEFAULT / "tools" / "ffmpeg" / "ffmpeg"
+PIPER_BIN  = os.environ.get("PIPER_BIN", str(DEFAULT_PIPER))
+FFMPEG_BIN = os.environ.get("FFMPEG_BIN", str(DEFAULT_FFMPEG))
 
 UNSPLASH_ACCESS_KEY = os.environ.get("UNSPLASH_ACCESS_KEY")
 
@@ -165,18 +169,18 @@ def piper_text_to_pcm(text: str, pcm_path: pathlib.Path, voice: str | None = Non
     # 標準入力から Piper にテキストを渡して PCM 出力。voice でモデルを上書き可。
     ensure_path(pcm_path)
     env = os.environ.copy()
-    piper_cwd = os.path.dirname(PIPER_EXE)
+    piper_cwd = os.path.dirname(PIPER_BIN)
     v = voice or VOICE
-    cmd = [PIPER_EXE, "--model", v, "--output_file", str(pcm_path)]
+    cmd = [PIPER_BIN, "--model", v, "--output_file", str(pcm_path)]
     print("+ echo text |", " ".join(cmd))
     run(cmd, cwd=piper_cwd, timeout=TIMEOUT_SEC, env=env, input_text=text)
 
 # === PCM → WAV / MP3変換 ===
 def pcm_to_wav_mp3(pcm_path, wav_path, mp3_path):
     ensure_path(wav_path); ensure_path(mp3_path)
-    run([FFMPEG_EXE, "-y", "-f", PCM_FMT, "-ar", str(PCM_RATE), "-ac", str(PCM_CH),
+    run([FFMPEG_BIN, "-y", "-f", PCM_FMT, "-ar", str(PCM_RATE), "-ac", str(PCM_CH),
          "-i", str(pcm_path), str(wav_path)])
-    run([FFMPEG_EXE, "-y", "-i", str(wav_path), "-ar", "44100", "-b:a", "112k", str(mp3_path)])
+    run([FFMPEG_BIN, "-y", "-i", str(wav_path), "-ar", "44100", "-b:a", "112k", str(mp3_path)])
 
 
 # === JSON生成 ===
@@ -360,7 +364,7 @@ def make_part1_audio(statements, pcm_path, narrator_prefix=True, label_read=True
     def add_silence(ms, idx):
         dur = f"{ms/1000:.3f}"
         sil = tmp_dir / f"sil{idx:02d}.pcm"
-        run([FFMPEG_EXE, "-y",
+        run([FFMPEG_BIN, "-y",
              "-f", "lavfi", "-i", f"anullsrc=r={PCM_RATE}:cl=mono",
              "-t", dur,
              "-f", PCM_FMT, "-ar", str(PCM_RATE), "-ac", str(PCM_CH),

@@ -1,0 +1,112 @@
+name: Generate TOEIC items
+
+on:
+  workflow_dispatch:
+    inputs:
+      part:
+        type: choice
+        required: true
+        options: [1, 2, 3, 4]
+      level:
+        type: choice
+        required: true
+        options: [A2, B1, B2]
+      count:
+        type: number
+        required: true
+        default: 5
+      theme:
+        type: string
+        required: false
+        description: "optional theme (commute, travel, ...)"
+  
+  # 完全自動にしたいなら（例：毎日3時）
+  # schedule:
+  #   - cron: "0 18 * * *"  # JST 3:00 = UTC 18:00
+
+permissions:
+  contents: write   # media / items / media を commit するので write が必要
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # ---------- Piper / ffmpeg の実行権限付与 ----------
+
+      - name: Make Piper and ffmpeg executable
+        run: |
+          chmod +x tools/piper/piper || true
+          chmod +x tools/ffmpeg/ffmpeg || true
+
+      # ---------- 問題・音声・画像の生成 ----------
+
+      - name: Generate TOEIC items
+        run: |
+          cd .tools/generate_item
+
+          PART="${{ inputs.part }}"
+          LEVEL="${{ inputs.level }}"
+          COUNT="${{ inputs.count }}"
+          THEME="${{ inputs.theme }}"
+
+          if [ -z "$THEME" ]; then
+            echo "Running without theme..."
+            python generate.py \
+              --part "$PART" \
+              --level "$LEVEL" \
+              --count "$COUNT"
+          else
+            echo "Running with theme: $THEME"
+            python generate.py \
+              --part "$PART" \
+              --level "$LEVEL" \
+              --count "$COUNT" \
+              --theme "$THEME"
+          fi
+      
+      # ---------- manifest / HTML をビルド ----------
+
+      - name: Build pages
+        run: |
+          python tools/build_pages.py
+
+      - name: Build manifest
+        run: |
+          python tools/build_manifest.py
+
+      # ---------- 生成物を commit & push ----------
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 生成物だけ add
+          git add media items public || true
+
+          # 変更がなければコミットしない
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "auto: generate part${{ inputs.part }} ${{ inputs.level }} ${{ inputs.count }} items (Ubuntu)"
+          git push origin main
