@@ -3,7 +3,7 @@
 
 # === Part1 用の問題パターン集 ===
 PART1_PATTERNS = [
-    # --- A2 level 30patterns (easy) ---
+    # --- A2 level 100patterns (easy) ---
     # 1: correct = A (A2)
     {
         "level": "A2",
@@ -422,6 +422,970 @@ PART1_PATTERNS = [
         ],
         "answer": "B",
         "rationale": "The scene is inside a bus with a passenger holding a handrail. The other statements describe cooking, laundry, or play."
+    },
+    # === A2 Part1 Patterns (31-50 revised) ===
+    {
+        "level": "A2",
+        "query": "woman holding smartphone living room sofa casual",
+        "statements": [
+            "A woman is holding a smartphone.",
+            "A man is typing on a computer.",
+            "The woman is cooking dinner.",
+            "The sofa is empty."
+        ],
+        "answer": "A",
+        "rationale": "The picture shows a woman holding a smartphone while sitting on the sofa."
+    },
+    {
+        "level": "A2",
+        "query": "man drinking coffee office desk laptop morning",
+        "statements": [
+            "A man is sleeping on the floor.",
+            "The man is drinking coffee at his desk.",
+            "A woman is using a whiteboard.",
+            "The desk is full of vegetables."
+        ],
+        "answer": "B",
+        "rationale": "The man is drinking coffee at his desk."
+    },
+    {
+        "level": "A2",
+        "query": "two people walking park sunny trees path",
+        "statements": [
+            "Two people are running a race indoors.",
+            "Two people are sitting on a bench.",
+            "Two people are walking in the park.",
+            "A car is parked next to them."
+        ],
+        "answer": "C",
+        "rationale": "Two people are walking outside in the park."
+    },
+    {
+        "level": "A2",
+        "query": "woman reading book bed pillow lamp night",
+        "statements": [
+            "The woman is dancing on a stage.",
+            "She is washing dishes in the kitchen.",
+            "A woman is reading a book in bed.",
+            "The room is a busy office."
+        ],
+        "answer": "C",
+        "rationale": "The woman is reading a book while lying in bed."
+    },
+    {
+        "level": "A2",
+        "query": "man riding bicycle city street daytime helmet",
+        "statements": [
+            "A man is driving a bus.",
+            "The street is covered with heavy snow.",
+            "He is walking his dog.",
+            "A man is riding a bicycle on a city street."
+        ],
+        "answer": "D",
+        "rationale": "A man is cycling on a city street."
+    },
+    {
+        "level": "A2",
+        "query": "woman shopping supermarket groceries cart aisle",
+        "statements": [
+            "The woman is sitting in a restaurant.",
+            "The cart is full of toys.",
+            "She is cleaning the floor.",
+            "A woman is pushing a shopping cart."
+        ],
+        "answer": "D",
+        "rationale": "The woman is walking with a shopping cart in the supermarket aisle."
+    },
+    {
+        "level": "A2",
+        "query": "man waiting bus stop checking watch evening street",
+        "statements": [
+            "The man is swimming in a pool.",
+            "He is repairing a car engine.",
+            "The man is sitting inside a bus.",
+            "A man is waiting at a bus stop."
+        ],
+        "answer": "D",
+        "rationale": "The man is standing and waiting for a bus."
+    },
+    {
+        "level": "A2",
+        "query": "woman cutting vegetables kitchen counter cooking",
+        "statements": [
+            "She is working at a computer.",
+            "A family is eating dinner.",
+            "The kitchen is empty.",
+            "A woman is cutting vegetables."
+        ],
+        "answer": "D",
+        "rationale": "The woman is preparing food by cutting vegetables."
+    },
+    {
+        "level": "A2",
+        "query": "man talking phone office chair notebook pen",
+        "statements": [
+            "A woman is writing a report.",
+            "The man is talking on the phone.",
+            "The man is cooking pasta.",
+            "He is reading a newspaper outside."
+        ],
+        "answer": "B",
+        "rationale": "The man is using his phone while seated in the office."
+    },
+    {
+        "level": "A2",
+        "query": "woman cleaning window cloth spray bottle home",
+        "statements": [
+            "She is lying on a beach.",
+            "The woman is driving a car.",
+            "A woman is cleaning a window.",
+            "A dog is sleeping on the bed."
+        ],
+        "answer": "C",
+        "rationale": "The woman is using a cloth and spray to clean the window."
+    },
+    {
+        "level": "A2",
+        "query": "two people eating lunch cafe table food drinks",
+        "statements": [
+            "They are fixing a bicycle.",
+            "Two people are eating lunch at a cafe.",
+            "A person is sleeping on a bench.",
+            "They are painting a wall together."
+        ],
+        "answer": "B",
+        "rationale": "The picture shows two people sharing a meal at a cafe."
+    },
+    {
+        "level": "A2",
+        "query": "man watering plants garden morning sunshine",
+        "statements": [
+            "A woman is playing the piano.",
+            "A man is watering the plants.",
+            "The plants are dying in the snow.",
+            "He is driving a tractor."
+        ],
+        "answer": "B",
+        "rationale": "The man is watering plants in the garden."
+    },
+    {
+        "level": "A2",
+        "query": "woman holding umbrella rainy street crosswalk",
+        "statements": [
+            "A woman is sunbathing.",
+            "She is walking in the desert.",
+            "The street is covered in snow.",
+            "A woman is holding an umbrella."
+        ],
+        "answer": "D",
+        "rationale": "It is raining and the woman is holding an umbrella."
+    },
+    {
+        "level": "A2",
+        "query": "man reading newspaper bench park daylight",
+        "statements": [
+            "The bench is empty.",
+            "A woman is cutting grass.",
+            "A man is riding a horse.",
+            "A man is reading a newspaper."
+        ],
+        "answer": "D",
+        "rationale": "The man is sitting on a bench and reading."
+    },
+    {
+        "level": "A2",
+        "query": "woman using laptop cafe cup coffee table",
+        "statements": [
+            "She is sleeping in bed.",
+            "A woman is using a laptop at a cafe.",
+            "The woman is cooking soup.",
+            "She is running on a track."
+        ],
+        "answer": "B",
+        "rationale": "The woman is working on a laptop with coffee nearby."
+    },
+    {
+        "level": "A2",
+        "query": "man brushing teeth bathroom mirror morning",
+        "statements": [
+            "He is shouting at a crowd.",
+            "The man is brushing his teeth.",
+            "The man is cutting his hair.",
+            "He is sleeping on a bench."
+        ],
+        "answer": "B",
+        "rationale": "The man is brushing his teeth in front of a mirror."
+    },
+    {
+        "level": "A2",
+        "query": "woman folding clothes laundry room baskets",
+        "statements": [
+            "A woman is folding clothes.",
+            "She is swimming in a pool.",
+            "The clothes are burning in a fire.",
+            "She is driving a car."
+        ],
+        "answer": "A",
+        "rationale": "The woman is folding clean laundry in the room."
+    },
+    {
+        "level": "A2",
+        "query": "man cooking frying pan stove kitchen apron",
+        "statements": [
+            "The man is fixing a bicycle wheel.",
+            "A man is cooking on the stove.",
+            "He is watching TV on a couch.",
+            "He is checking tickets at a station."
+        ],
+        "answer": "B",
+        "rationale": "A man is preparing food on a frying pan."
+    },
+    {
+        "level": "A2",
+        "query": "family walking dog neighborhood houses afternoon",
+        "statements": [
+            "A man is flying an airplane.",
+            "A woman is working in a hospital.",
+            "A family is walking their dog.",
+            "The dog is sleeping inside a house."
+        ],
+        "answer": "C",
+        "rationale": "A family is outdoors walking a dog."
+    },
+    {
+        "level": "A2",
+        "query": "woman listening music headphones park trees relaxing",
+        "statements": [
+            "The headphones are on the table.",
+            "She is speaking to a large audience.",
+            "A woman is listening to music with headphones.",
+            "She is writing on the whiteboard."
+        ],
+        "answer": "C",
+        "rationale": "The woman is wearing headphones and listening to something."
+    },
+    # === A2 Part1 Patterns (51–70 revised answers distributed) ===
+    {
+        "level": "A2",
+        "query": "man washing car driveway hose sponge outdoor",
+        "statements": [
+            "The man is flying a kite.",
+            "A woman is cutting paper.",
+            "The car is parked inside a garage.",
+            "A man is washing a car."
+        ],
+        "answer": "D",
+        "rationale": "The man is cleaning the car using a sponge and water outside."
+    },
+    {
+        "level": "A2",
+        "query": "woman painting wall roller ladder indoor renovation",
+        "statements": [
+            "The woman is reading a picture book.",
+            "She is lying in a hammock outside.",
+            "A woman is painting a wall with a roller.",
+            "She is cooking in the kitchen."
+        ],
+        "answer": "C",
+        "rationale": "The woman is painting a wall as part of home renovation."
+    },
+    {
+        "level": "A2",
+        "query": "two people assembling furniture living room tools instruction",
+        "statements": [
+            "They are jogging in the park.",
+            "Two people are assembling furniture.",
+            "They are sleeping on the sofa.",
+            "Two people are playing a board game."
+        ],
+        "answer": "B",
+        "rationale": "The two people are building furniture using tools and an instruction sheet."
+    },
+    {
+        "level": "A2",
+        "query": "woman walking dog forest path morning",
+        "statements": [
+            "A woman is teaching a class.",
+            "She is driving a motorcycle.",
+            "A woman is walking a dog in the forest.",
+            "She is shopping at a market."
+        ],
+        "answer": "C",
+        "rationale": "The picture shows a woman walking her dog on a forest path."
+    },
+    {
+        "level": "A2",
+        "query": "man taking photo camera city bridge sightseeing",
+        "statements": [
+            "A man is taking a picture with a camera.",
+            "A man is talking on the phone.",
+            "He is fixing a bike.",
+            "The man is cutting vegetables."
+        ],
+        "answer": "A",
+        "rationale": "The man is holding a camera and taking a photo near a bridge."
+    },
+    {
+        "level": "A2",
+        "query": "couple eating ice cream outdoor bench sunny",
+        "statements": [
+            "They are fixing a broken computer.",
+            "A couple is eating ice cream outside.",
+            "The people are in a concert hall.",
+            "A family is swimming in a pool."
+        ],
+        "answer": "B",
+        "rationale": "The couple is enjoying ice cream together outdoors."
+    },
+    {
+        "level": "A2",
+        "query": "woman making sandwich kitchen bread cheese lunch",
+        "statements": [
+            "She is polishing her shoes.",
+            "A woman is singing on a stage.",
+            "She is watering flowers.",
+            "A woman is making a sandwich."
+        ],
+        "answer": "D",
+        "rationale": "The woman is preparing a sandwich for lunch."
+    },
+    {
+        "level": "A2",
+        "query": "man tying shoelaces park running shoes morning exercise",
+        "statements": [
+            "The man is painting in an art studio.",
+            "He is tying his shoelaces.",
+            "He is cleaning dishes in the sink.",
+            "He is brushing the dog."
+        ],
+        "answer": "B",
+        "rationale": "The man is sitting down and tying his shoelaces before exercising."
+    },
+    {
+        "level": "A2",
+        "query": "woman feeding cat pet bowl home kitchen floor",
+        "statements": [
+            "The woman is driving a truck.",
+            "The woman is feeding a cat.",
+            "She is checking luggage at the airport.",
+            "She is playing tennis outside."
+        ],
+        "answer": "B",
+        "rationale": "The woman is placing food in a bowl for her cat."
+    },
+    {
+        "level": "A2",
+        "query": "man sweeping porch broom house entrance evening",
+        "statements": [
+            "The man is eating spaghetti.",
+            "The man is sweeping the porch.",
+            "He is sleeping next to a fire.",
+            "The man is surfing in the ocean."
+        ],
+        "answer": "B",
+        "rationale": "The man is cleaning the house entrance with a broom."
+    },
+    {
+        "level": "A2",
+        "query": "woman packing suitcase bedroom travel clothes luggage",
+        "statements": [
+            "A woman is lifting weights at a gym.",
+            "She is washing vegetables.",
+            "The woman is packing a suitcase.",
+            "She is playing with a cat on the floor."
+        ],
+        "answer": "C",
+        "rationale": "The woman is preparing clothes and packing her suitcase."
+    },
+    {
+        "level": "A2",
+        "query": "man buying ticket vending machine station public transport",
+        "statements": [
+            "The man is swinging on a playground.",
+            "He is painting a wall.",
+            "The man is baking bread.",
+            "He is buying a ticket from a machine."
+        ],
+        "answer": "D",
+        "rationale": "The man is using a vending machine to purchase a ticket."
+    },
+    {
+        "level": "A2",
+        "query": "woman stretching yoga mat living room home exercise",
+        "statements": [
+            "The woman is swimming across a lake.",
+            "A woman is stretching on a yoga mat.",
+            "She is repairing a fence outside.",
+            "She is serving food to guests."
+        ],
+        "answer": "B",
+        "rationale": "The woman is exercising and stretching on a yoga mat."
+    },
+    {
+        "level": "A2",
+        "query": "man carrying grocery bags front door house shopping",
+        "statements": [
+            "The man is tying a boat to a dock.",
+            "The man is carrying grocery bags.",
+            "He is cooking fish on a campfire.",
+            "The man is painting his face for a show."
+        ],
+        "answer": "B",
+        "rationale": "The man is returning home with full grocery bags."
+    },
+    {
+        "level": "A2",
+        "query": "woman planting flowers backyard soil gardening gloves",
+        "statements": [
+            "A woman is planting flowers in the backyard.",
+            "The woman is driving a small tractor.",
+            "She is studying at a desk.",
+            "She is watching a live concert."
+        ],
+        "answer": "A",
+        "rationale": "The woman is gardening and placing flowers in the soil."
+    },
+    {
+        "level": "A2",
+        "query": "man washing hands bathroom sink soap hygiene",
+        "statements": [
+            "He is dancing in the living room.",
+            "The man is reading a map outside.",
+            "The man is washing his hands.",
+            "He is petting a horse."
+        ],
+        "answer": "C",
+        "rationale": "The man is washing his hands with soap in the bathroom."
+    },
+    {
+        "level": "A2",
+        "query": "woman sewing clothes needles fabric home craft",
+        "statements": [
+            "She is climbing a tall tree.",
+            "A woman is sewing clothes.",
+            "The woman is taking out the trash.",
+            "She is using a vacuum cleaner."
+        ],
+        "answer": "B",
+        "rationale": "The woman is sewing fabric with a needle."
+    },
+    {
+        "level": "A2",
+        "query": "man changing light bulb ladder ceiling repair home",
+        "statements": [
+            "He is fishing at a river.",
+            "The man is eating cake at a party.",
+            "He is snowboarding down a hill.",
+            "The man is changing a light bulb."
+        ],
+        "answer": "D",
+        "rationale": "The man is standing on a ladder to replace a light bulb."
+    },
+    {
+        "level": "A2",
+        "query": "woman hanging clothes clothesline backyard laundry drying",
+        "statements": [
+            "A woman is hanging clothes outside.",
+            "She is typing on a computer keyboard.",
+            "She is fishing on a boat.",
+            "She is making a speech onstage."
+        ],
+        "answer": "A",
+        "rationale": "The woman is placing wet laundry onto a clothesline to dry."
+    },
+    {
+        "level": "A2",
+        "query": "man sitting firepit roasting marshmallow camping chair night outdoor",
+        "statements": [
+            "He is answering phones in an office.",
+            "The man is washing a car at a gas station.",
+            "The man is roasting a marshmallow at a firepit.",
+            "He is sleeping on a long flight."
+        ],
+        "answer": "C",
+        "rationale": "The man is sitting outdoors and roasting a marshmallow by the fire."
+    },
+    # === A2 Part1 Patterns (71–90) ===
+    {
+        "level": "A2",
+        "query": "man ironing shirt ironing board laundry home",
+        "statements": [
+            "The man is ironing a shirt.",
+            "He is swimming in a pool.",
+            "The man is eating at a restaurant.",
+            "He is playing basketball."
+        ],
+        "answer": "A",
+        "rationale": "The man is using an iron on a shirt at home."
+    },
+    {
+        "level": "A2",
+        "query": "woman washing lettuce kitchen sink preparing salad",
+        "statements": [
+            "A woman is washing lettuce.",
+            "She is driving a scooter.",
+            "She is painting a landscape outdoors.",
+            "She is working on a farm."
+        ],
+        "answer": "A",
+        "rationale": "The woman is washing vegetables in a sink to make a meal."
+    },
+    {
+        "level": "A2",
+        "query": "man taking out trash garbage bag front yard evening",
+        "statements": [
+            "The man is taking out the trash.",
+            "The man is skiing down a hill.",
+            "He is selling fruit at a market.",
+            "He is washing dishes."
+        ],
+        "answer": "A",
+        "rationale": "The man is holding a garbage bag outside the house."
+    },
+    {
+        "level": "A2",
+        "query": "woman feeding baby bottle living room sofa daytime",
+        "statements": [
+            "The woman is bathing a baby.",
+            "A woman is feeding a baby with a bottle.",
+            "The woman is jogging in the park.",
+            "She is repairing a bicycle."
+        ],
+        "answer": "B",
+        "rationale": "The woman is sitting on the sofa and feeding a baby."
+    },
+    {
+        "level": "A2",
+        "query": "man reading instructions assembling toy table tools",
+        "statements": [
+            "The man is reading instructions while building a toy.",
+            "The man is napping on the couch.",
+            "He is cutting grass outside.",
+            "He is working as a cashier."
+        ],
+        "answer": "A",
+        "rationale": "The man is assembling a toy using tools and a manual."
+    },
+    {
+        "level": "A2",
+        "query": "woman pouring juice dining table breakfast glasses",
+        "statements": [
+            "A woman is pouring juice.",
+            "The woman is singing karaoke.",
+            "She is lifting heavy boxes.",
+            "She is working at a construction site."
+        ],
+        "answer": "A",
+        "rationale": "The woman is filling glasses with juice at the table."
+    },
+    {
+        "level": "A2",
+        "query": "man organizing books bookshelf living room cleaning",
+        "statements": [
+            "The man is organizing books on a shelf.",
+            "The man is climbing a tall tower.",
+            "He is fencing with a sword.",
+            "He is dancing in a studio."
+        ],
+        "answer": "A",
+        "rationale": "The man is tidying the books on the shelf."
+    },
+    {
+        "level": "A2",
+        "query": "woman knitting scarf yarn needles couch cozy",
+        "statements": [
+            "The woman is knitting a scarf.",
+            "The woman is washing a car.",
+            "She is directing traffic.",
+            "She is skateboarding in a park."
+        ],
+        "answer": "A",
+        "rationale": "The woman is using knitting needles and yarn on the couch."
+    },
+    {
+        "level": "A2",
+        "query": "man grilling food barbecue backyard picnic",
+        "statements": [
+            "A man is grilling food outside.",
+            "The man is preparing pizza in a bakery.",
+            "He is fishing from a boat.",
+            "He is watching a movie on TV."
+        ],
+        "answer": "A",
+        "rationale": "The man is cooking food on a grill in the backyard."
+    },
+    {
+        "level": "A2",
+        "query": "woman washing car windshield sponge water driveway",
+        "statements": [
+            "A woman is washing the windshield of a car.",
+            "She is sitting in a classroom.",
+            "The woman is flying an airplane.",
+            "She is running a clothing shop."
+        ],
+        "answer": "A",
+        "rationale": "She is standing outside and cleaning the front of her car."
+    },
+    {
+        "level": "A2",
+        "query": "man buying bread bakery counter cashier morning",
+        "statements": [
+            "The man is buying bread at a bakery.",
+            "The man is mowing a lawn.",
+            "He is camping in the mountains.",
+            "He is working as a dentist."
+        ],
+        "answer": "A",
+        "rationale": "The man is at a bakery counter selecting bread."
+    },
+    {
+        "level": "A2",
+        "query": "woman mopping floor kitchen bucket cleaning",
+        "statements": [
+            "The woman is playing volleyball.",
+            "The woman is mopping the floor.",
+            "She is wrapping gifts for a party.",
+            "She is taking photos of birds."
+        ],
+        "answer": "B",
+        "rationale": "She is cleaning the floor using a mop and bucket."
+    },
+    {
+        "level": "A2",
+        "query": "man cooking soup stirring pot stove apron",
+        "statements": [
+            "The man is stirring soup on the stove.",
+            "The man is sewing clothes.",
+            "He is swimming with dolphins.",
+            "He is cutting wood in a forest."
+        ],
+        "answer": "A",
+        "rationale": "The man is preparing food on the stove."
+    },
+    {
+        "level": "A2",
+        "query": "woman fixing hair looking mirror bathroom getting ready",
+        "statements": [
+            "The woman is fixing her hair in front of a mirror.",
+            "The woman is painting a sunset picture.",
+            "She is hiking up a steep hill.",
+            "She is feeding ducks at the lake."
+        ],
+        "answer": "A",
+        "rationale": "The woman is adjusting her hair while looking in the mirror."
+    },
+    {
+        "level": "A2",
+        "query": "man wrapping gift present ribbon table celebration",
+        "statements": [
+            "The man is playing the violin.",
+            "He is fixing a broken car.",
+            "The man is wrapping a gift.",
+            "He is washing windows."
+        ],
+        "answer": "C",
+        "rationale": "The man is wrapping a present using ribbon and paper."
+    },
+    {
+        "level": "A2",
+        "query": "woman cutting fruit kitchen knife breakfast bowl",
+        "statements": [
+            "She is repairing a phone screen.",
+            "She is cutting fruit in the kitchen.",
+            "A woman is flying a drone.",
+            "She is watering indoor plants."
+        ],
+        "answer": "B",
+        "rationale": "The woman is slicing fruit into a bowl."
+    },
+    {
+        "level": "A2",
+        "query": "man petting dog living room sofa friendship",
+        "statements": [
+            "The man is petting a dog.",
+            "The man is juggling balls.",
+            "He is giving a speech on a stage.",
+            "He is analyzing data on a laptop."
+        ],
+        "answer": "A",
+        "rationale": "The man is gently petting his dog next to the sofa."
+    },
+    {
+        "level": "A2",
+        "query": "woman refilling bird feeder backyard birds nature",
+        "statements": [
+            "The woman is refilling a bird feeder.",
+            "She is skiing through snow.",
+            "She is playing drums in a band.",
+            "She is washing her car at a gas station."
+        ],
+        "answer": "A",
+        "rationale": "The woman is adding food to a bird feeder outside."
+    },
+    {
+        "level": "A2",
+        "query": "man pouring milk cereal breakfast table morning",
+        "statements": [
+            "A man is pouring milk into a bowl of cereal.",
+            "The man is fixing a ceiling lamp.",
+            "He is painting a large fence.",
+            "He is skateboarding at a park."
+        ],
+        "answer": "A",
+        "rationale": "The man is having breakfast and adding milk to cereal."
+    },
+    {
+        "level": "A2",
+        "query": "woman playing board game table family fun weekend",
+        "statements": [
+            "The woman is playing a board game.",
+            "The woman is lifting furniture.",
+            "She is jogging near a river.",
+            "She is organizing files in an office."
+        ],
+        "answer": "A",
+        "rationale": "The woman is engaged in a board game at the table."
+    },
+    # === A2 Part1 Patterns (91–100 FINAL balanced answers) ===
+    {
+        "level": "A2",
+        "query": "woman typing keyboard office desk coffee notebook work",
+        "statements": [
+            "She is talking to customers at a store counter.",
+            "The woman is typing on a keyboard at her desk.",
+            "She is handing out leaflets on the street.",
+            "The woman is drinking water on a sofa."
+        ],
+        "answer": "B",
+        "rationale": "The woman is working at her desk and typing on a keyboard."
+    },
+    {
+        "level": "A2",
+        "query": "man talking phone office papers folders business call",
+        "statements": [
+            "The man is jogging outdoors.",
+            "He is repairing a bicycle tire.",
+            "The man is talking on the phone in the office.",
+            "He is cooking dinner in a kitchen."
+        ],
+        "answer": "C",
+        "rationale": "The man is holding a phone to his ear while working at his desk."
+    },
+    {
+        "level": "A2",
+        "query": "woman writing notes meeting table documents pens",
+        "statements": [
+            "She is driving a truck on a highway.",
+            "The woman is writing notes during a meeting.",
+            "The woman is washing a car.",
+            "She is watering flowers in a garden."
+        ],
+        "answer": "B",
+        "rationale": "She is sitting at the meeting table and taking notes."
+    },
+    {
+        "level": "A2",
+        "query": "man using photocopier office hallway machine documents",
+        "statements": [
+            "The man is painting a large wall.",
+            "He is sweeping leaves outside.",
+            "The man is using a photocopier.",
+            "He is playing a guitar on stage."
+        ],
+        "answer": "C",
+        "rationale": "The man is standing by the machine and making copies of documents."
+    },
+    {
+        "level": "A2",
+        "query": "woman checking calendar planner workspace schedule",
+        "statements": [
+            "The woman is climbing a mountain.",
+            "The woman is checking a calendar in her planner.",
+            "The woman is running a marathon race.",
+            "The woman is taking a bath at home."
+        ],
+        "answer": "B",
+        "rationale": "She is reviewing her schedule with a planner open on the desk."
+    },
+    {
+        "level": "A2",
+        "query": "group teammates discussing project office table laptops",
+        "statements": [
+            "The team is exercising in a gym.",
+            "The group is taking photos with a celebrity.",
+            "The team is discussing a project at a table.",
+            "They are resting on a bus."
+        ],
+        "answer": "C",
+        "rationale": "Several people are gathered at a desk discussing work."
+    },
+    {
+        "level": "A2",
+        "query": "man drinking coffee break lounge office sofa relaxing",
+        "statements": [
+            "The man is receiving a medical injection.",
+            "He is swimming at a beach.",
+            "He is doing laundry at home.",
+            "The man is drinking coffee on a sofa during a break."
+        ],
+        "answer": "D",
+        "rationale": "He is relaxing and having coffee in the office lounge."
+    },
+    {
+        "level": "A2",
+        "query": "woman using calculator bills budget finance papers",
+        "statements": [
+            "The woman is lifting heavy furniture.",
+            "She is delivering food to tables.",
+            "The woman is using a calculator and checking papers.",
+            "She is ice skating outdoors."
+        ],
+        "answer": "C",
+        "rationale": "She is working with bills and a calculator at her desk."
+    },
+    {
+        "level": "A2",
+        "query": "man presenting chart conference room screen pointer",
+        "statements": [
+            "The man is fixing a motorcycle.",
+            "He is cutting vegetables in a kitchen.",
+            "He is presenting a chart in a conference room.",
+            "He is throwing a baseball."
+        ],
+        "answer": "C",
+        "rationale": "The man is pointing to a screen and explaining business data."
+    },
+    {
+        "level": "A2",
+        "query": "woman handing documents coworker office collaboration",
+        "statements": [
+            "The woman is combing a dog's fur.",
+            "The woman is flying a helicopter.",
+            "The woman is handing documents to a coworker.",
+            "She is selling vegetables at a market."
+        ],
+        "answer": "C",
+        "rationale": "She is passing papers to someone at the office."
+    },
+    {
+        "level": "A2",
+        "query": "man stamping papers reception desk visitor counter",
+        "statements": [
+            "He is dancing on a stage.",
+            "The man is stamping papers at a reception desk.",
+            "The man is shaving in a bathroom.",
+            "The man is snorkeling underwater."
+        ],
+        "answer": "B",
+        "rationale": "He is working behind a counter with documents in front of him."
+    },
+    {
+        "level": "A2",
+        "query": "woman opening laptop cafe working remote coffee shop",
+        "statements": [
+            "The woman is skiing down a hill.",
+            "She is doing yoga in a gym.",
+            "She is sweeping a warehouse floor.",
+            "The woman is opening a laptop at a cafe."
+        ],
+        "answer": "D",
+        "rationale": "She is beginning work by opening her laptop near a drink."
+    },
+    {
+        "level": "A2",
+        "query": "man writing on whiteboard brainstorming office ideas",
+        "statements": [
+            "The man is karate training.",
+            "The man is writing ideas on a whiteboard.",
+            "He is drilling a hole in wood.",
+            "He is playing a board game with kids."
+        ],
+        "answer": "B",
+        "rationale": "He is standing near a whiteboard and writing for discussion."
+    },
+    {
+        "level": "A2",
+        "query": "woman arranging folders office shelf organizing files",
+        "statements": [
+            "The woman is arranging folders on a shelf.",
+            "The woman is climbing a wall with ropes.",
+            "She is playing a computer game.",
+            "She is planting trees in a field."
+        ],
+        "answer": "A",
+        "rationale": "She is organizing office files neatly on the shelf."
+    },
+    {
+        "level": "A2",
+        "query": "man signing contract paper pen handshake business",
+        "statements": [
+            "He is delivering a speech in a stadium.",
+            "The man is signing a contract.",
+            "He is repairing a broken lamp.",
+            "He is feeding chickens on a farm."
+        ],
+        "answer": "B",
+        "rationale": "The man is holding a pen and writing on an official document."
+    },
+    {
+        "level": "A2",
+        "query": "woman checking name tag visitor lobby corporate company",
+        "statements": [
+            "The woman is checking a name tag in a lobby.",
+            "She is washing the windows of a house.",
+            "She is hiking through a forest.",
+            "The woman is fishing at a lake."
+        ],
+        "answer": "A",
+        "rationale": "She is verifying her visitor name tag in the corporate lobby."
+    },
+    {
+        "level": "A2",
+        "query": "man sorting mail envelopes office cubicle desk",
+        "statements": [
+            "The man is taking a nap in bed.",
+            "A man is sorting envelopes and mail.",
+            "He is playing tennis on a court.",
+            "The man is raking leaves outside."
+        ],
+        "answer": "B",
+        "rationale": "The man is separating envelopes and papers at his desk."
+    },
+    {
+        "level": "A2",
+        "query": "woman pointing laptop screen coworker teamwork office",
+        "statements": [
+            "She is singing into a microphone on stage.",
+            "The woman is pointing at something on a laptop screen.",
+            "She is watering flowers on the balcony.",
+            "She is riding a surfboard."
+        ],
+        "answer": "B",
+        "rationale": "She is showing information on the screen to a coworker."
+    },
+    {
+        "level": "A2",
+        "query": "man carrying box storage room archive shelf office",
+        "statements": [
+            "The man is carrying a box into a storage room.",
+            "He is practicing golf on a field.",
+            "The man is painting a mountain landscape.",
+            "The man is operating a forklift outdoors."
+        ],
+        "answer": "A",
+        "rationale": "The man is holding a box and heading toward the archive shelves."
+    },
+    {
+        "level": "A2",
+        "query": "woman drinking tea break office lounge relaxing",
+        "statements": [
+            "The woman is drinking tea during a break.",
+            "The woman is washing her car.",
+            "She is swimming in the sea.",
+            "The woman is digging holes in a garden."
+        ],
+        "answer": "A",
+        "rationale": "She is relaxing with a cup of tea in the office lounge."
     },
 
     # --- B1 level 100patterns (standard) ---
@@ -2117,6 +3081,841 @@ PART1_PATTERNS = [
         "answer": "B",
         "rationale": "Option B correctly shows a visitor operating a digital building directory in a lobby. The other options involve kitchen, medical, or street scenes."
     },
+    # === Part1 B2 Patterns (31–50) ===
+    {
+        "level": "B2",
+        "query": "businesswoman reviewing quarterly report analyzing bar chart office desk laptop",
+        "statements": [
+            "The woman is analyzing a bar chart in a quarterly report.",
+            "The woman is giving money to a street musician.",
+            "She is photographing tourists in a crowded plaza.",
+            "She is organizing a flower bouquet."
+        ],
+        "answer": "A",
+        "rationale": "She is looking down at the report while examining a printed bar chart at her desk."
+    },
+    {
+        "level": "B2",
+        "query": "team planning marketing strategy meeting whiteboard sticky notes brainstorming session",
+        "statements": [
+            "The team is cheering for a sports match at a stadium.",
+            "The team is brainstorming a marketing strategy using sticky notes on a whiteboard.",
+            "The group is performing a dance routine on stage.",
+            "The team is lining up to enter a concert hall."
+        ],
+        "answer": "B",
+        "rationale": "The group is actively contributing ideas in front of a whiteboard covered with notes."
+    },
+    {
+        "level": "B2",
+        "query": "coworker assisting colleague laptop troubleshooting software issue support help",
+        "statements": [
+            "A coworker is assisting a colleague with a software issue on a laptop.",
+            "The colleague is handing out snacks during a party.",
+            "They are watering plants in the greenhouse.",
+            "They are attaching price tags to clothes in a shop."
+        ],
+        "answer": "A",
+        "rationale": "One person is pointing at the screen while helping another resolve a problem."
+    },
+    {
+        "level": "B2",
+        "query": "manager conducting performance review employee taking notes formal evaluation office",
+        "statements": [
+            "The manager is conducting a performance review while the employee takes notes.",
+            "The employee is trying on different outfits in a store dressing room.",
+            "The manager is serving dinner to guests.",
+            "The two people are playing card games in a café."
+        ],
+        "answer": "A",
+        "rationale": "They are seated across a desk in a formal evaluation setting, documents open."
+    },
+    {
+        "level": "B2",
+        "query": "businessman giving presentation sales forecast digital projector conference room audience focused",
+        "statements": [
+            "The businessman is giving a presentation on a sales forecast.",
+            "The man is tightening bolts on heavy machinery.",
+            "He is cooking breakfast on a camping stove.",
+            "He is filming a music video in the street."
+        ],
+        "answer": "A",
+        "rationale": "He is pointing at projected figures while speaking to seated listeners."
+    },
+    {
+        "level": "B2",
+        "query": "employee scanning printed contract multifunction copier scanning document digital archive",
+        "statements": [
+            "The employee is scanning a contract using a multifunction copier.",
+            "The employee is fishing on a wooden pier.",
+            "The employee is repairing a washing machine.",
+            "The employee is trimming trees in a field."
+        ],
+        "answer": "A",
+        "rationale": "She is digitizing a document for archiving using office equipment."
+    },
+    {
+        "level": "B2",
+        "query": "woman moderating panel discussion speaking microphone conference hall audience",
+        "statements": [
+            "The woman is moderating a panel discussion.",
+            "The woman is repairing a bicycle tire.",
+            "She is cleaning windows inside a restaurant.",
+            "She is participating in a yoga retreat."
+        ],
+        "answer": "A",
+        "rationale": "She is holding a microphone and guiding speakers through the agenda."
+    },
+    {
+        "level": "B2",
+        "query": "businessman reviewing contract fine print signing legal agreement negotiation",
+        "statements": [
+            "The businessman is signing a legal agreement after reviewing the fine print.",
+            "The businessman is arranging marine equipment on a fishing boat.",
+            "The businessman is feeding a horse on a ranch.",
+            "The businessman is dusting a framed painting."
+        ],
+        "answer": "A",
+        "rationale": "He is using a pen to finalize a contract document."
+    },
+    {
+        "level": "B2",
+        "query": "team participating hybrid meeting some in room others via video call large screen",
+        "statements": [
+            "The team is participating in a hybrid meeting with remote members on a screen.",
+            "The members are distributing sports uniforms for a game.",
+            "The workers are sweeping debris at a construction site.",
+            "The group is practicing choral singing."
+        ],
+        "answer": "A",
+        "rationale": "On-site participants and remote callers are interacting simultaneously."
+    },
+    {
+        "level": "B2",
+        "query": "employee preparing shipping labels packaging material warehouse desk barcode printer",
+        "statements": [
+            "The employee is preparing shipping labels at a packing desk.",
+            "The employee is arranging flowers for a wedding ceremony.",
+            "The employee is preparing a meal in a restaurant kitchen.",
+            "The employee is administering medical treatment to a patient."
+        ],
+        "answer": "A",
+        "rationale": "She is generating labels using a barcode printer among boxes and packaging."
+    },
+    {
+        "level": "B2",
+        "query": "woman analyzing financial dashboard multiple graphs laptop trend performance data driven",
+        "statements": [
+            "The woman is analyzing performance graphs on a dashboard.",
+            "The woman is cutting lumber with power tools.",
+            "The woman is painting a mural on a brick wall.",
+            "The woman is scanning library books through a checkout machine."
+        ],
+        "answer": "A",
+        "rationale": "She is studying various digital charts on her laptop display."
+    },
+    {
+        "level": "B2",
+        "query": "man coordinating video conference headphones speaking remote team agenda",
+        "statements": [
+            "The man is coordinating a video conference while speaking through a headset.",
+            "The man is repairing plumbing under the sink.",
+            "He is feeding birds on a balcony.",
+            "He is teaching a child how to ride a bike."
+        ],
+        "answer": "A",
+        "rationale": "He is wearing headphones, supervising a meeting, and speaking to participants."
+    },
+    {
+        "level": "B2",
+        "query": "colleagues celebrating project milestone clinking glasses office lounge informal",
+        "statements": [
+            "The colleagues are celebrating a project milestone and clinking glasses.",
+            "The colleagues are training animals at a wildlife center.",
+            "They are supervising children playing in a sandbox.",
+            "They are staging a theater performance."
+        ],
+        "answer": "A",
+        "rationale": "The group is making a toast in recognition of their project success."
+    },
+    {
+        "level": "B2",
+        "query": "employee assisting customer front desk explaining registration form reception counter",
+        "statements": [
+            "The employee is assisting a customer at the reception desk.",
+            "The employee is cooking at a barbecue party.",
+            "The employee is tuning a guitar before a concert.",
+            "The employee is kayaking on a lake."
+        ],
+        "answer": "A",
+        "rationale": "The employee is pointing at a form while talking politely across the counter."
+    },
+    {
+        "level": "B2",
+        "query": "man replacing toner cartridge office printer maintenance troubleshooting printing",
+        "statements": [
+            "The man is replacing a toner cartridge in a printer.",
+            "The man is surfing in the ocean waves.",
+            "The man is fixing a motorcycle engine.",
+            "The man is searching shelves in a grocery store."
+        ],
+        "answer": "A",
+        "rationale": "He is opening the printer panel and inserting a new cartridge."
+    },
+    {
+        "level": "B2",
+        "query": "woman giving product demo handheld device trade show booth technology expo visitors watching",
+        "statements": [
+            "The woman is giving a product demonstration at a trade show booth.",
+            "The woman is arranging pastries in a bakery display.",
+            "She is taking part in a school graduation parade.",
+            "She is guiding a canoe on a river."
+        ],
+        "answer": "A",
+        "rationale": "She is explaining the features of a device to event attendees."
+    },
+    {
+        "level": "B2",
+        "query": "man checking flight itinerary boarding pass smartphone departure gate airport travel",
+        "statements": [
+            "The man is checking his flight itinerary on his phone at the gate.",
+            "The man is climbing a ladder to paint a tall building.",
+            "The man is shoveling snow on his driveway.",
+            "The man is performing as a DJ at a nightclub."
+        ],
+        "answer": "A",
+        "rationale": "He is comparing his boarding pass with the flight information on screen."
+    },
+    {
+        "level": "B2",
+        "query": "woman negotiating contract terms pointing clause printed document legal discussion office",
+        "statements": [
+            "The woman is negotiating contract terms while pointing at a clause in the document.",
+            "The woman is trimming hair in a beauty salon.",
+            "She is playing a violin in a concert orchestra.",
+            "She is sculpting a statue from clay."
+        ],
+        "answer": "A",
+        "rationale": "She is emphasizing wording in the contract during a discussion."
+    },
+    {
+        "level": "B2",
+        "query": "coworkers comparing two prototypes evaluating features product testing discussion",
+        "statements": [
+            "The coworkers are evaluating features of two prototypes.",
+            "The coworkers are handing out samples of food to pedestrians.",
+            "They are polishing antique furniture.",
+            "They are installing solar panels on a roof."
+        ],
+        "answer": "A",
+        "rationale": "Both are holding different models and examining differences."
+    },
+    {
+        "level": "B2",
+        "query": "employee examining shipment invoice warehouse inventory management clipboard",
+        "statements": [
+            "The employee is examining a shipment invoice with inventory.",
+            "The employee is planting vegetables in a greenhouse.",
+            "The employee is hiking through a forest canyon.",
+            "The employee is inspecting a horse stable."
+        ],
+        "answer": "A",
+        "rationale": "He is reviewing quantities and numbers on a clipboard next to stacked boxes."
+    },
+    # === Part1 B2 Patterns (51–70 corrected answer distribution) ===
+    {
+        "level": "B2",
+        "query": "colleagues reviewing gantt chart project schedule digital tablet planning timeline",
+        "statements": [
+            "They are distributing flyers on the street.",
+            "The colleagues are reviewing a project schedule on a tablet.",
+            "They are watching a live concert from the audience.",
+            "They are washing vegetables at a kitchen sink."
+        ],
+        "answer": "B",
+        "rationale": "Both are leaning toward a shared tablet showing a timeline chart."
+    },
+    {
+        "level": "B2",
+        "query": "manager facilitating remote workshop flip chart markers breakout groups hybrid learning",
+        "statements": [
+            "The manager is braiding a child's hair.",
+            "The manager is carving a wooden sculpture.",
+            "The manager is facilitating a remote workshop.",
+            "She is piloting a small airplane."
+        ],
+        "answer": "C",
+        "rationale": "She is annotating a flip chart while coordinating virtual participants."
+    },
+    {
+        "level": "B2",
+        "query": "employee proofreading proposal printed document highlighting revision notes",
+        "statements": [
+            "The employee is proofreading a proposal with revision notes.",
+            "The employee is kayaking in the ocean.",
+            "The employee is cleaning fish at a market.",
+            "The employee is rearranging furniture in a moving truck."
+        ],
+        "answer": "A",
+        "rationale": "He is marking sections of a printed document with a highlighter."
+    },
+    {
+        "level": "B2",
+        "query": "businesswoman giving elevator pitch small group networking event confident presentation",
+        "statements": [
+            "She is stretching before a morning run.",
+            "The businesswoman is presenting a short pitch to a small group.",
+            "She is doing laundry in her apartment.",
+            "She is frosting a cake in a bakery kitchen."
+        ],
+        "answer": "B",
+        "rationale": "She is speaking confidently while others listen attentively."
+    },
+    {
+        "level": "B2",
+        "query": "team preparing slide deck last minute adjustments projector connection cables tech check",
+        "statements": [
+            "They are repairing a damaged wooden fence.",
+            "They are connecting display cables and preparing a presentation.",
+            "They are registering guests at a wedding ceremony.",
+            "They are preparing musical instruments for a street performance."
+        ],
+        "answer": "B",
+        "rationale": "They are clustered around a laptop while connecting display cables."
+    },
+    {
+        "level": "B2",
+        "query": "coworker labeling prototype components test batch product quality inspection verification",
+        "statements": [
+            "He is collecting seashells on the beach.",
+            "He is planting seedlings in a greenhouse.",
+            "The coworker is labeling prototype components for quality inspection.",
+            "He is cleaning windows on a high-rise building."
+        ],
+        "answer": "C",
+        "rationale": "He is applying temporary labels to small hardware pieces on the desk."
+    },
+    {
+        "level": "B2",
+        "query": "remote worker comparing two spreadsheets dual monitors analytics budget revenue forecast",
+        "statements": [
+            "She is analyzing rows of figures across two monitors.",
+            "She is feeding animals at a petting zoo.",
+            "She is distributing tickets at an amusement park gate.",
+            "She is organizing toys in a child's bedroom."
+        ],
+        "answer": "A",
+        "rationale": "She is comparing spreadsheets across both screens."
+    },
+    {
+        "level": "B2",
+        "query": "team member taking minutes during meeting recording action items notebook pen",
+        "statements": [
+            "The team member is recording action items in a notebook.",
+            "The team member is performing magic tricks at a party.",
+            "The team member is grooming a horse in a stable.",
+            "The team member is flying a drone over a forest."
+        ],
+        "answer": "A",
+        "rationale": "He is writing meeting minutes while listening to others speak."
+    },
+    {
+        "level": "B2",
+        "query": "employee preparing invoice spreadsheet supplier items pricing accounting admin task",
+        "statements": [
+            "The employee is sculpting a statue outdoors.",
+            "The employee is preparing an invoice in a spreadsheet.",
+            "The employee is conducting an orchestra.",
+            "The employee is washing a pet in a bathtub."
+        ],
+        "answer": "B",
+        "rationale": "She is entering pricing data line by line at her computer."
+    },
+    {
+        "level": "B2",
+        "query": "businessman comparing printed portfolios meeting a client coffee shop negotiation",
+        "statements": [
+            "He is trimming bushes in a backyard.",
+            "The businessman is comparing portfolios with a client.",
+            "He is vacuuming the carpet of his living room.",
+            "He is applying stickers to a laptop."
+        ],
+        "answer": "B",
+        "rationale": "Two binders and printed pages are spread across the café table during discussion."
+    },
+    {
+        "level": "B2",
+        "query": "person training guide dog obedience commands outdoor park responsible handling",
+        "statements": [
+            "A person is packing gifts into boxes for shipment.",
+            "A person is training a guide dog using obedience commands.",
+            "A person is lighting candles on a birthday cake.",
+            "A person is handing out drinks to sports fans."
+        ],
+        "answer": "B",
+        "rationale": "The individual is reinforcing controlled guidance movements with the dog."
+    },
+    {
+        "level": "B2",
+        "query": "couple practicing partner yoga core balance synchronization indoor fitness stretch",
+        "statements": [
+            "The couple is directing traffic on a busy road.",
+            "The couple is repairing a jammed door lock.",
+            "The couple is practicing partner yoga for balance.",
+            "The couple is replacing tires on a truck."
+        ],
+        "answer": "C",
+        "rationale": "They are coordinating movement while holding mirrored poses."
+    },
+    {
+        "level": "B2",
+        "query": "family organizing garage belongings sorting boxes donating unused items cleanup",
+        "statements": [
+            "A family is organizing their garage and sorting items for donation.",
+            "The family is painting a large mural together.",
+            "The family is selling vegetables at a farmers market.",
+            "The family is putting up stage lighting for a concert."
+        ],
+        "answer": "A",
+        "rationale": "They are dividing boxes into keep and donate piles."
+    },
+    {
+        "level": "B2",
+        "query": "cyclist adjusting derailleur fine tuning gears workshop tools maintenance",
+        "statements": [
+            "The cyclist is competing in a stadium sprint.",
+            "The cyclist is adjusting the gears on the bicycle.",
+            "The cyclist is shopping at a department store.",
+            "The cyclist is taking tickets at a movie theater."
+        ],
+        "answer": "B",
+        "rationale": "He is fine-tuning the derailleur using tools."
+    },
+    {
+        "level": "B2",
+        "query": "photographer using reflector natural light outdoor portrait creative lighting",
+        "statements": [
+            "The photographer is positioning a reflector for natural light.",
+            "The photographer is tuning a drum set.",
+            "The photographer is knitting scarves for charity.",
+            "The photographer is writing a novel at a desk."
+        ],
+        "answer": "A",
+        "rationale": "She is using a reflective board to direct sunlight toward the subject."
+    },
+    {
+        "level": "B2",
+        "query": "teacher holding science model explaining concept classroom attentive students",
+        "statements": [
+            "The teacher is hanging holiday decorations at home.",
+            "The teacher is guiding a canoe down a river.",
+            "The teacher is explaining a concept using a science model.",
+            "The teacher is trimming hedges in a park."
+        ],
+        "answer": "C",
+        "rationale": "She is showing the structure object while the class watches."
+    },
+    {
+        "level": "B2",
+        "query": "friends organizing board game pieces strategy meeting living room gathering",
+        "statements": [
+            "The friends are roasting a pig at a beach party.",
+            "The friends are mixing cement at a construction site.",
+            "The friends are marching in a parade.",
+            "The friends are setting up pieces for a strategy board game."
+        ],
+        "answer": "D",
+        "rationale": "They are discussing rule sheets while placing tokens on the board."
+    },
+    {
+        "level": "B2",
+        "query": "chef arranging ingredients garnish final plating high end restaurant attention detail",
+        "statements": [
+            "The chef is shopping for clothes at a mall.",
+            "The chef is arranging ingredients carefully to finish a plate.",
+            "The chef is repairing a broken boat motor.",
+            "The chef is playing arcade games in a game center."
+        ],
+        "answer": "B",
+        "rationale": "Tweezers and garnish elements are being placed delicately on the dish."
+    },
+    {
+        "level": "B2",
+        "query": "hiker checking navigation app comparing elevation route topographic map trail",
+        "statements": [
+            "The hiker is repairing earrings in a jewelry shop.",
+            "The hiker is sorting fresh produce for sale.",
+            "The hiker is checking an elevation route on a navigation app.",
+            "The hiker is drawing portraits in a studio."
+        ],
+        "answer": "C",
+        "rationale": "He is comparing altitude markers and trail lines on the smartphone."
+    },
+    {
+        "level": "B2",
+        "query": "artist selecting precise paintbrush fine detail canvas studio natural light creative",
+        "statements": [
+            "The artist is reading bedtime stories to children.",
+            "The artist is pouring concrete to build a staircase.",
+            "The artist is selecting a fine paintbrush for detailed work.",
+            "The artist is polishing silverware for a banquet."
+        ],
+        "answer": "C",
+        "rationale": "She is choosing a slim brush while examining a canvas under natural light."
+    },
+    # === Part1 B2 Patterns (71–85 corrected answer distribution) ===
+    {
+        "level": "B2",
+        "query": "colleague reviewing compliance checklist pen pointing document legal requirement verification",
+        "statements": [
+            "The colleague is sharpening a kitchen knife before cooking.",
+            "The colleague is feeding birds in a public park.",
+            "The colleague is pointing to a checklist to verify compliance items.",
+            "The colleague is decorating a wedding cake."
+        ],
+        "answer": "C",
+        "rationale": "The document contains marked rule items that the colleague is confirming carefully."
+    },
+    {
+        "level": "B2",
+        "query": "business team analyzing user survey feedback trend sticky notes insight grouping office wall",
+        "statements": [
+            "They are repairing the roof of a house.",
+            "They are assembling a tent for camping.",
+            "They are scrubbing floors in a warehouse.",
+            "The team is grouping survey insights on sticky notes."
+        ],
+        "answer": "D",
+        "rationale": "The team is identifying patterns and trends by clustering the notes on the wall."
+    },
+    {
+        "level": "B2",
+        "query": "employee logging customer request crm system typing follow up ticket desktop",
+        "statements": [
+            "The employee is logging a customer request in a CRM system.",
+            "The employee is stirring soup in a restaurant kitchen.",
+            "The employee is sweeping leaves in a garden.",
+            "The employee is waxing a surfboard on the beach."
+        ],
+        "answer": "A",
+        "rationale": "The employee is typing follow-up notes into customer records."
+    },
+    {
+        "level": "B2",
+        "query": "coworkers analyzing heat map product dashboard metrics digital workspace",
+        "statements": [
+            "They are washing their personal cars in a driveway.",
+            "They are singing karaoke on stage.",
+            "They are analyzing a heat map on a dashboard.",
+            "They are driving a tractor through a farm field."
+        ],
+        "answer": "C",
+        "rationale": "Multiple hotspots and activity regions on the heat map are being discussed."
+    },
+    {
+        "level": "B2",
+        "query": "business analyst comparing kpi targets quarterly board charts glass meeting room",
+        "statements": [
+            "The analyst is grooming a dog in a backyard.",
+            "The analyst is arranging flowers in a bouquet shop.",
+            "The analyst is comparing KPI targets against quarterly results.",
+            "The analyst is inspecting jewelry at a pawnshop counter."
+        ],
+        "answer": "C",
+        "rationale": "He is referencing printed charts and numbers during the review."
+    },
+    {
+        "level": "B2",
+        "query": "coworker onboarding training new employee screen sharing software demo corporate workplace",
+        "statements": [
+            "The coworker is organizing suitcases for a family vacation.",
+            "The coworker is fixing a flat tire on the road.",
+            "The coworker is giving a tour of a museum exhibition.",
+            "The coworker is coaching a new employee via software demo."
+        ],
+        "answer": "D",
+        "rationale": "Screen sharing shows key features of a business system for the new hire."
+    },
+    {
+        "level": "B2",
+        "query": "project leader updating risk matrix probability impact status presentation decision board",
+        "statements": [
+            "The leader is handing out candy to trick-or-treaters.",
+            "The leader is frying vegetables on a stove.",
+            "The leader is updating a risk matrix for a project review.",
+            "The leader is designing costumes for a theater production."
+        ],
+        "answer": "C",
+        "rationale": "He is modifying the probability and impact indicators visible on the chart."
+    },
+    {
+        "level": "B2",
+        "query": "employee conducting product usability test recording participant reaction notes camera tripod",
+        "statements": [
+            "The employee is recording reactions during a usability test.",
+            "The employee is hiking up a snowy mountain.",
+            "The employee is sanding wood in a workshop.",
+            "The employee is supervising children at a water park."
+        ],
+        "answer": "A",
+        "rationale": "He is documenting feedback while the user interacts with the product."
+    },
+    {
+        "level": "B2",
+        "query": "remote colleagues co editing shared document comments suggestions cloud collaboration",
+        "statements": [
+            "The colleagues are washing dishes in a restaurant kitchen.",
+            "The colleagues are ice-skating on a frozen pond.",
+            "The colleagues are co-editing a shared document with comments.",
+            "The colleagues are hammering nails into wooden beams."
+        ],
+        "answer": "C",
+        "rationale": "Edits and suggestions are visible in the collaboration interface."
+    },
+
+    # ── 非ビジネス ──
+
+    {
+        "level": "B2",
+        "query": "friends repairing vintage motorcycle adjusting bolts testing engine garage weekend hobby",
+        "statements": [
+            "The friends are adjusting bolts on a vintage motorcycle.",
+            "The friends are organizing a puppet show for children.",
+            "The friends are rehearsing dance moves in a studio.",
+            "The friends are making banners for a fundraiser."
+        ],
+        "answer": "A",
+        "rationale": "Tools and parts are spread across the floor as they fix the engine."
+    },
+    {
+        "level": "B2",
+        "query": "woman composing song arranging sheet music digital piano creative session",
+        "statements": [
+            "The woman is washing windows on a tall building.",
+            "The woman is preparing medical supplies for surgery.",
+            "The woman is arranging sheet music while composing a song.",
+            "The woman is repairing garden sprinklers."
+        ],
+        "answer": "C",
+        "rationale": "She is marking chords on the score beside the digital piano."
+    },
+    {
+        "level": "B2",
+        "query": "man training for rock climbing securing harness chalk checking route indoor climbing gym",
+        "statements": [
+            "The man is grilling steaks for a party.",
+            "The man is checking the climbing route while securing his harness.",
+            "The man is folding laundry after washing.",
+            "The man is making pottery on a spinning wheel."
+        ],
+        "answer": "B",
+        "rationale": "He is applying chalk and visually inspecting holds before climbing."
+    },
+    {
+        "level": "B2",
+        "query": "family preparing camping gear assembling tent poles tarps campsite teamwork nature",
+        "statements": [
+            "The family is carving pumpkins for a festival.",
+            "The family is distributing product samples to shoppers.",
+            "The family is assembling tent poles at a campsite.",
+            "The family is repairing bicycles for a fundraiser."
+        ],
+        "answer": "C",
+        "rationale": "They are building the tent frame together while preparing outdoor gear."
+    },
+    {
+        "level": "B2",
+        "query": "artist adjusting studio lights portrait shoot light angle softbox diffusion photography workspace",
+        "statements": [
+            "The artist is selling snacks at a theater concession stand.",
+            "The artist is supervising children at a beach daycare.",
+            "The artist is adjusting studio lights for a portrait shoot.",
+            "The artist is trimming hedges for landscaping work."
+        ],
+        "answer": "C",
+        "rationale": "They are fine-tuning the lighting angle and diffuser placement for the subject."
+    },
+    # === Part1 B2 Patterns (86–100) ===
+    {
+        "level": "B2",
+        "query": "business team reviewing budget allocation pie chart touchscreen monitor financial planning",
+        "statements": [
+            "They are slicing fruit to serve at a picnic.",
+            "They are reviewing a pie chart on a touchscreen monitor.",
+            "They are practicing musical instruments on stage.",
+            "They are setting up decorations for a birthday party."
+        ],
+        "answer": "B",
+        "rationale": "Team members are gathered around a screen displaying segmented budget proportions."
+    },
+    {
+        "level": "B2",
+        "query": "coworker presenting user journey map printed infographic product design workshop",
+        "statements": [
+            "The coworker is repairing a flat bicycle tire.",
+            "The coworker is presenting a user journey map to the group.",
+            "The coworker is installing a ceiling fan at home.",
+            "The coworker is sanding wooden furniture."
+        ],
+        "answer": "B",
+        "rationale": "She is pointing at key transition moments on the printed journey illustration."
+    },
+    {
+        "level": "B2",
+        "query": "employee calibrating barcode scanner testing device inventory logistics storage facility",
+        "statements": [
+            "The employee is calibrating a barcode scanner.",
+            "The employee is swimming in a community pool.",
+            "The employee is roasting vegetables in an oven.",
+            "The employee is polishing a brass instrument."
+        ],
+        "answer": "A",
+        "rationale": "He is testing scan accuracy while boxes and storage racks surround him."
+    },
+    {
+        "level": "B2",
+        "query": "manager facilitating roadmap alignment session post it notes quarterly milestones leadership",
+        "statements": [
+            "The manager is facilitating a roadmap alignment discussion.",
+            "The manager is watering houseplants on a balcony.",
+            "The manager is carving pumpkins for a festival.",
+            "The manager is checking car tire pressure at a gas station."
+        ],
+        "answer": "A",
+        "rationale": "She is pointing at milestones and guiding the team through each delivery target."
+    },
+    {
+        "level": "B2",
+        "query": "analyst verifying procurement receipts cross checking vendor codes spreadsheet accounting",
+        "statements": [
+            "The analyst is frosting cookies for a bake sale.",
+            "The analyst is checking receipts against vendor codes.",
+            "The analyst is releasing birds from a cage.",
+            "The analyst is gluing paper figures for arts and crafts."
+        ],
+        "answer": "B",
+        "rationale": "He is matching receipt numbers to supplier details in a spreadsheet."
+    },
+    {
+        "level": "B2",
+        "query": "businesswoman leading webinar virtual whiteboard annotations remote participants training session",
+        "statements": [
+            "She is cooking soup at a restaurant stove.",
+            "She is leading a webinar using a virtual whiteboard.",
+            "She is loading gardening soil into wheelbarrows.",
+            "She is repairing a broken guitar string."
+        ],
+        "answer": "B",
+        "rationale": "She is writing annotations on a shared digital board while participants follow remotely."
+    },
+    {
+        "level": "B2",
+        "query": "team conducting customer interview recording notes handheld mic audio log insights",
+        "statements": [
+            "They are interviewing a customer and recording notes.",
+            "They are folding laundry together.",
+            "They are playing arcade games at a mall.",
+            "They are shipping pumpkins for a seasonal market."
+        ],
+        "answer": "A",
+        "rationale": "One team member holds the microphone while another captures qualitative insights."
+    },
+    {
+        "level": "B2",
+        "query": "consultant explaining performance dashboard metrics to client office presentation",
+        "statements": [
+            "The consultant is trimming hedges in a garden.",
+            "The consultant is reviewing performance metrics with a client.",
+            "The consultant is distributing food at a soup kitchen.",
+            "The consultant is jogging down a suburban street."
+        ],
+        "answer": "B",
+        "rationale": "Both are focused on the dashboard while the consultant points to indicators."
+    },
+    {
+        "level": "B2",
+        "query": "coworkers printing shipping manifests packing orders fulfillment center barcode labels trays",
+        "statements": [
+            "The coworkers are printing shipping manifests and packing orders.",
+            "The coworkers are lifting weights at a fitness gym.",
+            "The coworkers are skating down a city street.",
+            "The coworkers are conducting an orchestra rehearsal."
+        ],
+        "answer": "A",
+        "rationale": "They are printing labels and placing merchandise into trays for dispatch."
+    },
+    {
+        "level": "B2",
+        "query": "project coordinator tracking sprint backlog kanban board stand up meeting sticky notes software dev",
+        "statements": [
+            "The coordinator is evaluating vegetables at a street market.",
+            "The coordinator is leading a stand-up at a kanban board.",
+            "The coordinator is cleaning a bicycle chain.",
+            "The coordinator is coaching a child to swim."
+        ],
+        "answer": "B",
+        "rationale": "She stands beside a wall filled with sticky notes while discussing sprint progress."
+    },
+    {
+        "level": "B2",
+        "query": "man restoring vintage radio soldering wires testing audio receiver electronics hobby workshop",
+        "statements": [
+            "The man is hiking steep trails in the mountains.",
+            "The man is grilling appetizers for a neighborhood party.",
+            "The man is soldering wires in a vintage radio.",
+            "The man is shoveling snow in his driveway."
+        ],
+        "answer": "C",
+        "rationale": "He is adjusting components inside the casing using a soldering tool."
+    },
+    {
+        "level": "B2",
+        "query": "woman painting ceramic plate detailed patterns tiny brush glazing artistic craft studio",
+        "statements": [
+            "The woman is applying glaze with a fine brush to a ceramic plate.",
+            "The woman is stocking merchandise on grocery shelves.",
+            "The woman is helping children cross a busy intersection.",
+            "The woman is washing a car with a sponge."
+        ],
+        "answer": "A",
+        "rationale": "She is carefully applying detailed patterns as part of decorative glazing."
+    },
+    {
+        "level": "B2",
+        "query": "friends assembling model train layout miniature town tracks controller collaborative hobby",
+        "statements": [
+            "The friends are putting together a model train layout.",
+            "The friends are performing repairs on a fishing boat.",
+            "The friends are handing out posters at a marathon.",
+            "The friends are serving drinks at a music festival."
+        ],
+        "answer": "A",
+        "rationale": "Tracks, scenery pieces, and wiring are being arranged on a table."
+    },
+    {
+        "level": "B2",
+        "query": "hiker checking hydration pack trail map compass high altitude preparation",
+        "statements": [
+            "The hiker is welding metal bars together.",
+            "The hiker is washing dishes in a kitchen.",
+            "The hiker is checking a hydration pack and studying a trail map.",
+            "The hiker is taking photographs at a wedding ceremony."
+        ],
+        "answer": "C",
+        "rationale": "He is matching map details with direction and equipment before starting the hike."
+    },
+    {
+        "level": "B2",
+        "query": "family repairing remote control car checking battery wheels gears fun weekend activity living room",
+        "statements": [
+            "The family is cleaning windows in the living room.",
+            "The family is checking the battery and wheels of a remote-control car.",
+            "The family is teaching a dog to fetch objects.",
+            "The family is preparing salad ingredients on the kitchen counter."
+        ],
+        "answer": "B",
+        "rationale": "They are kneeling around the toy car while tightening small screws and verifying power."
+    }
 
 ]
 

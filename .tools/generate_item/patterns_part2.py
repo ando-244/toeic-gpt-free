@@ -3,7 +3,7 @@
 
 # === Part2 用の問題パターン集 ===
 PART2_PATTERNS = [
-    # --- A2 level 30patterns (easy) ---
+    # --- A2 level 100patterns (easy) ---
     {
         "level": "A2",
         "question": "What time does the morning meeting start?",
@@ -334,6 +334,559 @@ PART2_PATTERNS = [
         "answer": "A",
         "rationale": "Option A suggests a specific item, answering the 'which' question. B and C describe time and seating."
     },
+ 	# === Part2 A2 Patterns 51–70 (balanced answer distribution) ===
+	{
+		"level": "A2",
+		"question": "Where will the product demo take place?",
+		"responses": [
+		"Yes, I’ll bring the projector.",
+		"Because the file was too large.",
+		"In the training room on the fourth floor."
+		],
+		"answer": "C",
+		"rationale": "C gives the location of the demo."
+	},
+	{
+		"level": "A2",
+		"question": "Why was the client unhappy with the shipment?",
+		"responses": [
+		"In the storage warehouse.",
+		"Because several items arrived damaged.",
+		"Tomorrow morning."
+		],
+		"answer": "B",
+		"rationale": "B clearly explains the reason."
+	},
+	{
+		"level": "A2",
+		"question": "Could you check the agenda for the next meeting?",
+		"responses": [
+		"Sure, I’ll open it now.",
+		"Only on Tuesdays.",
+		"At the back of the building."
+		],
+		"answer": "A",
+		"rationale": "A responds to the request."
+	},
+	{
+		"level": "A2",
+		"question": "How often does your team review performance goals?",
+		"responses": [
+		"Twice every quarter.",
+		"Because the budget changed.",
+		"In the new office wing."
+		],
+		"answer": "A",
+		"rationale": "A states a frequency."
+	},
+	{
+		"level": "A2",
+		"question": "When is the supplier planning to send the invoice?",
+		"responses": [
+		"Around next week.",
+		"Because they switched accounting systems.",
+		"At the main entrance."
+		],
+		"answer": "A",
+		"rationale": "A gives the expected timing."
+	},
+	{
+		"level": "A2",
+		"question": "Who should I talk to about updating the website?",
+		"responses": [
+		"Yes, I already tested it.",
+		"The marketing department handles that.",
+		"In the large conference room."
+		],
+		"answer": "B",
+		"rationale": "B identifies the correct person/department."
+	},
+	{
+		"level": "A2",
+		"question": "What time is the video call with the factory team?",
+		"responses": [
+		"Because of the power outage.",
+		"At 2:30 p.m.",
+		"At the fuel station downtown."
+		],
+		"answer": "B",
+		"rationale": "B states the time."
+	},
+	{
+		"level": "A2",
+		"question": "Are you available to review the sales report with me?",
+		"responses": [
+		"Behind the main office.",
+		"Yes, I can meet after lunch.",
+		"Because I printed two copies."
+		],
+		"answer": "B",
+		"rationale": "B directly answers availability."
+	},
+	{
+		"level": "A2",
+		"question": "Where can I find the updated price list?",
+		"responses": [
+		"Because I forgot the password.",
+		"Only after five o’clock.",
+		"On the shared drive under 'Finance'."
+		],
+		"answer": "C",
+		"rationale": "C provides the location."
+	},
+	{
+		"level": "A2",
+		"question": "Why did you cancel the team's weekly check-in?",
+		"responses": [
+		"Around 4:45 this afternoon.",
+		"In the packaging area.",
+		"Because most members were out sick."
+		],
+		"answer": "C",
+		"rationale": "C explains the reason for cancellation."
+	},
+	{
+		"level": "A2",
+		"question": "How long does it take to walk to the train station?",
+		"responses": [
+		"About ten minutes from here.",
+		"At the bus terminal.",
+		"Because the streets were crowded."
+		],
+		"answer": "A",
+		"rationale": "A gives a length of time."
+	},
+	{
+		"level": "A2",
+		"question": "What should I bring to the picnic this weekend?",
+		"responses": [
+		"Some drinks would be perfect.",
+		"Yes, I packed everything.",
+		"Next to the parking area."
+		],
+		"answer": "A",
+		"rationale": "A suggests what to bring."
+	},
+	{
+		"level": "A2",
+		"question": "Who is taking care of your dog while you’re away?",
+		"responses": [
+		"Every other Sunday.",
+		"At the airport terminal.",
+		"My neighbor offered to help."
+		],
+		"answer": "C",
+		"rationale": "C identifies the person."
+	},
+	{
+		"level": "A2",
+		"question": "When are you planning to start your driving lessons?",
+		"responses": [
+		"Because my phone was off.",
+		"Next month, I already booked the classes.",
+		"In the tall building across the street."
+		],
+		"answer": "B",
+		"rationale": "B gives the time."
+	},
+	{
+		"level": "A2",
+		"question": "Why didn’t you answer my text last night?",
+		"responses": [
+		"At the community pool.",
+		"Because I fell asleep early.",
+		"Sure, I’ll set up the tent."
+		],
+		"answer": "B",
+		"rationale": "B answers the reason-question."
+	},
+	{
+		"level": "A2",
+		"question": "Where did you put the spare keys?",
+		"responses": [
+		"In the drawer under the TV.",
+		"Around six in the evening.",
+		"Because I forgot the code."
+		],
+		"answer": "A",
+		"rationale": "A gives the location."
+	},
+	{
+		"level": "A2",
+		"question": "Do you want to join us for a morning run tomorrow?",
+		"responses": [
+		"Because I overslept.",
+		"In the greenhouse.",
+		"Yes, I’d really like to go."
+		],
+		"answer": "C",
+		"rationale": "C accepts the invitation."
+	},
+	{
+		"level": "A2",
+		"question": "How much were the vegetables at the market?",
+		"responses": [
+		"At the corner of the street.",
+		"Because we left early.",
+		"They were pretty cheap today."
+		],
+		"answer": "C",
+		"rationale": "C states a price impression."
+	},
+	{
+		"level": "A2",
+		"question": "What time does the gym close on weekdays?",
+		"responses": [
+		"Because I forgot my shoes.",
+		"It closes at 10 p.m.",
+		"In the parking garage."
+		],
+		"answer": "B",
+		"rationale": "B provides the closing time."
+	},
+	{
+		"level": "A2",
+		"question": "Could you help me choose a birthday gift for Emily?",
+		"responses": [
+		"After the match ended.",
+		"Sure, I’d be happy to go shopping with you.",
+		"In the laundry room."
+		],
+		"answer": "B",
+		"rationale": "B naturally agrees to the request."
+	},
+	# === Part2 A2 Patterns (71–85) ===
+	{
+		"level": "A2",
+		"question": "When will the new interns start their training?",
+		"responses": [
+		"Next Wednesday morning.",
+		"Because the printer broke.",
+		"In the storage room."
+		],
+		"answer": "A",
+		"rationale": "A gives the starting time requested."
+	},
+	{
+		"level": "A2",
+		"question": "Why did the finance team delay the budget review?",
+		"responses": [
+		"In the large meeting hall.",
+		"Because they needed updated sales figures.",
+		"Twice every quarter."
+		],
+		"answer": "B",
+		"rationale": "B provides the reason."
+	},
+	{
+		"level": "A2",
+		"question": "Where should we put the brochures for the visitors?",
+		"responses": [
+		"On the table near the entrance.",
+		"About three times a year.",
+		"Yes, I posted the announcement."
+		],
+		"answer": "A",
+		"rationale": "A gives a location for the brochures."
+	},
+	{
+		"level": "A2",
+		"question": "How much will the software update cost?",
+		"responses": [
+		"Probably around 200 dollars.",
+		"In the conference room upstairs.",
+		"Because we changed suppliers."
+		],
+		"answer": "A",
+		"rationale": "A gives an expected cost."
+	},
+	{
+		"level": "A2",
+		"question": "Could you ask the IT team to restore my account?",
+		"responses": [
+		"Sure, I’ll contact them right away.",
+		"After the lunch break.",
+		"At the service window."
+		],
+		"answer": "A",
+		"rationale": "A agrees to fulfill the request."
+	},
+	{
+		"level": "A2",
+		"question": "Who is leading the customer satisfaction project this quarter?",
+		"responses": [
+		"Because the results were late.",
+		"Ms. Foster from the support team.",
+		"In the first week of March."
+		],
+		"answer": "B",
+		"rationale": "B identifies the person."
+	},
+	{
+		"level": "A2",
+		"question": "Why did the director move the presentation to tomorrow?",
+		"responses": [
+		"Because some guests couldn’t make it today.",
+		"In the training center downtown.",
+		"Only on Friday mornings."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "A2",
+		"question": "What time does the shipment from Osaka arrive?",
+		"responses": [
+		"At around 9:15 p.m.",
+		"Because we finished early.",
+		"At the loading dock."
+		],
+		"answer": "A",
+		"rationale": "A gives the time."
+	},
+	{
+		"level": "A2",
+		"question": "Are you free to practice the presentation slides with me?",
+		"responses": [
+		"Yes, I can run through them after my call.",
+		"Behind the main entrance.",
+		"Only if the weather improves."
+		],
+		"answer": "A",
+		"rationale": "A answers the yes/no availability question."
+	},
+	{
+		"level": "A2",
+		"question": "Where did you go for your hiking trip last weekend?",
+		"responses": [
+		"To a national park near the coast.",
+		"Every Saturday morning.",
+		"Because my phone battery died."
+		],
+		"answer": "A",
+		"rationale": "A gives the location of the trip."
+	},
+	{
+		"level": "A2",
+		"question": "Why were you late for dinner yesterday?",
+		"responses": [
+		"Because the train was delayed.",
+		"At the Italian restaurant downtown.",
+		"Only on school nights."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "A2",
+		"question": "How often do you practice the piano?",
+		"responses": [
+		"Because I was too nervous.",
+		"Usually twice a week.",
+		"At my uncle’s house."
+		],
+		"answer": "B",
+		"rationale": "B states frequency."
+	},
+	{
+		"level": "A2",
+		"question": "Who helped you set up the new bookshelf?",
+		"responses": [
+		"My cousin did — she came over yesterday.",
+		"Next to the window.",
+		"After breakfast."
+		],
+		"answer": "A",
+		"rationale": "A identifies a person."
+	},
+	{
+		"level": "A2",
+		"question": "When are you planning to paint your bedroom?",
+		"responses": [
+		"Because the weather turned cold.",
+		"Sometime during the long weekend.",
+		"In the laundry room."
+		],
+		"answer": "B",
+		"rationale": "B answers the 'When?' question."
+	},
+	{
+		"level": "A2",
+		"question": "Would you like to join our cycling group on Sunday?",
+		"responses": [
+		"Yes, I’d really enjoy that.",
+		"At the new fitness center.",
+		"Because I forgot my shoes."
+		],
+		"answer": "A",
+		"rationale": "A responds naturally to the invitation."
+	},
+	# === Part2 A2 Patterns (86–100) ===
+	{
+		"level": "A2",
+		"question": "Why did the sales director postpone the budget announcement?",
+		"responses": [
+		"In the training center downstairs.",
+		"Because some numbers were still missing.",
+		"Next Friday afternoon."
+		],
+		"answer": "B",
+		"rationale": "B gives the reason."
+	},
+	{
+		"level": "A2",
+		"question": "When will the printers be repaired?",
+		"responses": [
+		"Because the order was canceled.",
+		"On Thursday after lunch.",
+		"At the warehouse gate."
+		],
+		"answer": "B",
+		"rationale": "B gives the time."
+	},
+	{
+		"level": "A2",
+		"question": "Where are we supposed to store the extra monitors?",
+		"responses": [
+		"Because the delivery arrived early.",
+		"In the small room behind the lobby.",
+		"Every month."
+		],
+		"answer": "B",
+		"rationale": "B gives a location."
+	},
+	{
+		"level": "A2",
+		"question": "Who will welcome the visitors from the partner company?",
+		"responses": [
+		"Ms. Grant will take care of that.",
+		"Behind the reception desk.",
+		"Because the schedule changed."
+		],
+		"answer": "A",
+		"rationale": "A identifies the person."
+	},
+	{
+		"level": "A2",
+		"question": "How much is the new security badge replacement fee?",
+		"responses": [
+		"Around 15 dollars.",
+		"On the upper floor.",
+		"Because I forgot my ID."
+		],
+		"answer": "A",
+		"rationale": "A answers 'How much?'."
+	},
+	{
+		"level": "A2",
+		"question": "Could you check if the projector is working before the client arrives?",
+		"responses": [
+		"Sure, I’ll test it right away.",
+		"Only on Saturday mornings.",
+		"At the food court."
+		],
+		"answer": "A",
+		"rationale": "A accepts the request."
+	},
+	{
+		"level": "A2",
+		"question": "Why was the weekly logistics briefing canceled?",
+		"responses": [
+		"Because the truck drivers were on strike.",
+		"Around 3:15 p.m.",
+		"At the north gate."
+		],
+		"answer": "A",
+		"rationale": "A gives the reason."
+	},
+	{
+		"level": "A2",
+		"question": "Where should I upload the scanned receipts?",
+		"responses": [
+		"To the shared folder marked 'Expenses'.",
+		"Because they were out of paper.",
+		"Next Monday morning."
+		],
+		"answer": "A",
+		"rationale": "A gives the location."
+	},
+	{
+		"level": "A2",
+		"question": "What time is the follow-up interview with the applicant?",
+		"responses": [
+		"At 10:20 a.m.",
+		"Because he forgot the document.",
+		"In the cafeteria."
+		],
+		"answer": "A",
+		"rationale": "A answers the time question."
+	},
+	{
+		"level": "A2",
+		"question": "Who helped you move the furniture yesterday?",
+		"responses": [
+		"At the community center.",
+		"My brother did — he came over to help.",
+		"In the late afternoon."
+		],
+		"answer": "B",
+		"rationale": "B identifies the person."
+	},
+	{
+		"level": "A2",
+		"question": "When are you planning to submit the library book request?",
+		"responses": [
+		"Next weekend, once I finish the list.",
+		"Because my internet was down.",
+		"At the train platform."
+		],
+		"answer": "A",
+		"rationale": "A answers the 'When?' question."
+	},
+	{
+		"level": "A2",
+		"question": "Why did you skip the neighborhood cleanup event?",
+		"responses": [
+		"Because I wasn't feeling well.",
+		"On the northern trail.",
+		"Next to the tool shed."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "A2",
+		"question": "Where did you get that handmade wallet?",
+		"responses": [
+		"From a small craft shop at the weekend market.",
+		"About twice every month.",
+		"Because it started raining."
+		],
+		"answer": "A",
+		"rationale": "A gives the place of purchase."
+	},
+	{
+		"level": "A2",
+		"question": "How often do you water your balcony plants?",
+		"responses": [
+		"Because the stairs were slippery.",
+		"Every two or three days.",
+		"At the parking lot."
+		],
+		"answer": "B",
+		"rationale": "B expresses frequency."
+	},
+	{
+		"level": "A2",
+		"question": "Would you like to help us plan the surprise party for Emily?",
+		"responses": [
+		"At the corner bakery.",
+		"Because the door was locked.",
+		"Yes, I'd love to be involved."
+		],
+		"answer": "C",
+		"rationale": "C properly accepts the invitation."
+	},
 
     # --- B1 level 100patterns (standard) ---
     # 1: C
@@ -1538,7 +2091,7 @@ PART2_PATTERNS = [
         "rationale": "Option C matches an e-mail invitation with a response link. A and B describe different reply methods not specified in the message."
     },
 
-    # --- B2 level 30patterns (more challenging) ---
+    # --- B2 level 100patterns (more challenging) ---
     {
         "level": "B2",
         "question": "Would you mind taking over my presentation if the video call drops again?",
@@ -1869,6 +2422,780 @@ PART2_PATTERNS = [
         "answer": "A",
         "rationale": "Option A responds directly to the complaint by increasing staff when needed. B and C do not solve the core issue."
     },
+	# === Part2 B2 Patterns (31–50 balanced) ===
+	{
+		"level": "B2",
+		"question": "Why was the operations meeting extended by thirty minutes?",
+		"responses": [
+		"Tomorrow morning.",
+		"Because the team needed more time to review the shipment delays.",
+		"In the small conference room near the lobby."
+		],
+		"answer": "B",
+		"rationale": "B gives the reason; A and C do not."
+	},
+	{
+		"level": "B2",
+		"question": "When should we send the agenda to the new partners?",
+		"responses": [
+		"At the end of this afternoon.",
+		"Yes, I met them earlier.",
+		"Because the file didn't upload correctly."
+		],
+		"answer": "A",
+		"rationale": "A provides the timing."
+	},
+	{
+		"level": "B2",
+		"question": "Where can I check the updated travel policy?",
+		"responses": [
+		"After the presentation is finished.",
+		"On the internal HR portal under 'Guidelines'.",
+		"Sure, I’ll send you a ride."
+		],
+		"answer": "B",
+		"rationale": "B specifies the location."
+	},
+	{
+		"level": "B2",
+		"question": "Who will represent our office at the trade exhibition next month?",
+		"responses": [
+		"Next to the registration desk.",
+		"Because the deadline was changed.",
+		"Mr. Walker will attend on behalf of the office."
+		],
+		"answer": "C",
+		"rationale": "C identifies the person."
+	},
+	{
+		"level": "B2",
+		"question": "How much did the software migration project cost in total?",
+		"responses": [
+		"In the support center lobby.",
+		"Roughly around eighty thousand dollars.",
+		"Twice every quarter."
+		],
+		"answer": "B",
+		"rationale": "B gives cost information."
+	},
+	{
+		"level": "B2",
+		"question": "Could you confirm whether the training room has been reserved for tomorrow?",
+		"responses": [
+		"Behind the auditorium.",
+		"Because I misplaced the form.",
+		"Yes, I already booked it for 10 a.m."
+		],
+		"answer": "C",
+		"rationale": "C confirms the reservation."
+	},
+	{
+		"level": "B2",
+		"question": "Why did the marketing team postpone the release video?",
+		"responses": [
+		"Because they needed time to edit the customer feedback section.",
+		"Next Thursday afternoon.",
+		"In the product showroom."
+		],
+		"answer": "A",
+		"rationale": "A gives the reason."
+	},
+	{
+		"level": "B2",
+		"question": "Where will the leadership workshop be held?",
+		"responses": [
+		"At the headquarters auditorium downtown.",
+		"Because the projector wasn’t working.",
+		"Sometime after lunch."
+		],
+		"answer": "A",
+		"rationale": "A provides the location."
+	},
+	{
+		"level": "B2",
+		"question": "When are we planning to release the new user manual?",
+		"responses": [
+		"In the storage warehouse.",
+		"Because there was heavy traffic.",
+		"On the first business day of next month."
+		],
+		"answer": "C",
+		"rationale": "C gives the timing."
+	},
+	{
+		"level": "B2",
+		"question": "Are you available to rehearse the investor pitch slides later today?",
+		"responses": [
+		"Behind the main office.",
+		"Yes, I can meet after my one o’clock call.",
+		"Because the sound system failed."
+		],
+		"answer": "B",
+		"rationale": "B answers yes/no availability."
+	},
+	{
+		"level": "B2",
+		"question": "Where did you get that handmade leather notebook?",
+		"responses": [
+		"From a small booth at the artisan fair.",
+		"Only during the winter season.",
+		"Because mine was stolen."
+		],
+		"answer": "A",
+		"rationale": "A indicates the place of purchase."
+	},
+	{
+		"level": "B2",
+		"question": "Why were you late for the train this morning?",
+		"responses": [
+		"At the end of the street.",
+		"Because the ticket machine wasn't working.",
+		"Only once every two weeks."
+		],
+		"answer": "B",
+		"rationale": "B gives the reason."
+	},
+	{
+		"level": "B2",
+		"question": "How often do you visit your grandparents?",
+		"responses": [
+		"Because I forgot the schedule.",
+		"Usually every other weekend.",
+		"In the kitchen downstairs."
+		],
+		"answer": "B",
+		"rationale": "B states frequency."
+	},
+	{
+		"level": "B2",
+		"question": "Who helped you decorate the living room last night?",
+		"responses": [
+		"My cousin did — she's very creative.",
+		"After the school assembly.",
+		"Across the playground."
+		],
+		"answer": "A",
+		"rationale": "A identifies the person."
+	},
+	{
+	"level": "B2",
+		"question": "How much were the tickets for the amusement park?",
+		"responses": [
+		"About sixty dollars per person.",
+		"Because the line was long.",
+		"At the small train station."
+		],
+		"answer": "A",
+		"rationale": "A mentions price."
+	},
+	{
+		"level": "B2",
+		"question": "When are you planning to try the cooking class?",
+		"responses": [
+		"Next Saturday evening.",
+		"In the art building on campus.",
+		"Because I overslept."
+		],
+		"answer": "A",
+		"rationale": "A answers timing."
+	},
+	{
+		"level": "B2",
+		"question": "Could you pick up some snacks for the road trip?",
+		"responses": [
+		"Only if the weather is clear.",
+		"Sure, I’ll grab some at the convenience store.",
+		"Near the soccer field."
+		],
+		"answer": "B",
+		"rationale": "B accepts the request."
+	},
+	{
+		"level": "B2",
+		"question": "Why didn’t you answer my messages last night?",
+		"responses": [
+		"Because my phone battery died.",
+		"Next to the fountain.",
+		"About twice a month."
+		],
+		"answer": "A",
+		"rationale": "A provides a reason."
+	},
+	{
+		"level": "B2",
+		"question": "What time does the concert start tonight?",
+		"responses": [
+		"Around 8:20 p.m.",
+		"Because the parking lot was full.",
+		"In the student lounge."
+		],
+		"answer": "A",
+		"rationale": "A gives the time."
+	},
+	{
+		"level": "B2",
+		"question": "Would you mind helping me select a birthday present for Gina?",
+		"responses": [
+		"After the match ended.",
+		"Yes, I'd really enjoy looking around with you.",
+		"At the old bookstore downtown."
+		],
+		"answer": "B",
+		"rationale": "B properly accepts the invitation."
+	},
+	# === Part2 B2 Patterns (51–70 balanced) ===
+	{
+		"level": "B2",
+		"question": "When will the executive summary be ready for review?",
+		"responses": [
+		"Late this evening, once I'm done editing.",
+		"Because the figures were inaccurate.",
+		"In the finance office."
+		],
+		"answer": "A",
+		"rationale": "A gives the timing."
+	},
+	{
+		"level": "B2",
+		"question": "Why did the client request a second product demonstration?",
+		"responses": [
+		"At the showroom downtown.",
+		"Because they wanted to compare features in more detail.",
+		"Next quarter."
+		],
+		"answer": "B",
+		"rationale": "B explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "How often does your team check the performance dashboard?",
+		"responses": [
+		"Because the network was slow.",
+		"Roughly three times a week.",
+		"In the strategy department."
+		],
+		"answer": "B",
+		"rationale": "B states frequency."
+	},
+	{
+		"level": "B2",
+		"question": "Where should we move the unused office chairs?",
+		"responses": [
+		"Because the meeting ran long.",
+		"To the storage room across from reception.",
+		"On Wednesday morning."
+		],
+		"answer": "B",
+		"rationale": "B gives the location."
+	},
+	{
+		"level": "B2",
+		"question": "Who will talk to the vendor about revising the delivery schedule?",
+		"responses": [
+		"Behind the cafeteria.",
+		"Because the order form was wrong.",
+		"Mr. Haynes will handle that first thing tomorrow."
+		],
+		"answer": "C",
+		"rationale": "C identifies the person."
+	},
+	{
+		"level": "B2",
+		"question": "Could you look into the issue with the online survey link?",
+		"responses": [
+		"Sure, I’ll test it and send you an update shortly.",
+		"Because the meeting was postponed.",
+		"At the far end of the hallway."
+		],
+		"answer": "A",
+		"rationale": "A accepts the request."
+	},
+	{
+		"level": "B2",
+		"question": "How much is the estimated fee for the new consulting proposal?",
+		"responses": [
+		"In the support center lobby.",
+		"Only during the winter holidays.",
+		"Nearly forty thousand dollars before tax."
+		],
+		"answer": "C",
+		"rationale": "C answers the cost."
+	},
+	{
+		"level": "B2",
+		"question": "Where can I find the old branding guidelines?",
+		"responses": [
+		"In the project archive on the shared drive.",
+		"Yes, the colors are different.",
+		"Because we didn’t get approval."
+		],
+		"answer": "A",
+		"rationale": "A gives the location."
+	},
+	{
+		"level": "B2",
+		"question": "Why was the orientation session moved online this year?",
+		"responses": [
+		"Only after the board meeting.",
+		"Because the headquarters building is under renovation.",
+		"At the registration counter."
+		],
+		"answer": "B",
+		"rationale": "B explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "When do we need to submit the annual customer feedback analysis?",
+		"responses": [
+		"Next Monday by 2 p.m.",
+		"In the accounting office.",
+		"Because the reports were late."
+		],
+		"answer": "A",
+		"rationale": "A gives the timing."
+	},
+	{
+		"level": "B2",
+		"question": "Where did you leave the picnic blanket after the event yesterday?",
+		"responses": [
+		"Because I was hungry.",
+		"Once every two weeks.",
+		"In the trunk of my car — I folded it after packing."
+		],
+		"answer": "C",
+		"rationale": "C states the place."
+	},
+	{
+		"level": "B2",
+		"question": "Why didn't you join us at the music festival last weekend?",
+		"responses": [
+		"Because I had to look after my younger sister.",
+		"At the stadium entrance.",
+		"Around 7:15 p.m."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "How often do you shop at the organic grocery store?",
+		"responses": [
+		"Because I forgot my wallet.",
+		"In the parking lot.",
+		"Usually twice a month when the deals are good."
+		],
+		"answer": "C",
+		"rationale": "C states frequency."
+	},
+	{
+		"level": "B2",
+		"question": "Who recommended that sci-fi series you mentioned?",
+		"responses": [
+		"After the final episode aired.",
+		"Beside the vending machine.",
+		"My cousin did — she’s obsessed with it."
+		],
+		"answer": "C",
+		"rationale": "C identifies the person."
+	},
+	{
+		"level": "B2",
+		"question": "When are you planning to repaint your living room?",
+		"responses": [
+		"Because the old color faded.",
+		"Probably sometime next long weekend.",
+		"At the garden center."
+		],
+		"answer": "B",
+		"rationale": "B provides the time."
+	},
+	{
+		"level": "B2",
+		"question": "How much were the service charges for your apartment last month?",
+		"responses": [
+		"Because I missed the deadline.",
+		"Around two hundred dollars — a bit higher than usual.",
+		"In the residential lobby."
+		],
+		"answer": "B",
+		"rationale": "B answers the cost."
+	},
+	{
+		"level": "B2",
+		"question": "Are you free to go over the weekend getaway plans tonight?",
+		"responses": [
+		"Behind the post office.",
+		"Because I bought a new suitcase.",
+		"Yes, I can talk after dinner."
+		],
+		"answer": "C",
+		"rationale": "C answers the availability request."
+	},
+	{
+		"level": "B2",
+		"question": "Why were you avoiding your phone all afternoon?",
+		"responses": [
+		"Because I needed a break from constant notifications.",
+		"At the central bus stop.",
+		"Every other Wednesday."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "Where can we get quick lunch before the movie?",
+		"responses": [
+		"Because it's a holiday.",
+		"Every weekday morning.",
+		"At that sandwich shop across from the theater."
+		],
+		"answer": "C",
+		"rationale": "C gives the correct location."
+	},
+	{
+		"level": "B2",
+		"question": "Would you like to help me pick out a graduation gift for Mia?",
+		"responses": [
+		"At the train platform.",
+		"Yes, I'd enjoy going to the mall with you.",
+		"After the soccer game."
+		],
+		"answer": "B",
+		"rationale": "B naturally accepts the invitation."
+	},
+	# === Part2 B2 Patterns (71–85 balanced) ===
+	{
+		"level": "B2",
+		"question": "Why did the operations team reject the new scheduling proposal?",
+		"responses": [
+		"Because it didn’t account for the night-shift rotation.",
+		"Tomorrow morning.",
+		"In the manufacturing plant."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "When will the draft of the social media campaign be finalized?",
+		"responses": [
+		"Because the format changed unexpectedly.",
+		"On Friday afternoon, once the design team signs off.",
+		"In the presentation room."
+		],
+		"answer": "B",
+		"rationale": "B gives the timing."
+	},
+	{
+		"level": "B2",
+		"question": "Who approved the emergency maintenance budget?",
+		"responses": [
+		"After the quarterly training.",
+		"Mr. Patel from the facilities department.",
+		"In the conference wing."
+		],
+		"answer": "B",
+		"rationale": "B identifies the person."
+	},
+	{
+		"level": "B2",
+		"question": "Where should we deliver the sample prototypes for tomorrow’s briefing?",
+		"responses": [
+		"To the demonstration room next to the elevator.",
+		"Because the shipment was delayed.",
+		"Every other month."
+		],
+		"answer": "A",
+		"rationale": "A gives the correct location."
+	},
+	{
+		"level": "B2",
+		"question": "How often do the regional branches report their sales figures?",
+		"responses": [
+		"Because the login credentials expired.",
+		"Near the entrance hall.",
+		"Once every two weeks."
+		],
+		"answer": "C",
+		"rationale": "C states the frequency."
+	},
+	{
+		"level": "B2",
+		"question": "Could you notify the support team about the database outage?",
+		"responses": [
+		"At the shared workspace.",
+		"Sure, I’ll contact them right away.",
+		"Only after the staff meeting."
+		],
+		"answer": "B",
+		"rationale": "B accepts the request naturally."
+	},
+	{
+		"level": "B2",
+		"question": "How much will the rescheduled training seminar cost?",
+		"responses": [
+		"In the training facility.",
+		"Because the instructors weren’t available.",
+		"About twelve hundred dollars in total."
+		],
+		"answer": "C",
+		"rationale": "C answers the 'how much'."
+	},
+	{
+		"level": "B2",
+		"question": "Why was the results presentation shorter than expected?",
+		"responses": [
+		"Because several speakers canceled at the last minute.",
+		"Next fiscal year.",
+		"At the laboratory building."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "What time is the interview with the senior analyst candidate?",
+		"responses": [
+		"Because the team needed more information.",
+		"At 3:40 p.m. in Meeting Room 2.",
+		"In the main lobby."
+		],
+		"answer": "B",
+		"rationale": "B gives the correct time and place."
+	},
+	{
+		"level": "B2",
+		"question": "Where did you leave the hiking backpack after the trip?",
+		"responses": [
+		"Only twice a year.",
+		"Because it was too heavy.",
+		"I put it in the closet near the entrance."
+		],
+		"answer": "C",
+		"rationale": "C gives the location."
+	},
+	{
+		"level": "B2",
+		"question": "Why were you ignoring calls all weekend?",
+		"responses": [
+		"Because I really needed time away from my phone.",
+		"At the local library.",
+		"Next Thursday morning."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "Who organized the charity marathon last spring?",
+		"responses": [
+		"Beside the food truck.",
+		"My coworker Lisa — she handled everything.",
+		"After the volunteer meeting."
+		],
+		"answer": "B",
+		"rationale": "B identifies the person."
+	},
+	{
+		"level": "B2",
+		"question": "When are you planning to finish reading that detective novel?",
+		"responses": [
+		"Probably later this week — I’m almost done.",
+		"In the community center.",
+		"Because I lost the bookmark."
+		],
+		"answer": "A",
+		"rationale": "A gives the timing."
+	},
+	{
+		"level": "B2",
+		"question": "How much were the tickets for the photography workshop?",
+		"responses": [
+		"Because we arrived late.",
+		"In the big auditorium.",
+		"About seventy dollars, including materials."
+		],
+		"answer": "C",
+		"rationale": "C states the amount."
+	},
+	{
+		"level": "B2",
+		"question": "Would you like to help me choose decorations for the farewell party?",
+		"responses": [
+		"Yes, I’d love to go shopping with you later.",
+		"At the train station.",
+		"After the movie finishes."
+		],
+		"answer": "A",
+		"rationale": "A accepts the invitation."
+	},
+	# === Part2 B2 Patterns (86–100) ===
+	{
+		"level": "B2",
+		"question": "When will the updated onboarding manual be uploaded to the system?",
+		"responses": [
+		"Because the draft was incomplete.",
+		"In the human resources portal later this afternoon.",
+		"Next to the meeting room."
+		],
+		"answer": "B",
+		"rationale": "B gives the timing and destination."
+	},
+	{
+		"level": "B2",
+		"question": "Why did the finance department request access to the raw survey data?",
+		"responses": [
+		"To verify the calculation errors from last quarter.",
+		"In the accounting archive.",
+		"Next Monday morning."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "Where are we supposed to display the new safety posters?",
+		"responses": [
+		"Because the files were too large.",
+		"On the notice board near the elevator.",
+		"Every other week."
+		],
+		"answer": "B",
+		"rationale": "B provides the correct location."
+	},
+	{
+		"level": "B2",
+		"question": "Who will present the quarterly sustainability report?",
+		"responses": [
+		"At 4:45 p.m.",
+		"Because the speakers were late.",
+		"Ms. Ramirez from the research division."
+		],
+		"answer": "C",
+		"rationale": "C identifies the person."
+	},
+	{
+		"level": "B2",
+		"question": "How much will it cost to extend the maintenance contract?",
+		"responses": [
+		"Around nine thousand dollars for the full year.",
+		"Because the previous vendor left.",
+		"In the supply room."
+		],
+		"answer": "A",
+		"rationale": "A answers 'how much'."
+	},
+	{
+		"level": "B2",
+		"question": "Could you double-check whether the workshop materials have been printed?",
+		"responses": [
+		"At the event hall.",
+		"Sure, I’ll check with the print shop and get back to you.",
+		"Because the request was late."
+		],
+		"answer": "B",
+		"rationale": "B naturally accepts the request."
+	},
+	{
+		"level": "B2",
+		"question": "What time is the orientation call with the new hires?",
+		"responses": [
+		"At 9:00 sharp — the link was sent out earlier.",
+		"Because the supervisor wasn’t available.",
+		"In the main kitchen."
+		],
+		"answer": "A",
+		"rationale": "A gives the time."
+	},
+	{
+		"level": "B2",
+		"question": "Why was the internal networking event postponed?",
+		"responses": [
+		"Because the venue unexpectedly canceled the reservation.",
+		"Next to the auditorium.",
+		"Every first Tuesday."
+		],
+		"answer": "A",
+		"rationale": "A gives the reason."
+	},
+	{
+		"level": "B2",
+		"question": "Where can I submit the completed performance-review forms?",
+		"responses": [
+		"To the secure upload folder labeled 'Reviews'.",
+		"Because the login page wouldn't load.",
+		"Next fiscal year."
+		],
+		"answer": "A",
+		"rationale": "A provides the correct location."
+	},
+	{
+		"level": "B2",
+		"question": "Why didn’t you join the morning yoga session yesterday?",
+		"responses": [
+		"Because I overslept after staying up late.",
+		"At the community fitness center.",
+		"Every couple of months."
+		],
+		"answer": "A",
+		"rationale": "A explains the reason."
+	},
+	{
+		"level": "B2",
+		"question": "How often do you visit that new art exhibition downtown?",
+		"responses": [
+		"Because we got lost.",
+		"Usually once a month when the exhibitions rotate.",
+		"Beside the ticket gate."
+		],
+		"answer": "B",
+		"rationale": "B answers the frequency."
+	},
+	{
+		"level": "B2",
+		"question": "Where did you buy the handmade earrings you gave as a gift?",
+		"responses": [
+		"From a small stall at the weekend craft market.",
+		"Tomorrow afternoon.",
+		"Because I ran out of cash."
+		],
+		"answer": "A",
+		"rationale": "A gives the place of purchase."
+	},
+	{
+		"level": "B2",
+		"question": "Who will be driving us to the airport tomorrow morning?",
+		"responses": [
+		"My cousin is picking us up — he lives nearby.",
+		"In the parking structure.",
+		"After the flight lands."
+		],
+		"answer": "A",
+		"rationale": "A identifies the person."
+	},
+	{
+		"level": "B2",
+		"question": "When are you planning to start the home renovation project?",
+		"responses": [
+		"Because the old tiles were damaged.",
+		"Probably early next month if the budget allows.",
+		"At the outdoor café."
+		],
+		"answer": "B",
+		"rationale": "B gives the timing."
+	},
+	{
+		"level": "B2",
+		"question": "Would you like to come shopping for cycling gear later?",
+		"responses": [
+		"Yes, that sounds fun — I needed new gloves anyway.",
+		"Before sunrise.",
+		"Behind the post office."
+		],
+		"answer": "A",
+		"rationale": "A naturally accepts the invitation."
+	}
 ]
 
 def _auto_topic_from_question(question: str, max_words: int = 3) -> list[str]:
