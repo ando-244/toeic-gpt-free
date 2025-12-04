@@ -47,6 +47,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Install system dependencies for Piper
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y espeak-ng espeak-ng-data
+
+      - name: Fix espeak-ng data path (if needed)
+        run: |
+          if [ -d /usr/lib/x86_64-linux-gnu/espeak-ng-data ] && [ ! -d /usr/share/espeak-ng-data ]; then
+            sudo ln -s /usr/lib/x86_64-linux-gnu/espeak-ng-data /usr/share/espeak-ng-data
+          fi
+
       # ---------- Piper / ffmpeg の実行権限付与 ----------
 
       - name: Make Piper and ffmpeg executable
@@ -57,6 +68,13 @@ jobs:
       # ---------- 問題・音声・画像の生成 ----------
 
       - name: Generate TOEIC items
+        env:
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          PIPER_VOICE: "models/en_US-ljspeech-medium.onnx"
+          PIPER_VOICE_M: "models/en_US-hfc_male-medium.onnx"
+          PIPER_VOICE_W: "models/en_US-hfc_female-medium.onnx"
+          PIPER_VOICES_M: "models/en_US-bryce-medium,models/en_US-john-medium.onnx,models/en_US-ryan-medium.onnx"
+          PIPER_VOICES_W: "models/en_US-amy-medium.onnx,models/en_US-blizzard_lessac-medium.onnx,models/en_US-kristin-medium.onnx"
         run: |
           cd .tools/generate_item
 

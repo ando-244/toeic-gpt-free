@@ -169,7 +169,8 @@ def piper_text_to_pcm(text: str, pcm_path: pathlib.Path, voice: str | None = Non
     # 標準入力から Piper にテキストを渡して PCM 出力。voice でモデルを上書き可。
     ensure_path(pcm_path)
     env = os.environ.copy()
-    piper_cwd = os.path.dirname(PIPER_BIN)
+    #piper_cwd = os.path.dirname(PIPER_BIN)
+    piper_cwd = REPO_ROOT_DEFAULT
     v = voice or VOICE
     cmd = [PIPER_BIN, "--model", v, "--output_file", str(pcm_path)]
     print("+ echo text |", " ".join(cmd))
