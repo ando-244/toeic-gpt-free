@@ -1,0 +1,58 @@
+{
+  "id": "p1-20251205-0004",
+  "part": 1,
+  "level": "A2",
+  "topic": [
+    "man",
+    "talking",
+    "phone"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/12/p1-20251205-0004.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/12/p1-20251205-0004.jpg",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/12/p1-20251205-0004.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "C",
+    "question_type": "single",
+    "toeic_part_rule": "P1-Photo"
+  },
+  "content": {
+    "stem": "(photo) Choose the statement that best describes the picture.",
+    "choices": {
+      "A": "The man is jogging outdoors.",
+      "B": "He is repairing a bicycle tire.",
+      "C": "The man is talking on the phone in the office.",
+      "D": "He is cooking dinner in a kitchen."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Statement A. The man is jogging outdoors."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement B. He is repairing a bicycle tire."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement C. The man is talking on the phone in the office."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement D. He is cooking dinner in a kitchen."
+      }
+    ],
+    "rationale": "The man is holding a phone to his ear while working at his desk."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}

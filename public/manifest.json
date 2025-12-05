@@ -42,6 +42,76 @@
     "json_path": "items/part1/2025/11/p1-20251127-0003.json"
   },
   {
+    "id": "p1-20251205-0001",
+    "part": 1,
+    "level": "A2",
+    "topic": [
+      "bus",
+      "interior",
+      "woman"
+    ],
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/12/p1-20251205-0001.html",
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/12/p1-20251205-0001.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/12/p1-20251205-0001.jpg",
+    "json_path": "items/part1/2025/12/p1-20251205-0001.json"
+  },
+  {
+    "id": "p1-20251205-0002",
+    "part": 1,
+    "level": "A2",
+    "topic": [
+      "cafe",
+      "outdoor",
+      "tables"
+    ],
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/12/p1-20251205-0002.html",
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/12/p1-20251205-0002.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/12/p1-20251205-0002.jpg",
+    "json_path": "items/part1/2025/12/p1-20251205-0002.json"
+  },
+  {
+    "id": "p1-20251205-0003",
+    "part": 1,
+    "level": "A2",
+    "topic": [
+      "kitchen",
+      "family",
+      "eating"
+    ],
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/12/p1-20251205-0003.html",
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/12/p1-20251205-0003.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/12/p1-20251205-0003.jpg",
+    "json_path": "items/part1/2025/12/p1-20251205-0003.json"
+  },
+  {
+    "id": "p1-20251205-0004",
+    "part": 1,
+    "level": "A2",
+    "topic": [
+      "man",
+      "talking",
+      "phone"
+    ],
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/12/p1-20251205-0004.html",
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/12/p1-20251205-0004.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/12/p1-20251205-0004.jpg",
+    "json_path": "items/part1/2025/12/p1-20251205-0004.json"
+  },
+  {
+    "id": "p1-20251205-0005",
+    "part": 1,
+    "level": "A2",
+    "topic": [
+      "woman",
+      "refilling",
+      "bird"
+    ],
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/12/p1-20251205-0005.html",
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/12/p1-20251205-0005.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/12/p1-20251205-0005.jpg",
+    "json_path": "items/part1/2025/12/p1-20251205-0005.json"
+  },
+  {
     "id": "p2-20251127-0001",
     "part": 2,
     "level": "A2",

@@ -1,0 +1,58 @@
+{
+  "id": "p1-20251205-0003",
+  "part": 1,
+  "level": "A2",
+  "topic": [
+    "kitchen",
+    "family",
+    "eating"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/12/p1-20251205-0003.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/12/p1-20251205-0003.jpg",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/12/p1-20251205-0003.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "D",
+    "question_type": "single",
+    "toeic_part_rule": "P1-Photo"
+  },
+  "content": {
+    "stem": "(photo) Choose the statement that best describes the picture.",
+    "choices": {
+      "A": "A cashier is handing a receipt to a customer.",
+      "B": "A driver is filling a car with gasoline.",
+      "C": "A woman is folding clothes on a sofa.",
+      "D": "A family is having a meal together at a kitchen table."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Statement A. A cashier is handing a receipt to a customer."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement B. A driver is filling a car with gasoline."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement C. A woman is folding clothes on a sofa."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement D. A family is having a meal together at a kitchen table."
+      }
+    ],
+    "rationale": "The picture shows family members eating at a table in a kitchen. The other options show different activities."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}
