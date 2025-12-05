@@ -1,0 +1,56 @@
+{
+  "id": "p2-20251205-0001",
+  "part": 2,
+  "level": "A2",
+  "topic": [
+    "much",
+    "vegetables",
+    "market"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part2/2025/12/p2-20251205-0001.mp3",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part2/2025/12/p2-20251205-0001.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C"
+    ],
+    "answer": "C",
+    "question_type": "single",
+    "toeic_part_rule": "P2-Response"
+  },
+  "content": {
+    "stem": "(audio) Question-Response",
+    "question": "How much were the vegetables at the market?",
+    "choices": {
+      "A": "At the corner of the street.",
+      "B": "Because we left early.",
+      "C": "They were pretty cheap today."
+    },
+    "transcript": [
+      {
+        "speaker": "W",
+        "text": "How much were the vegetables at the market?"
+      },
+      {
+        "speaker": "R",
+        "text": "At the corner of the street."
+      },
+      {
+        "speaker": "R",
+        "text": "Because we left early."
+      },
+      {
+        "speaker": "R",
+        "text": "They were pretty cheap today."
+      }
+    ],
+    "rationale": "C states a price impression."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}
