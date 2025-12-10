@@ -73,7 +73,7 @@ jobs:
           PIPER_VOICE: "models/en_US-ljspeech-medium.onnx"
           PIPER_VOICE_M: "models/en_US-hfc_male-medium.onnx"
           PIPER_VOICE_W: "models/en_US-hfc_female-medium.onnx"
-          PIPER_VOICES_M: "models/en_US-bryce-medium,models/en_US-john-medium.onnx,models/en_US-ryan-medium.onnx"
+          PIPER_VOICES_M: "models/en_US-bryce-medium.onnx,models/en_US-john-medium.onnx,models/en_US-ryan-medium.onnx"
           PIPER_VOICES_W: "models/en_US-amy-medium.onnx,models/en_US-blizzard_lessac-medium.onnx,models/en_US-kristin-medium.onnx"
         run: |
           cd .tools/generate_item

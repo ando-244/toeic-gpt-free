@@ -4,6 +4,12 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+  # ★ Generate TOEIC items が終わったら自動実行
+  workflow_run:
+    workflows: ["Generate TOEIC items"]
+    types:
+      - completed
+
 permissions:
   contents: read
   pages: write
@@ -11,6 +17,8 @@ permissions:
 
 jobs:
   build:
+    # ★ Generate TOEIC items が失敗して終わったときはスキップ
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
