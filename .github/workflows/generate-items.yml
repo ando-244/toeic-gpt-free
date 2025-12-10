@@ -14,7 +14,7 @@ on:
       count:
         type: number
         required: true
-        default: 5
+        default: 1
       theme:
         type: string
         required: false
