@@ -25,7 +25,7 @@ jobs:
 
       - name: Cleanup old items (older than 90 days)
         run: |
-          python .tools/cleanup_items.py
+          python .tools/generate_item/cleanup_items.py
 
       - name: Rebuild manifest
         run: |
