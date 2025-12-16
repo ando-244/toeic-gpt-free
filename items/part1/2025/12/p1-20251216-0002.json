@@ -1,0 +1,58 @@
+{
+  "id": "p1-20251216-0002",
+  "part": 1,
+  "level": "B1",
+  "topic": [
+    "meeting",
+    "room",
+    "projector"
+  ],
+  "assets": {
+    "audio_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/audio/part1/2025/12/p1-20251216-0002.mp3",
+    "image_url": "https://raw.githubusercontent.com/ando-244/toeic-gpt-free/main/media/images/part1/2025/12/p1-20251216-0002.jpg",
+    "page_url": "https://ando-244.github.io/toeic-gpt-free/items/part1/2025/12/p1-20251216-0002.html"
+  },
+  "format": {
+    "choices": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "answer": "A",
+    "question_type": "single",
+    "toeic_part_rule": "P1-Photo"
+  },
+  "content": {
+    "stem": "(photo) Choose the statement that best describes the picture.",
+    "choices": {
+      "A": "A presenter is pointing at a slide on a screen.",
+      "B": "A security guard is standing at a gate.",
+      "C": "A chef is baking bread in an oven.",
+      "D": "A woman is pushing a stroller down a sidewalk."
+    },
+    "transcript": [
+      {
+        "speaker": "N",
+        "text": "Statement A. A presenter is pointing at a slide on a screen."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement B. A security guard is standing at a gate."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement C. A chef is baking bread in an oven."
+      },
+      {
+        "speaker": "N",
+        "text": "Statement D. A woman is pushing a stroller down a sidewalk."
+      }
+    ],
+    "rationale": "Option A correctly shows a presenter pointing at a slide projected on a screen in a meeting room. The other options describe different roles and locations."
+  },
+  "license": {
+    "type": "CC-BY-4.0",
+    "origin": "original"
+  }
+}
