@@ -9,8 +9,8 @@ import sys
 # =========================
 # 設定
 # =========================
-KEEP_DAYS = 16  # ← 本番は 90 に戻す
-REPO_ROOT = pathlib.Path(__file__).resolve().parents[1]  # .tools/cleanup_items.py 前提
+KEEP_DAYS = 18  # ← 本番は 90 に戻す
+REPO_ROOT = pathlib.Path(__file__).resolve().parents[2]
 
 ITEMS_DIR = REPO_ROOT / "items"
 MEDIA_DIR = REPO_ROOT / "media"
