@@ -92,7 +92,7 @@ def attach_page_url(item: dict, part: int, yyyy: str, mm: str) -> dict:
     #"""
     assets = item.setdefault("assets", {})
     assets["page_url"] = (
-        f"{BASE_URL}/items/part{part}/{yyyy}/{mm}/{item['id']}.html"
+        f"{BASE_URL}/items/part{part}/{item['id']}.html"
     )
     return item
 
@@ -767,11 +767,11 @@ def main():
         )
 
         #audio_rel = pathlib.Path(f"media/audio/part{args.part}/{yyyy}/{mm}/p{args.part}-{i:04d}.mp3")
-        audio_rel = pathlib.Path(f"media/audio/part{args.part}/{yyyy}/{mm}/{base_id}.mp3")
+        audio_rel = pathlib.Path(f"media/audio/part{args.part}/{base_id}.mp3")
         wav_rel   = audio_rel.with_suffix(".wav")
         pcm_rel   = audio_rel.with_suffix(".pcm")
         #json_rel  = pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}/p{args.part}-{ymd}-{i:04d}.json")
-        json_rel  = pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}/{base_id}.json")
+        json_rel  = pathlib.Path(f"items/part{args.part}/{base_id}.json")
 
         #audio_url = f"{BASE_URL}/{audio_rel.as_posix()}"
         audio_url = asset_url(audio_rel)
@@ -795,7 +795,7 @@ def main():
             topic   = pattern.get("topic", ["photo"])
 
             #image_rel = pathlib.Path(f"media/images/part1/{yyyy}/{mm}/p1-{i:04d}.webp")
-            image_rel = pathlib.Path(f"media/images/part1/{yyyy}/{mm}/{base_id}.jpg")
+            image_rel = pathlib.Path(f"media/images/part1/{base_id}.jpg")
             image_path = out / image_rel
             #image_url = unsplash_random_image(args.query, image_path)
             #image_url = f"{BASE_URL}/{image_rel.as_posix()}"
@@ -898,7 +898,7 @@ def main():
                 #item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
                 item = attach_page_url(item, args.part, yyyy, mm)
             
-            item_dir = out / pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}")
+            item_dir = out / pathlib.Path(f"items/part{args.part}")
             item_dir.mkdir(parents=True, exist_ok=True)
             
             # 4) JSON出力
@@ -939,7 +939,7 @@ def main():
                 #item["page_url"] = f"{BASE_URL}/items/part{args.part}/{yyyy}/{mm}/{item['id']}.html"
                 item = attach_page_url(item, args.part, yyyy, mm)
 
-            item_dir = out / pathlib.Path(f"items/part{args.part}/{yyyy}/{mm}")
+            item_dir = out / pathlib.Path(f"items/part{args.part}")
             item_dir.mkdir(parents=True, exist_ok=True)
 
             # 4) 各設問JSONを保存
